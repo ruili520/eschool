@@ -84,6 +84,14 @@ export default new Router({
       component: r => require.ensure([], () => r(require('@/page/SignUp/index')), 'SignUp'),
     },
     {
+      path: '/cookbook',
+      name: 'cookbook',
+      meta: {
+        title: '每日食谱'
+      },
+      component: r => require.ensure([], () => r(require('@/page/CookBook/index')), 'SignUp'),
+    },
+    {
       path: '/colleges/Examination',
       name: 'Examination',
       meta: {
