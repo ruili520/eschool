@@ -70,7 +70,7 @@ export default new Router({
       path: '/schoolMsg',
       name: 'schoolMsg',
       meta: {
-        title: '请假'
+        title: '我的消息'
       },
       component: r => require.ensure([], () => r(require('@/page/schoolMsg/index')), 'vacate'),
     },
@@ -100,8 +100,8 @@ export default new Router({
       component: r => require.ensure([], () => r(require('@/page/service/index')), 'Service'),
     },
     {
-      path: '/babyCard',
-      name: 'babyCard',
+      path: '/badyCard',
+      name: 'badyCard',
       meta: {
         title: '宝贝卡'
       },

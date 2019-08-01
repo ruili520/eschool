@@ -10,7 +10,7 @@ import Rem from './static/js/rem'
 import zepto from 'zeptojs'
 import axios from 'axios';
 import native from './static/js/native'
-import './static/js/vConsole'
+// import './static/js/vConsole'
 
 
 import MintUI from 'mint-ui';

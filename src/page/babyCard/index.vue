@@ -42,7 +42,7 @@
       slide,
       child
     },
-    /*methods: {
+    methods: {
       modification(){
         this.state = !this.state;
       },
@@ -64,7 +64,7 @@
           MessageBox({title: "请求数据失败"});
         })
       }
-    }*/
+    }
   }
 </script>
 <style lang="less" rel="stylesheet/less" scoped>
