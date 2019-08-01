@@ -92,6 +92,22 @@ export default new Router({
       component: r => require.ensure([], () => r(require('@/page/CookBook/index')), 'SignUp'),
     },
     {
+      path: '/service',
+      name: 'service',
+      meta: {
+        title: '园长信箱'
+      },
+      component: r => require.ensure([], () => r(require('@/page/service/index')), 'Service'),
+    },
+    {
+      path: '/babyCard',
+      name: 'babyCard',
+      meta: {
+        title: '宝贝卡'
+      },
+      component: r => require.ensure([], () => r(require('@/page/babyCard/index')), 'babyCard'),
+    },
+    {
       path: '/colleges/Examination',
       name: 'Examination',
       meta: {
