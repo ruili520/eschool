@@ -3,6 +3,7 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 
 const path = require('path')
+var chost = "https://abchina.xuebank.com";//
 
 module.exports = {
   dev: {
@@ -10,6 +11,14 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
+      '/smart-campuskdg': {
+        target: chost,
+        changeOrigin: true,
+        pathRewrite: {},
+        onProxyRes(proxyRes, req, res){
+          setCookie(proxyRes, req, res);
+        }
+      },
       '/eduboot': {
         target:'http://test.xuebank.com',
         secure: true,
