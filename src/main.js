@@ -10,6 +10,8 @@ import Rem from './static/js/rem'
 import zepto from 'zeptojs'
 import axios from 'axios';
 import native from './static/js/native'
+import common from './axios/index';
+import HttpUtils from './axios/HttpUtils';
 // import './static/js/vConsole'
 
 
@@ -24,6 +26,8 @@ import 'muse-ui/lib/styles/theme.less'
 
 Vue.use(Picker, Tabs, Select)
 Vue.use(MuseUI)
+Vue.use(common)
+Vue.use(HttpUtils)
 Vue.prototype.$axios = axios;
 
 Vue.config.productionTip = false

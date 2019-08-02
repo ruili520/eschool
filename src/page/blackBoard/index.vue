@@ -52,11 +52,18 @@
           more:"1",
           schoolType:"1"
         };
-        this.$axios.post('/eduboot/campusBlackboard/getLocHotnewsList',data).then(function (res) {
-          vm.blackboard = res.data.result.data
+        this.$getBlackBoard(data
+        ,function (res) {
+          vm.blackboard = res.result.data
+          console.log(res)
         },function (res) {
           console.log(res)
         })
+        // this.$axios.post('/eduboot/campusBlackboard/getLocHotnewsList',data).then(function (res) {
+        //   vm.blackboard = res.data.result.data
+        // },function (res) {
+        //   console.log(res)
+        // })
       }
     },
     mounted() {
