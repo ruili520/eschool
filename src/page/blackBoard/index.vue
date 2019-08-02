@@ -59,11 +59,6 @@
         },function (res) {
           console.log(res)
         })
-        // this.$axios.post('/eduboot/campusBlackboard/getLocHotnewsList',data).then(function (res) {
-        //   vm.blackboard = res.data.result.data
-        // },function (res) {
-        //   console.log(res)
-        // })
       }
     },
     mounted() {
