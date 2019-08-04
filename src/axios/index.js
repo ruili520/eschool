@@ -23,6 +23,12 @@ export default {
       })
     }
 
+    Vue.prototype.Indicator = function (title,type) {
+      this.$indicator({
+        spinnerType:type==null?'fading-circle':type
+      })
+    }
+
 
   }
 }

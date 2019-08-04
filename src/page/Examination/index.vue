@@ -32,16 +32,17 @@
         this.mall_domain_ignore = true
         var vm =this;
         lonIn((data)=>{
-          neigouLogin({
+          console.log(data)
+          this.$MallLogin({
             "userId":data.data.result.userIdStr
-          }).then(function (res) {
-            vm.mall_domain_ignore = false
-            const oIframe = document.getElementById('iframe');
-            oIframe.src=res.data
           },function (res) {
-            const oIframe = document.getElementById('iframe');
-            oIframe.src="http://eschool.uchung.com/test"
-          })
+              vm.mall_domain_ignore = false
+              const oIframe = document.getElementById('iframe');
+              oIframe.src=res
+            },function (res) {
+              const oIframe = document.getElementById('iframe');
+              oIframe.src="http://eschool.uchung.com/test"
+            })
         })
       },
       goBack(){
@@ -51,9 +52,9 @@
         window.native.LoginStatus();
       }
     },
-    // created(){
-    //   sessionStorage.setItem('test',true)
-    // },
+    created(){
+      sessionStorage.setItem('test',true)
+    },
     mounted() {
       // <!--* iframe-宽高自适应显示-->
       const oIframe = document.getElementById('iframe');
@@ -61,7 +62,6 @@
       const deviceHeight = document.documentElement.clientHeight;
       oIframe.style.width = (Number(deviceWidth)) + 'px'; //数字是页面布局宽度差值
       oIframe.style.height = (Number(deviceHeight)-44) + 'px'; //数字是页面布局高度差
-
       console.log(this.$route.query.mall_domain_ignore)
       if(this.$route.query.mall_domain_ignore == "true"){
         this.mall_domain_ignore = true;

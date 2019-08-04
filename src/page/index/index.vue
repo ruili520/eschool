@@ -74,6 +74,7 @@
     },
     data(){
       return{
+        roleId:'',
         icon:[
           {title:'少儿教育',imgUrl:'https://xuebankoss.oss-cn-shanghai.aliyuncs.com/xuebank_pro/ecanteen/20190801/201908011251259543.jpg'},
           {title:'宝贝权益',imgUrl:'https://xuebankoss.oss-cn-shanghai.aliyuncs.com/xuebank_pro/ecanteen/20190801/201908011250153764.jpg'},
@@ -252,12 +253,41 @@
       }
     },
     methods:{
+      //获取首页icon数据
+      // getClassIcon(){
+      //   this.$indicator.open({
+      //       spinnerType: "fading-circle"
+      //   })
+      //   var vm = this;
+      //   var obj ={}
+      //   this.$getHomeMenuAndClassList(obj,function (res) {
+      //     vm.$indicator.close()
+      //     vm.group = res.result
+      //   },function (res) {
+      //
+      //   })
+      // },
+      //首页banner图获取
+      getHomeBannerList(){
+        this.$indicator.open({
+          spinnerType: "fading-circle"
+        })
+        var vm = this;
+        var obj ={}
+        this.$getHomeBannerList(obj,function (res) {
+          vm.$indicator.close()
+          vm.banner = res.result
+        },function (res) {
+
+        })
+      },
       //智慧幼儿园模块跳转
       linkSonPage(item){
         this.checkAuthority(item.id, item.menuUrl, "group");
       },
       //校验权限后跳转
       checkAuthority(id, url, type,roleId){
+        var vm = this;
         if (url == "") {
           Toast("敬请期待！");
           return;
@@ -266,11 +296,57 @@
           location.href = url;
           return;
         }
-        this.$router.push(url)
+        this.$checkAuthority({menuId:id},function (res) {
+          if(res.code === "0") {
+            if(id==24 || id==25){
+              if(id==24){
+                vm.$router.push('/school?url=signUp&authority=1');
+              }else{
+                vm.$router.push('/school?url=schoolSummary');
+              }
+            }else{
+              vm.$router.push({ name: "school" });//verification
+            }
+            return false;
+          }else if(res.code === "1") {
+            if(id==24 || id==25){
+              if(id==24){
+                vm.$router.push('/school?url=signUp&authority=1');
+              }else if(id==25){
+                vm.$router.push('/school?url=schoolSummary');
+              }else{
+
+              }
+            }else{
+              vm.$toast("您暂无权限访问！");
+              return false;
+            }
+          }else if(res.code === "2") {
+            if(vm.roleId == 3) {
+              if(id == 3) {
+                this.$router.push('/teacherFees');
+                return false;
+
+              }
+            }
+            vm.$router.push(url);
+            return false;
+          }else {
+            vm.$messagebox("提示", res.message);
+            return false;
+          }
+        },function (res) {
+
+        })
+
       },
       test(){
         this.$router.push('/test')
       }
+    },
+    mounted() {
+      // this.getClassIcon()
+      this.getHomeBannerList()
     }
   }
 </script>

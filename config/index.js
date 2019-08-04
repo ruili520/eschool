@@ -16,7 +16,7 @@ module.exports = {
         changeOrigin: true,
         pathRewrite: {},
         onProxyRes(proxyRes, req, res){
-          setCookie(proxyRes, req, res);
+          //setCookie(proxyRes, req, res);
         }
       },
       '/eduboot': {

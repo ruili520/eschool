@@ -1,3 +1,4 @@
+
 import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
@@ -33,6 +34,14 @@ export default new Router({
         title: '校园监控'
       },
       component: r => require.ensure([], () => r(require('@/page/videoMonitoring/index')), 'studentFees'),
+    },
+    {
+      path: '/school',
+      name: 'school',
+      meta: {
+        title: '学校列表'
+      },
+      component: r => require.ensure([], () => r(require('@/page/SchoolSummary/school')), 'schoolList'),
     },
     {
       path: '/schoolSummary',

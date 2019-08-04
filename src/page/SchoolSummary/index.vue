@@ -36,6 +36,7 @@
             updateDate:'',
             content:'阿瓦服务费',
             gardenPhone:'21321312',
+            gardenTotal:12
           }
         ],
         imgs:[],
@@ -48,6 +49,10 @@
       headcom
     },
     methods:{
+      //获取学校信息详情
+      getSchoolInfo(){
+        console.log(this.$route.query.id)
+      },
       contact(){
 
       },
@@ -55,8 +60,8 @@
 
       },
 
-    }
-    /*filters: {
+    },
+    filters: {
       filtersD(value) {
         if(!value){
           return '';
@@ -72,7 +77,7 @@
         }
       }
     },
-    beforeMount(){
+    /*beforeMount(){
       this.selectInfoGardenIntroduce()
     },
     mounted(){

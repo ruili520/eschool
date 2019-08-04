@@ -33,12 +33,12 @@
         this.mall_domain_ignore = true
         var vm =this;
         lonIn((data)=>{
-          neigouLogin({
+          this.$MallLogin({
             "userId":data.data.result.userIdStr
-          }).then(function (res) {
-            vm.mall_domain_ignore=false
+          },function (res) {
+            vm.mall_domain_ignore = false
             const oIframe = document.getElementById('iframe');
-            oIframe.src=res.data
+            oIframe.src=res
           },function (res) {
             const oIframe = document.getElementById('iframe');
             oIframe.src="http://eschool.uchung.com/test"
