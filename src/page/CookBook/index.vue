@@ -9,7 +9,7 @@
 </template>
 <script>
   import headcom from "../../components/headcom"
-  /*import { TabContainer, TabContainerItem, Indicator,MessageBox,Toast} from 'mint-ui';*/
+  import { TabContainer, TabContainerItem, Indicator,MessageBox,Toast} from 'mint-ui';
   import weekpage from "../../components/cookbook/weekPage"
 
   export default{
@@ -32,19 +32,32 @@
 
     //方法
     methods: {
+      getCook(){
+        var vm=this;
+        var data = {
 
-    } ,
-    //进入页面加载
-    mounted () {
+        };
+        this.$getCook(data
+          ,function (res) {
+            console.log("aaaaaaaaaaaaaaaaaaaaaaaa");
+            console.log(res);
 
-    } ,
+          },function (res) {
+            console.log(res)
+          })
+      },
+
+    mounted() {
+      this.getCook()
+    },
+
     //计算属性
-    computed: {} ,
+    /*computed: {} ,*/
     //监控数据变化
-    watch: {
+   /* watch: {
 
-    }
-
+    }*/
+  }
   }
 </script>
 <style lang="less" rel="stylesheet/less" scoped>

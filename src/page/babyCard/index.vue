@@ -43,6 +43,20 @@
       child
     },
     methods: {
+      getCardList(){
+        var vm=this;
+        var data = {
+        };
+        this.$getCardList(data
+          ,function (res) {
+            console.log("aaaaaaaaaaaaaaaaaaaaaaaa");
+            console.log(res);
+          },function (res) {
+            console.log(res)
+          })
+      },
+
+
       modification(){
         this.state = !this.state;
       },
@@ -64,6 +78,9 @@
           MessageBox({title: "请求数据失败"});
         })
       }
+    },
+    mounted(){
+      this.getCardList;
     }
   }
 </script>

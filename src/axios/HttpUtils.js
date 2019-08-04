@@ -1,5 +1,3 @@
-
-
 function getUrl (url) { return '/smart-campuskdg/' + url }
 function getEDUUrl (url) {return '/eduboot/' + url}
 
@@ -69,7 +67,34 @@ var install = function (Vue) {
           data: params
         }, success, fail);
       }
-    }
+    },
+    //获取班级相册
+    $getPhotoList:{
+      value:function (params, success, fail) {
+        this.UIAxios(getUrl('photo/getTSchoolPhotoList'), {
+          method: "post",
+          data: params
+        }, success, fail);
+      }
+    },
+    //获取每日食谱
+    $getCook:{
+      value:function (params, success, fail) {
+        this.UIAxios(getUrl('cook/getCook/' + params), {
+          method: "post",
+          data: params
+        }, success, fail);
+      }
+    },
+    //宝贝卡
+    $getCardList:{
+      value:function (params, success, fail) {
+        this.UIAxios(getUrl('cardManager/getCardList'), {
+          method: "post",
+          data: params
+        }, success, fail);
+      }
+    },
   })
-}
+};
 export default install;
