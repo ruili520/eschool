@@ -52,25 +52,27 @@
           window.native.PopViewController();
         },
         menuClick(){
-          getBindedInfo().then(data => {
-          if(data.data.code == "000001") {
-            let role='';
-            if(data.data.result.length!=0){
-              role= data.data.result[0].roleId
+          var vm = this;
+          this.$getBindedInfo({},function (res) {
+            console.log(res)
+            if(res.code == "000001") {
+              let role='';
+              if(res.result.length!=0){
+                role= res.result[0].roleId
+              }
+              if(!role){
+                vm.$router.push('/school');
+              }else if(role=='2'){
+                vm.$router.push('/identity');
+              }else if(role=='3'){
+                vm.$router.push('/teacherMessage');
+              }
+            }else {
+              vm.$messagebox("提示", res.message);
             }
-            if(!role){
-              this.$router.push('/school');
-            }else if(role=='2'){
-              this.$router.push('/identity');
-            }else if(role=='3'){
-              this.$router.push('/teacherMessage');
-            }
-          }else {
-            MessageBox("提示", data.data.message);
-          }
-          },() => {
-            MessageBox("提示", "数据请求失败");
-          });
+          },function (res) {
+            vm.$messagebox("提示", "数据请求失败");
+          })
         }
       } ,
       //进入页面加载

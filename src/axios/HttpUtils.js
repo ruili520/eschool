@@ -14,6 +14,24 @@ var install = function (Vue) {
         }, success, faild);
       }
     },
+    //获取用户绑定信息
+    $getBindedInfo:{
+      value:function (params,success,faild) {
+        this.UIAxios(getUrl('homepage/getBindedInfo'),{
+          method: "post",
+          data: params
+        }, success, faild);
+      }
+    },
+    // 切换选中的孩子
+    $switchDefaultInfo:{
+      value:function (params,success,faild) {
+        this.UIAxios(getUrl('homepage/switchDefaultStatus'),{
+          method: "post",
+          data: params
+        }, success, faild);
+      }
+    },
     //校验权限，查看跳转链接
     $checkAuthority:{
       value:function (params,success,faild) {

@@ -29,16 +29,14 @@
   export default {
     data() {
       return {
-        active:[
-          {
-            id:0,
+        active: {
+            id:20,
             gardenTitle:'ad',
             updateDate:'',
             content:'阿瓦服务费',
-            gardenPhone:'21321312',
+            gardenPhone:'18737015525',
             gardenTotal:12
-          }
-        ],
+        },
         imgs:[],
         swipeHeight:'',
         pointImg:'',
@@ -51,11 +49,21 @@
     methods:{
       //获取学校信息详情
       getSchoolInfo(){
-        console.log(this.$route.query.id)
-      },
-      contact(){
+        var vm =this;
+        var obj = {
+          schoolId:this.$route.query.schoolId
+        }
+        this.$getSchoolInfo(obj,function (res) {
+          vm.active = res.result
+        },function (res) {
 
+        })
       },
+      //联系幼儿园
+      contact(tel){
+        window.native.OpenTelephone(tel);
+      },
+      //点赞幼儿园
       point(){
 
       },
@@ -77,10 +85,10 @@
         }
       }
     },
-    /*beforeMount(){
-      this.selectInfoGardenIntroduce()
+    beforeMount(){
+      this.getSchoolInfo()
     },
-    mounted(){
+    /*mounted(){
       this.getPoint()
       this.swipeHeight=(document.body.clientWidth-20)/16*9;
     },

@@ -38,32 +38,34 @@ export default {
   },
 //方法
   methods: {
-     identityClick:function () {
+     identityClick() {
        this.index++;
        if(this.index==this.identityData.length){
          this.index = 0;
        }
-        switchDefaultStatus(this.identityData[this.index]).then((data)=>{
-          if(data.data.code == "000001"){
-            Toast({
-              message: "已切换为："+this.identityData[this.index].studentName,
-              position: 'bottom'
-            });
-            this.callBack();
-          }
-        })
+       this.$switchDefaultInfo(this.identityData[this.index],function (res) {
+         if(res.code == "000001"){
+           Toast({
+             message: "已切换为："+this.identityData[this.index].studentName,
+             position: 'bottom'
+           });
+           this.callBack();
+         }
+       })
       },
       //请求孩子数据
-      getChildData:function(){
-        getBindedInfo().then((data)=>{
-          if(data.data.code == "000001"){
-            if(data.data.result.length == 0){
-              this.identityData = [];
-            }else{
-              this.identityData = data.data.result;
-            }
-          }
-        })
+      getChildData(){
+       this.$getBindedInfo({},function (res) {
+         if(res.code == "000001"){
+           if(res.result.length == 0){
+             this.identityData = [];
+           }else{
+             this.identityData = res.result;
+           }
+         }
+       },function (res) {
+
+       })
       }
   },
 //进入页面加载

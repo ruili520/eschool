@@ -254,19 +254,19 @@
     },
     methods:{
       //获取首页icon数据
-      // getClassIcon(){
-      //   this.$indicator.open({
-      //       spinnerType: "fading-circle"
-      //   })
-      //   var vm = this;
-      //   var obj ={}
-      //   this.$getHomeMenuAndClassList(obj,function (res) {
-      //     vm.$indicator.close()
-      //     vm.group = res.result
-      //   },function (res) {
-      //
-      //   })
-      // },
+      getClassIcon(){
+        this.$indicator.open({
+            spinnerType: "fading-circle"
+        })
+        var vm = this;
+        var obj ={}
+        this.$getHomeMenuAndClassList(obj,function (res) {
+          vm.$indicator.close()
+          vm.group = res.result
+        },function (res) {
+
+        })
+      },
       //首页banner图获取
       getHomeBannerList(){
         this.$indicator.open({
@@ -296,49 +296,47 @@
           location.href = url;
           return;
         }
-        this.$checkAuthority({menuId:id},function (res) {
-          if(res.code === "0") {
-            if(id==24 || id==25){
-              if(id==24){
-                vm.$router.push('/school?url=signUp&authority=1');
-              }else{
-                vm.$router.push('/school?url=schoolSummary');
-              }
-            }else{
-              vm.$router.push({ name: "school" });//verification
-            }
-            return false;
-          }else if(res.code === "1") {
-            if(id==24 || id==25){
-              if(id==24){
-                vm.$router.push('/school?url=signUp&authority=1');
-              }else if(id==25){
-                vm.$router.push('/school?url=schoolSummary');
-              }else{
-
-              }
-            }else{
-              vm.$toast("您暂无权限访问！");
-              return false;
-            }
-          }else if(res.code === "2") {
-            if(vm.roleId == 3) {
-              if(id == 3) {
-                this.$router.push('/teacherFees');
-                return false;
-
-              }
-            }
-            vm.$router.push(url);
-            return false;
-          }else {
-            vm.$messagebox("提示", res.message);
-            return false;
-          }
-        },function (res) {
-
-        })
-
+        vm.$router.push(url);
+        // this.$checkAuthority({menuId:id},function (res) {
+        //   if(res.code === "0") {
+        //     if(id==24 || id==25){
+        //       if(id==24){
+        //         vm.$router.push('/school?url=signUp&authority=1');
+        //       }else{
+        //         vm.$router.push('/school?url=schoolSummary');
+        //       }
+        //     }else{
+        //       vm.$router.push({ name: "school" });//verification
+        //     }
+        //     return false;
+        //   }else if(res.code === "1") {
+        //     if(id==24 || id==25){
+        //       if(id==24){
+        //         vm.$router.push('/school?url=signUp&authority=1');
+        //       }else if(id==25){
+        //         vm.$router.push('/school?url=schoolSummary');
+        //       }else{
+        //
+        //       }
+        //     }else{
+        //       vm.$toast("您暂无权限访问！");
+        //       return false;
+        //     }
+        //   }else if(res.code === "2") {
+        //     if(vm.roleId == 3) {
+        //       if(id == 3) {
+        //         this.$router.push('/teacherFees');
+        //         return false;
+        //
+        //       }
+        //     }
+        //     vm.$router.push(url);
+        //     return false;
+        //   }else {
+        //     vm.$messagebox("提示", res.message);
+        //     return false;
+        //   }
+        // },function (res) {})
       },
       test(){
         this.$router.push('/test')
@@ -346,7 +344,7 @@
     },
     mounted() {
       // this.getClassIcon()
-      this.getHomeBannerList()
+      //this.getHomeBannerList()
     }
   }
 </script>
