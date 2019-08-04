@@ -16,10 +16,10 @@
       <div class="catch " @click="toDetail">
         <p>查看详情</p>
         <span v-if="info.status ==2" class="advices1">已回复
-          <img src="../../../assets/information/more.png">
+          <img src="../../../assets/img/information/more.png">
         </span>
         <span v-else>未回复
-          <img src="../../../assets/information/more.png">
+          <img src="../../../assets/img/information/more.png">
         </span>
       </div>
     </div>
