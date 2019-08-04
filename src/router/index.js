@@ -28,6 +28,22 @@ export default new Router({
       component: r => require.ensure([], () => r(require('@/page/studentFees/index')), 'studentFees'),
     },
     {
+      path: '/bankIndex',
+      name: 'bankIndex',
+      meta: {
+        title: '小小银行家'
+      },
+      component: r => require.ensure([], () => r(require('@/page/bankIndex/index')), 'bankIndex'),
+    },
+    {
+      path: '/leave',
+      name: 'leave',
+      meta: {
+        title: '请假'
+      },
+      component: r => require.ensure([], () => r(require('@/page/leave/index')), 'leave'),
+    },
+    {
       path: '/videoMonitoring',
       name: 'videoMonitoring',
       meta: {
@@ -50,6 +66,14 @@ export default new Router({
         title: '校园简介'
       },
       component: r => require.ensure([], () => r(require('@/page/SchoolSummary/index')), 'SchoolSummary'),
+    },
+    {
+      path: '/information',
+      name: 'information',
+      meta: {
+        title: '信箱历史'
+      },
+      component: r => require.ensure([], () => r(require('@/page/information/index')), 'information'),
     },
     {
       path: '/Album',
@@ -99,6 +123,14 @@ export default new Router({
         title: '每日食谱'
       },
       component: r => require.ensure([], () => r(require('@/page/CookBook/index')), 'SignUp'),
+    },
+    {
+      path: '/teacherMessage',
+      name: 'teacherMessage',
+      meta: {
+        title: '教师信息'
+      },
+      component: r => require.ensure([], () => r(require('@/page/teacherMessage/index')), 'teacherMessage'),
     },
     {
       path: '/service',
