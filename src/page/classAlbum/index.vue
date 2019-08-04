@@ -87,8 +87,23 @@
         console.log("触发加载");
         this.page++;
       },
+      getTSchoolPhotoList(){
+        var vm=this;
+        var data = {
+          page:1,
+          pageSize:10
+        };
+        this.$getPhotoList(data
+          ,function (res) {
+            console.log(res);
+            vm.list = res.result.list
+          },function (res) {
+            console.log(res)
+          })
+      }
     },
     mounted() {
+      this.getTSchoolPhotoList()
     }
   }
 </script>
