@@ -1,6 +1,6 @@
 <template>
     <div class="nodata">
-		<p><img src="../../../assets/img/nodata.png" /></p>
+		<p><img src="../../../assets/img/information/nodata.png" /></p>
     </div>
 </template>
 

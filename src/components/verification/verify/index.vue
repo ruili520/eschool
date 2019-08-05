@@ -5,8 +5,8 @@
 	    	<ul>
 	    		<li v-for="(item,index) in list" :id="item.id" @click="stand(item.id,index)" :class="{easyui:!item.state}">
 	    			{{item.name}}
-	    			<span v-show="item.state"><img src="../../../assets/verifica/ok.png"/></span>
-	    			<span class="uncheck" v-show="!item.state"><img src="../../../assets/verifica/unchk.png"></span>
+	    			<span v-show="item.state"><img src="../../../assets/img/verifica/ok.png"/></span>
+	    			<span class="uncheck" v-show="!item.state"><img src="../../../assets/img/verifica/unchk.png"></span>
 	    		</li>
 	    	</ul>
 	    </div>
@@ -16,7 +16,7 @@
 				<li class="school" @click="link">
 					<span>学校</span>
 					<i>{{tach}}</i>
-					<b><img src="../../../assets/verifica/more.png"></b>
+					<b><img src="../../../assets/img/verifica/more.png"></b>
 				</li>
 				<li>
 					<span>学籍号</span>
@@ -27,7 +27,7 @@
 				<li class="school" @click="link">
 					<span>孩子学校</span>
 					<i>{{tach}}</i>
-					<b><img src="../../../assets/verifica/more.png"></b>
+					<b><img src="../../../assets/img/verifica/more.png"></b>
 				</li>
 				<li>
 					<span>孩子学籍号</span>
@@ -42,7 +42,7 @@
 				<li class="school" @click="link">
 					<span>学校</span>
 					<i>{{tach}}</i>
-					<b><img src="../../../assets/verifica/more.png"></b>
+					<b><img src="../../../assets/img/verifica/more.png"></b>
 				</li>
 				<li>
 					<span>学工号</span>
@@ -55,7 +55,7 @@
 		<!--审核通过-->
 		<div class="pass" v-show="!active">
 			<div class="achieve">
-				<img src="../../../assets/verifica/pa.png">
+				<img src="../../../assets/img/verifica/pa.png">
 				<p>审核通过</p>
 			</div>
 		</div>

@@ -54,7 +54,7 @@
         };
         this.$getBlackBoard(data
         ,function (res) {
-          vm.blackboard = res.result.data;
+          vm.blackboard = res.result.data
           console.log(res)
         },function (res) {
           console.log(res)
