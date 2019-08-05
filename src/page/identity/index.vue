@@ -5,12 +5,12 @@
       {{ relieveText }}
     </div>
     <div class="conter" style="margin-top: .5rem">
-      <patriarch :relieve="relieve"
-                   v-for="(item,index) in identityData"
-                   :relieveClick = "relieveClick"
-                   :identityClick = "identityClick"
-                   :data="item">
-      </patriarch>
+      <!--<patriarch :relieve="relieve"-->
+                   <!--v-for="(item,index) in identityData"-->
+                   <!--:relieveClick = "relieveClick"-->
+                   <!--:identityClick = "identityClick"-->
+                   <!--:data="item">-->
+      <!--</patriarch>-->
     </div>
     <div class="add">
       <p @click="binding">+ 添加宝贝</p>
@@ -23,7 +23,7 @@
   import {Indicator,MessageBox,Toast} from 'mint-ui';
   import {getBindedInfo,switchDefaultStatus,unBind} from '../../apis/app.api';
   import patriarch from "../../components/identity/patriarch"
-  export default{
+  export default {
     //组件
     components: {
       headcom,
@@ -32,10 +32,10 @@
     //父组件传入的数据
     props: {},
     //本地数据
-    data(){
+    data() {
       return {
-        identityData:[],
-        relieve:false
+        identityData: [],
+        relieve: false
       }
     },
     //方法
@@ -44,49 +44,50 @@
       back() {
         this.$router.push('/index');
       },
-      binding(){
+      binding() {
         //this.$router.push({"name": "verification"});
-        if(this.identityData.length==0){
+        if (this.identityData.length == 0) {
           this.$router.push('/school');
-        }else{
-          this.$router.push('/joinGarten?schoolId='+this.identityData[0].schoolId+'&isShow=binding');
+        } else {
+          this.$router.push('/joinGarten?schoolId=' + this.identityData[0].schoolId + '&isShow=binding');
         }
       },
       identityClick(identityData) {
-        switchDefaultStatus(identityData).then((data)=>{
-          if(data.data.code == "000001"){
+        switchDefaultStatus(identityData).then((data) => {
+          if (data.data.code == "000001") {
             this.getChildData();
           }
         })
       },
       // 改变编辑状态
       relieveTextClick() {
-        if(this.relieve){
+        if (this.relieve) {
           this.relieve = false;
-        }else{
+        } else {
           this.relieve = true;
+
         }
       },
       //删除一个孩子
-      relieveClick(relieveData){
+      relieveClick(relieveData) {
         MessageBox({
           title: '提示',
           message: '您确定要解除与该孩子的绑定关系吗?',
           showCancelButton: true
         }).then((action) => {
-          if(action == "confirm"){
+          if (action == "confirm") {
             this.deleteRelieve(relieveData);
           }
         });
       },
       deleteRelieve(relieveData) {
         unBind({
-          schoolId:relieveData.schoolId+"", stuTeaNo:relieveData.studentNo, type:'1'
-        }).then((data)=>{
-          if(data.data.code == "000001"){
+          schoolId: relieveData.schoolId + "", stuTeaNo: relieveData.studentNo, type: '1'
+        }).then((data) => {
+          if (data.data.code == "000001") {
             Toast("解绑成功");
             this.getChildData();
-          }else{
+          } else {
             MessageBox({
               title: '提示',
               message: data.data.message
@@ -95,34 +96,36 @@
         })
       },
       //请求孩子数据
-      getChildData(){
-        getBindedInfo().then((data)=>{
-          if(data.data.code == "000001"){
-            if(data.data.result.length == 0){
-              Toast('您还没有绑定宝贝身份信息');
-              this.identityData = [];
-              this.$router.push('/index');
-            }else{
-              this.identityData = data.data.result;
-            }
-          }
-        })
-      }
-    } ,
-    //进入页面加载
-    mounted () {
-      //判断是否有孩子信息
-      this.getChildData();
-    } ,
-    //计算属性
-    computed: {
-      relieveText(){
-        return !this.relieve?'管理':'完成'
-      }
-    } ,
-    //监控数据变化
-    watch: {
-
+      getChildData() {
+        var vm = this;
+        var data = {};
+        this.$getBindedInfo(data, function (res) {
+          console.log(res);
+          // if (res.code == "000001") {
+          //   if (res.result.length == 0) {
+          //     Toast('您还没有绑定宝贝身份信息');
+          //     vm.identityData = [];
+          //     vm.$router.push('/index');
+          //   } else {
+          //     vm.identityData = res.result;
+          //   }
+          // }
+        }, function (res) {
+        });
+      },
+      //进入页面加载
+      mounted() {
+        //判断是否有孩子信息
+        this.getChildData();
+      },
+      //计算属性
+      computed: {
+        relieveText() {
+          return !this.relieve ? '管理' : '完成'
+        }
+      },
+      //监控数据变化
+      /*watch: {}*/
     }
   }
 </script>
