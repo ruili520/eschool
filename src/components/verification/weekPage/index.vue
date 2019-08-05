@@ -11,7 +11,6 @@
   import weekdate from "../weekdate"
   import punch from "../punch"
   import { getAttendanceByDate,selectInfoStuStaticList } from "./../../../apis/app.api"
-  import { MessageBox,Indicator,Toast } from "mint-ui";
   export default{
     //组件
     components: {
@@ -38,63 +37,59 @@
         this.getDate(data)
       },
       getDate(data){
-        Indicator.open({ spinnerType: 'fading-circle' });
-        selectInfoStuStaticList({ createDate:data }).then((data)=>{
-          Indicator.close();
-          if(data.data.code == "000001"){
-            this.countDay = data.data.result
+        var vm =this;
+        this.$getInfoStuStaticList({ createDate:data },function (res) {
+          if(res.code == "000001"){
+            vm.countDay = res.result
           }else{
-            MessageBox("提示",data.body.message);
+            vm.$messagebox("提示",res.message);
           }
-        },()=>{
-          Indicator.close();
-          MessageBox({title: "请求数据失败"});
-        });
+        })
       },
-      getAttendanceByDate(nowData){
-				Indicator.open({ spinnerType: 'fading-circle' });
-				this.time = nowData;
-	        getAttendanceByDate({"date": nowData}).then((data)=>{
-	         	Indicator.close();
-	          if(data.body.code == "000001"){
-	          	let inParkList = data.body.result.inParkList;
-	          	let outParkList = data.body.result.outParkList;
-	          	let cardData = this.card;
-	          	if(inParkList.length==0&&outParkList.length==0){
-	          		Toast("暂无数据");
-	          	}
-	          	for(var i in cardData){
-	          		cardData[i].state = "";
-	          	}
-	          	//上校车
-	          	/*cardData.inbus.data = inBusList1;
-	          	if(inBusList1.length>0){
-	          		cardData.inbus.state = 1;
-	          	};*/
-	          	//入园
-	          	//console.log(inParkList.length)
-	          	cardData.inParkList.data = inParkList;
-	          	if(inParkList.length>0){
-	          		cardData.inParkList.state = 2;
-	          	}
-	          	//出园
-	          	cardData.outParkList.data = outParkList;
-	          	if(outParkList.length>0){
-	          		cardData.outParkList.state = 3;
-	          	}
-	          	//下校车
-	          	/*cardData.outbus.data = outBusList1;
-	          	if(outBusList1.length>0){
-	          		cardData.outbus.state = 2;
-	          	};*/
-	          }else{
-	          	MessageBox("提示",data.body.message);
-	          }
-	        },(data)=>{
-							Indicator.close();
-	          	MessageBox({title: "请求数据失败"});
-	        })
-	    }
+      getAttendanceByDate(nowData) {
+        var vm = this;
+        // Indicator.open({ spinnerType: 'fading-circle' });
+        this.time = nowData;
+        this.$getAttendanceByDate({"date": nowData}, function (res) {
+          // Indicator.close();
+          if (res.code == "000001") {
+            let inParkList = res.result.inParkList;
+            let outParkList = res.result.outParkList;
+            let cardData = vm.card;
+            if (inParkList.length == 0 && outParkList.length == 0) {
+              vm.$toast("暂无数据");
+            }
+            for (var i in cardData) {
+              cardData[i].state = "";
+            }
+            //上校车
+            /*cardData.inbus.data = inBusList1;
+                if(inBusList1.length>0){
+                    cardData.inbus.state = 1;
+                };*/
+            //入园
+            //console.log(inParkList.length)
+            cardData.inParkList.data = inParkList;
+            if (inParkList.length > 0) {
+              cardData.inParkList.state = 2;
+            }
+            //出园
+            cardData.outParkList.data = outParkList;
+            if (outParkList.length > 0) {
+              cardData.outParkList.state = 3;
+            }
+            //下校车
+            /*cardData.outbus.data = outBusList1;
+                if(outBusList1.length>0){
+                    cardData.outbus.state = 2;
+                };*/
+          } else {
+            vm.$messagebox("提示", res.message);
+          }
+        }, function (res) {
+
+        })
+      },
     } ,
     //进入页面加载
     mounted () {

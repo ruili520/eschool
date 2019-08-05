@@ -6,9 +6,6 @@
   </div>
 </template>
 <script>
-  import {getBindedInfo,switchDefaultStatus} from './../../apis/app.api';
-  import {MessageBox,Indicator,Toast} from "mint-ui";
-
 export default {
 //引入的组件
   components: {
@@ -39,28 +36,30 @@ export default {
 //方法
   methods: {
      identityClick() {
+       var vm =this;
        this.index++;
        if(this.index==this.identityData.length){
          this.index = 0;
        }
-       this.$switchDefaultInfo(this.identityData[this.index],function (res) {
+       this.$switchDefaultInfo(vm.identityData[vm.index],function (res) {
          if(res.code == "000001"){
-           Toast({
-             message: "已切换为："+this.identityData[this.index].studentName,
+           vm.$toast({
+             message: "已切换为："+vm.identityData[vm.index].studentName,
              position: 'bottom'
            });
-           this.callBack();
+           vm.callBack();
          }
        })
       },
       //请求孩子数据
       getChildData(){
+       var vm =this;
        this.$getBindedInfo({},function (res) {
          if(res.code == "000001"){
            if(res.result.length == 0){
-             this.identityData = [];
+             vm.identityData = [];
            }else{
-             this.identityData = res.result;
+             vm.identityData = res.result;
            }
          }
        },function (res) {

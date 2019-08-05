@@ -22,7 +22,6 @@
   import headcom from "../../components/headcom"
   import child from "../../components/child"
   import slide from "../../components/bodyCard"
-  import { cardBind } from '../../apis/app.api';
   import { MessageBox,Indicator } from "mint-ui";
   export default {
     data() {
@@ -45,37 +44,32 @@
     methods: {
       getCardList(){
         var vm=this;
-        var data = {
-        };
+        var data = {};
         this.$getCardList(data
           ,function (res) {
-            console.log("aaaaaaaaaaaaaaaaaaaaaaaa");
             console.log(res);
           },function (res) {
             console.log(res)
           })
       },
-
-
       modification(){
         this.state = !this.state;
       },
       bindCard(){
+        var vm =this;
         if(this.cardNo==''){
           MessageBox("提示",'请输入考勤卡号！');
           return false
         }
-        Indicator.open({ spinnerType: 'fading-circle' });
-        cardBind({cardNo:this.cardNo}).then((data)=>{
-          Indicator.close();
-          if(data.data.code == "000001"){
+        // Indicator.open({ spinnerType: 'fading-circle' });
+        this.$cardBind({cardNo:this.cardNo},function (res) {
+          if(res.code == "000001"){
             window.location.reload()
           }else{
-            MessageBox("提示",data.body.message);
+            vm.$messagebox("提示",res.message);
           }
-        },()=>{
-          Indicator.close();
-          MessageBox({title: "请求数据失败"});
+        },function (res) {
+           vm.$messagebox({title: "请求数据失败"});
         })
       }
     },

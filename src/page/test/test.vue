@@ -4,7 +4,7 @@
     <div>这是一个功能测试页面</div>
     <mt-button @click="getCity">获取定位</mt-button><input v-model="city"><br>
     <mt-button @click="OpenQRCodeScanner">调用二维码</mt-button><br>
-    <mt-button @click="Opentell">打电话</mt-button><br>
+    <mt-button @click="Opentell(18737015525)">打电话</mt-button><br>
     <mt-button @click="DeviceType">获取设备类型</mt-button><br>
 
   </div>
@@ -25,10 +25,8 @@
       OpenQRCodeScanner(){
         window.native.OpenQRCodeScanner(data=>{})
     },
-      Opentell(){
-        window.native.OpenTelephone(data=>{
-          console.log("打电话",data)
-        })
+      Opentell(data){
+        window.native.OpenTelephone(data)
       },
       DeviceType(){
         window.native.DeviceType(data=>{

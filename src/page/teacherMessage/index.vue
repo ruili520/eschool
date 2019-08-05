@@ -82,7 +82,7 @@
         }).then((data)=>{
           if(data.data.code == "000001"){
             Toast("解绑成功");
-            this.$router.push('/wisdomCampusIndex');
+            this.$router.push('/index');
             ///this.getChildData();
           }else{
             MessageBox({

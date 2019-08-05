@@ -3,7 +3,7 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 
 const path = require('path')
-var chost = "https://abchina.xuebank.com";//
+var chost = "http://sckdgtest.xuebank.com";//
 
 module.exports = {
   dev: {

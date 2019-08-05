@@ -25,7 +25,7 @@
 			<div class="window" @click="relf">
 				<img :src="imgSrc"/>
 				<div class="shut">
-					<span @click="close"><img src="../../../assets/wisdomCampusIndex/clos.png"></span>
+					<span @click="close"><img src="../../../assets/img/wisdomCampusIndex/clos.png"></span>
 				</div>
 			</div>
 		</div>
@@ -59,7 +59,7 @@
     	},
       img:function(src){
       	if(src==null||src==""){
-      		this.imgSrc = require("../../../assets/dome/saber.png");
+      		this.imgSrc = require("../../../assets/img/dome/saber.png");
       	}else{
       		this.imgSrc = src;
       		this.prop = true;
