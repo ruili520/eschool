@@ -70,6 +70,15 @@ var install = function (Vue) {
         }, success, fail);
       }
     },
+    // 绑定儿童
+    $toBind:{
+      value:function (params, success, fail) {
+        this.UIAxios(getUrl('homepage/toBind'), {
+          method: "post",
+          data: params
+        }, success, fail);
+      }
+    },
     //获取首页banner图
     $getHomeBannerList:{
       value:function (params, success, fail) {

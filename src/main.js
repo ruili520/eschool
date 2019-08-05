@@ -17,6 +17,7 @@ import HttpUtils from './axios/HttpUtils';
 
 import MintUI from 'mint-ui';
 import 'mint-ui/lib/style.css';
+import Util from './util.js'
 
 import MuseUI from 'muse-ui'
 import 'muse-ui/dist/muse-ui.css'
@@ -29,6 +30,7 @@ Vue.use(MuseUI)
 Vue.use(common)
 Vue.use(HttpUtils)
 Vue.prototype.$axios = axios;
+Vue.prototype.util = Util
 
 Vue.config.productionTip = false
 

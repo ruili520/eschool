@@ -6,7 +6,6 @@
     </div>
     <!---->
     <div class="top">
-
       <p class="tip">请您完善个人信息</p>
       <p class="selectButton">
         <label>
@@ -66,10 +65,7 @@
   </div>
 </template>
 <script>
-  import {
-    toBind,
-    uploadOSSUrl
-  } from "../../apis/app.api"
+  import {toBind, uploadOSSUrl} from "../../apis/app.api"
   import headcom from "../../components/headcom"
   import {
     Indicator,
@@ -305,6 +301,7 @@
           Toast('请选择宝贝性别');
           return false;
         }
+        console.log(this.field.birthDate)
         if (this.field.birthDate == '') {
           Toast('请选择宝贝生日');
           return false;
@@ -334,31 +331,30 @@
           this.field.headImg = '';
         }
         Indicator.open()
-        toBind(this.field).then(
-          data => {
-            Indicator.close();
-            if (data.data.code == "000001") {
-              if (data.body.result == "0") {
-                Toast("绑定失败");
-              } else if (data.body.result == "1") {
-                if (this.isTeacher == 3) {
-                  this.$router.push('/teacherMessage');
-                } else {
-                  // this.$router.push('/identity');
-                  this.$router.push('/wisdomCampusIndex');
-
-                }
+        this.$toBind(this.field,function (res) {
+          console.log(res)
+          Indicator.close();
+          if (res.code == "000001") {
+            if (res.result == "0") {
+              Toast("绑定失败");
+            } else if (res.result == "1") {
+              if (this.isTeacher == 3) {
+                this.$router.push('/teacherMessage');
               } else {
-                MessageBox("提示", data.body.message);
+                // this.$router.push('/identity');
+                this.$router.push('/index');
               }
             } else {
-              MessageBox("提示", data.data.message);
+              MessageBox("提示", res.message);
             }
-          }, () => {
-            Indicator.close();
-            MessageBox("提示", "数据请求失败");
-          });
-      }
+          } else {
+            MessageBox("提示", res.message);
+          }
+        },function (res) {
+          Indicator.close();
+          console.log(res)
+          MessageBox("提示", "数据请求失败");
+        })}
     }
   }
 
