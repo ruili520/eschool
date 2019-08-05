@@ -342,6 +342,7 @@
       }
     },
     mounted() {
+      //
       // this.getClassIcon()
       //this.getHomeBannerList()
       //测试
