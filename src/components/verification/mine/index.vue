@@ -2,9 +2,9 @@
   <div>
     <div class="center">
 	    	<ul>
-	    		<li>
+	    		<li style="margin-top: .5rem">
 	    			<p class="head"></p>
-	    			<div class="informa">
+	    			<div class="informa" style="margin: 0" >
 	    				<p class="name">明明</p>
 	    				<p>学校: 上海市复旦大学附属高级小学</p>
 	    				<p>年级: 三年级二班</p>
@@ -14,7 +14,7 @@
 	    		</li>
 	    		<li>
 	    			<p class="head"></p>
-	    			<div class="informa">
+	    			<div class="informa" style="margin: 0">
 	    				<p class="name">明明</p>
 	    				<p>学校: 上海市复旦大学附属高级小学</p>
 	    				<p>年级: 三年级二班</p>
@@ -25,8 +25,8 @@
 	    	</ul>
 	  </div>
 	  <div class="add" @click="addinfor">
-	  	<p><span><img src="../../../assets/verifica/add.png"></span>关联其他学生</p>
-	  	<span><img src="../../../assets/verifica/2_icon_3.png"></span>
+	  	<p><span><img src="../../../assets/img/verifica/add.png"></span>关联其他学生</p>
+	  	<span><img src="../../../assets/img/verifica/2_icon_3.png"></span>
 	  </div>
   </div>
 </template>
@@ -82,7 +82,7 @@
   			width: 3.27rem;
 				height: 1.44rem;
 				padding: .12rem;
-				background: url(../../../assets/verifica/bg.png);
+				background: url(../../../assets/img/verifica/bg.png);
 				background-size: 100% 100%;
 				border-radius: 0.08rem;
 				font-size: .13rem;
