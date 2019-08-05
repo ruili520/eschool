@@ -3,15 +3,15 @@
     <div class="round" v-if="show">
     	<div class="shade">
     		<p class="title">
-    			<span class="close" @click="pope(false)"><img src="../../assets/schoolfees/close.png"></span>
-    			<span class="folte"><img src="../../assets/schoolfees/ttotle.png"></span>
+    			<span class="close" @click="pope(false)"><img src="../../assets/img/schoolfees/close.png"></span>
+    			<span class="folte"><img src="../../assets/img/schoolfees/ttotle.png"></span>
     			<span class="font">请输入支付密码</span>
     		</p>
     		<div class="mony">
     			<p>手机充值</p>
     			<p class="num">￥{{money}}.00</p>
     		</div>
-    		<p class="card">校园卡  (3324)<span><img src="../../assets/verifica/more.png"></span></p>
+    		<p class="card">校园卡  (3324)<span><img src="../../assets/img/verifica/more.png"></span></p>
     		<div class="impor">
     			<p v-for="item in 6" @click="down">
     				<i></i>
