@@ -166,7 +166,7 @@ var install = function (Vue) {
       value:function (params, success, fail) {
         this.UIAxios(getUrl('cook/getCook/' + params), {
           method: "post",
-          data: params
+          data: {}
         }, success, fail);
       }
     },

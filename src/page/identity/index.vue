@@ -20,8 +20,7 @@
 
 <script>
   import headcom from "../../components/headcom"
-  import {Indicator,MessageBox,Toast} from 'mint-ui';
-  import {getBindedInfo,switchDefaultStatus,unBind} from '../../apis/app.api';
+  import {switchDefaultStatus,unBind} from '../../apis/app.api';
   import patriarch from "../../components/identity/patriarch"
   export default{
     //组件
@@ -69,7 +68,7 @@
       },
       //删除一个孩子
       relieveClick(relieveData){
-        MessageBox({
+        this.$messagebox({
           title: '提示',
           message: '您确定要解除与该孩子的绑定关系吗?',
           showCancelButton: true
@@ -96,16 +95,20 @@
       },
       //请求孩子数据
       getChildData(){
-        getBindedInfo().then((data)=>{
-          if(data.data.code == "000001"){
-            if(data.data.result.length == 0){
-              Toast('您还没有绑定宝贝身份信息');
-              this.identityData = [];
-              this.$router.push('/index');
+        var vm = this;
+        this.$getBindedInfo({},function (res) {
+          console.log(res)
+          if(res.code == "000001"){
+            if(res.result.length == 0){
+              vm.$toast('您还没有绑定宝贝身份信息');
+              vm.identityData = [];
+              vm.$router.push('/index');
             }else{
-              this.identityData = data.data.result;
+              vm.identityData = res.result;
             }
           }
+        },function (res) {
+
         })
       }
     } ,

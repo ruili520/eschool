@@ -74,6 +74,7 @@
         let _this = this;
         this.time = nowData;
         Indicator.open({spinnerType: 'fading-circle'});
+        _this.$getCook()
         getCook(nowData).then((data)=> {
           Indicator.close();
           if (data.body.code == "000001") {
