@@ -297,9 +297,11 @@
           return;
         }
         vm.$router.push(url);
+
         // this.$checkAuthority({menuId:id},function (res) {
         //   if(res.code === "0") {
         //     if(id==24 || id==25){
+
         //       if(id==24){
         //         vm.$router.push('/school?url=signUp&authority=1');
         //       }else{
