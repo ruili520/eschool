@@ -17,7 +17,7 @@
 <script>
   import headcom from '../../components/headcom'
   import child from '../../components/child'
-  import weekpage from '../../components/headcom'
+  import weekpage from '../../components/verification/weekPage'
   export default {
     name:'',
     components:{
@@ -25,11 +25,19 @@
     },
     data(){
       return{
-
+        state:false
       }
     },
     methods:{
-
+      modification(){
+        this.state = !this.state;
+      }
+    },
+    //计算属性
+    computed: {
+      contentHeight() {
+        return document.documentElement.clientHeight + 'px'
+      }
     }
   }
 </script>

@@ -52,9 +52,9 @@
         window.native.LoginStatus();
       }
     },
-    created(){
-      sessionStorage.setItem('test',true)
-    },
+    // created(){
+    //   sessionStorage.setItem('test',true)
+    // },
     mounted() {
       // <!--* iframe-宽高自适应显示-->
       const oIframe = document.getElementById('iframe');

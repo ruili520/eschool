@@ -64,6 +64,7 @@ export function lonIn(callback) {
           ICBCKEY: data.data.key,
           contactType: state.data.contactType
         }).then(function (data) {
+          console.log(data)
           if (data.data.code == "000001") {
             callback(data);
             console.log('eeeeeee')
@@ -86,8 +87,7 @@ export function shortLogIn(data, callback) {
   if (!callback) {
     callback = function () {
     };
-  }
-  ;
+  };
   var url = data ? data : location.href;
   console.log("登录成功跳转url", url);
   Indicator.open({spinnerType: 'fading-circle'});

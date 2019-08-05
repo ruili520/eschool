@@ -42,20 +42,17 @@
     },
     methods: {
       getCard(){
-        Indicator.open({ spinnerType: 'fading-circle' });
-        getCardList({}).then((data)=>{
-          Indicator.close();
-          if(data.data.code == "000001"){
-            this.sideslipList = data.body.result;
+        this.$getCardList({},function (res) {
+          if(res.code == "000001"){
+            this.sideslipList = res.result;
             if(this.sideslipList.length==0){
               Toast('您还未绑定考勤卡')
             }
           }else{
-            MessageBox("提示",data.body.message);
+            MessageBox("提示",res.message);
           }
-        },()=>{
-          Indicator.close();
-          MessageBox({title: "请求数据失败"});
+        },function (res) {
+          MessageBox("提示",res);
         })
       },
       // 滑动开始

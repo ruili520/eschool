@@ -22,7 +22,7 @@ export function neigouLogin (data){
 }
 // 登录接口
 export function getSessionId (data) {
-  return Vue.http.post(getEDUUrl('getSessionId'), data, { credentials: true})
+  return axios.post(getEDUUrl('getSessionId'), data, { credentials: true})
 }
 // 登录接口回调（应该由app做此操作）
 export function logInCallBack (data) {
@@ -84,6 +84,7 @@ export function getCook (data) {
 export function getAttendanceByDate (data) {
   return Vue.http.post(getUrl('homepage/getAttendanceByDate'), data)
 }
+//获取考勤列表
 export function selectInfoStuStaticList (data) {
   return Vue.http.post(getUrl('homepage/selectInfoStuStaticCountList'), data)
 }
