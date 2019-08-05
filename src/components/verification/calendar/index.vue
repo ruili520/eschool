@@ -44,7 +44,7 @@
 
 <script>
 //  import { calendarMsgService } from './CalendarMsgService'
-	import {doSign,getSignInfo,receiveSignPoints} from "./../../../apis/app.api"
+	import {doSign,getSignInfo,receiveSignPoints} from "../../../apis/app.api"
   export default {
     name: 'date',
 

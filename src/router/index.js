@@ -36,12 +36,36 @@ export default new Router({
       component: r => require.ensure([], () => r(require('@/page/bankIndex/index')), 'bankIndex'),
     },
     {
+      path: '/identity',
+      name: 'identity',
+      meta: {
+        title: '我的宝贝'
+      },
+      component: r => require.ensure([], () => r(require('@/page/identity/index')), 'identity'),
+    },
+    {
+      path: '/joinGarten',
+      name: 'joinGarten',
+      meta: {
+        title: '加入幼儿园'
+      },
+      component: r => require.ensure([], () => r(require('@/page/joinGarten/index')), 'joinGarten'),
+    },
+    {
       path: '/leave',
       name: 'leave',
       meta: {
         title: '请假'
       },
       component: r => require.ensure([], () => r(require('@/page/leave/index')), 'leave'),
+    },
+    {
+      path: '/memberCentre',
+      name: 'memberCentre',
+      meta: {
+        title: '成员中心'
+      },
+      component: r => require.ensure([], () => r(require('@/page/memberCentre/index')), 'memberCentre'),
     },
     {
       path: '/videoMonitoring',
@@ -76,12 +100,36 @@ export default new Router({
       component: r => require.ensure([], () => r(require('@/page/information/index')), 'information'),
     },
     {
+      path: '/activityDetails',
+      name: 'activityDetails',
+      meta: {
+        title: '活动详情'
+      },
+      component: r => require.ensure([], () => r(require('@/page/activityDetails/index')), 'activityDetails'),
+    },
+    {
       path: '/Album',
       name: 'Album',
       meta: {
         title: '班级相册'
       },
-      component: r => require.ensure([], () => r(require('@/page/classAlbum')), 'classAlbum'),
+      component: r => require.ensure([], () => r(require('@/page/classAlbum/index')), 'classAlbum'),
+    },
+    {
+      path: '/monthView',
+      name: 'monthView',
+      meta: {
+        title: '宝宝考勤'
+      },
+      component: r => require.ensure([], () => r(require('@/page/monthView/index')), 'monthView'),
+    },
+    {
+      path: '/teacherFees',
+      name: 'teacherFees',
+      meta: {
+        title: '缴费完成情况'
+      },
+      component: r => require.ensure([], () => r(require('@/page/teacherFees/index')), 'teacherFees'),
     },
     {
       path: '/babyDynamic',
