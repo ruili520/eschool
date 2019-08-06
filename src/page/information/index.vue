@@ -46,24 +46,24 @@
       },
       //获取消息列表
       getCampusMessageListByUser: function() {
-        getTMailboxList({
+        var vm = this;
+        this.$getTMailboxList({
           "page": this.page,
           "size": 20
-        }).then((res) => {
-          console.log(res.body)
-          if (res.body.code == '000001') {
-            this.list = res.body.result;
+        },function (res) {
+          console.log(res)
+          if (res.code == '000001') {
+            vm.list = res.result;
           } else
           {
-            Toast(res.body.message);
+            Toast(res.message);
           }
-        }, () => {
-          this.table = false;
+        },function (res) {
           MessageBox({
             title: '提示',
             message: '获取数据失败',
           })
-        });
+        })
       },
       //格式化时间
       formattingDate: function(timedata) {

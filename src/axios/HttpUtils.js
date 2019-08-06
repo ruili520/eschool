@@ -43,8 +43,27 @@ var install = function (Vue) {
         }, success, faild);
       }
     },
+    //解绑
+    $unbind:{
+      value:function (params,success,faild) {
+        this.UIAxios(getUrl('userProperty/unBind'),{
+          method: "post",
+          data: params
+        }, success, faild);
+      }
+    },
     // 切换选中的孩子
     $switchDefaultInfo:{
+      value:function (params,success,faild) {
+        this.UIAxios(getUrl('homepage/switchDefaultStatus'),{
+          method: "post",
+          data: params
+        }, success, faild);
+      }
+    },
+
+    // 切换选中的孩子
+    $switchDefaultStatus:{
       value:function (params,success,faild) {
         this.UIAxios(getUrl('homepage/switchDefaultStatus'),{
           method: "post",
@@ -125,6 +144,43 @@ var install = function (Vue) {
         }, success, fail);
       }
     },
+    //投递园长信箱信息
+    $addTMailbox:{
+      value:function (params, success, fail) {
+        this.UIAxios(getUrl('tmailbox/addTMailbox'), {
+          method: "post",
+          data: params
+        }, success, fail);
+      }
+    },
+    //获取每日食谱
+    $getCook:{
+      value:function (params, success, fail) {
+        this.UIAxios(getUrl('cook/getCook/' + params), {
+          method: "post",
+          data: {}
+        }, success, fail);
+      }
+    },
+    //获取园长信箱历史记录
+    $getTMailboxList:{
+      value:function (params, success, fail) {
+        this.UIAxios(getUrl('tmailbox/getTMailboxList'), {
+          method: "post",
+          data: params
+        }, success, fail);
+      }
+    },
+    // 获取校园消息的请假列表
+    $getLeaveNotifyList:{
+      value:function (params, success, fail) {
+        this.UIAxios(getUrl('leave/getLeaveNotifyList'), {
+          method: "post",
+          data: params
+        }, success, fail);
+      }
+    },
+
     //获取黑板报流程
       $getBlackBoard:{
             value:function (params, success, fail) {
@@ -152,6 +208,25 @@ var install = function (Vue) {
         }, success, fail);
       }
     },
+    //获取打卡缴费列表
+    $getFeeList:{
+      value:function (params, success, fail) {
+        this.UIAxios(getUrl('homepage/getFeeList'), {
+          method: "post",
+          data: params
+        }, success, fail);
+      }
+    },
+    // 改变邮件已读状态
+    $readTMailbox:{
+      value:function (params, success, fail) {
+        this.UIAxios(getUrl('tmailbox/readTMailbox'), {
+          method: "post",
+          data: params
+        }, success, fail);
+      }
+    },
+
     //获取班级相册
     $getPhotoList:{
       value:function (params, success, fail) {
@@ -161,15 +236,7 @@ var install = function (Vue) {
         }, success, fail);
       }
     },
-    //获取每日食谱
-    $getCook:{
-      value:function (params, success, fail) {
-        this.UIAxios(getUrl('cook/getCook/' + params), {
-          method: "post",
-          data: params
-        }, success, fail);
-      }
-    },
+
   })
 };
 export default install;

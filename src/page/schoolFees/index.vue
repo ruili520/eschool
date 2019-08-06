@@ -71,7 +71,6 @@
       getFeeList: function () {
         Indicator.open({ spinnerType: 'fading-circle' });
         getFeeList({}).then((data)=>{
-          Indicator.close();
           if(data.data.code == '000001'){
             this.FeeList = data.data.result;
           }else{

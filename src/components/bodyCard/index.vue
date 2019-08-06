@@ -42,10 +42,11 @@
     },
     methods: {
       getCard(){
+        var vm =this;
         this.$getCardList({},function (res) {
           if(res.code == "000001"){
-            this.sideslipList = res.result;
-            if(this.sideslipList.length==0){
+            vm.sideslipList = res.result;
+            if(vm.sideslipList.length==0){
               Toast('您还未绑定考勤卡')
             }
           }else{

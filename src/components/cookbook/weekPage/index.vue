@@ -62,26 +62,31 @@
       listenToMyBoy(data) {
         //console.log(data)
       },
-      changeData() {},
-      getWidth(name,index){
+      changeData() {
+      },
+      getWidth(name, index) {
         let _this = this;
-        let ul=0,li=0;
-        if(name<5){ ul=100;li=23.5 }else{ ul=25*name; li=102/name-2;}
-        _this.card[index].ulWidth=ul;
-        _this.card[index].liWidth=li;
+        let ul = 0, li = 0;
+        if (name < 5) {
+          ul = 100;
+          li = 23.5
+        } else {
+          ul = 25 * name;
+          li = 102 / name - 2;
+        }
+        _this.card[index].ulWidth = ul;
+        _this.card[index].liWidth = li;
       },
       getAttendanceByDate(nowData) {
         let _this = this;
         this.time = nowData;
-        Indicator.open({spinnerType: 'fading-circle'});
-        getCook(nowData).then((data)=> {
-          Indicator.close();
-          if (data.body.code == "000001") {
-            for(let n of _this.card){
-              n.food=[];
+        _this.$getCook(nowData, function (res) {
+          if (res.code == "000001") {
+            for (let n of _this.card) {
+              n.food = [];
             }
-            let list = data.body.result;
-            this.listDate = list
+            let list = res.result;
+            _this.listDate = list;
             if (list == null) {
               Toast("暂无数据");
               return false
@@ -91,42 +96,42 @@
             let lunch = JSON.parse(list.lunch);
             let inter2 = JSON.parse(list.inter2);
             let dinner = JSON.parse(list.dinner);
-            for(let item in breakfast){
-              _this.card[0].food.push({name:item ,img:breakfast[item]});
-              let length= _this.card[0].food.length;
-              _this.getWidth(length,0)
+            for (let item in breakfast) {
+              _this.card[0].food.push({name: item, img: breakfast[item]});
+              let length = _this.card[0].food.length;
+              _this.getWidth(length, 0)
             }
-            for(let item in inter1){
-              _this.card[1].food.push({name:item ,img:inter1[item]});
-              let length= _this.card[1].food.length;
-              _this.getWidth(length,1);
+            for (let item in inter1) {
+              _this.card[1].food.push({name: item, img: inter1[item]});
+              let length = _this.card[1].food.length;
+              _this.getWidth(length, 1);
             }
-            for(let item in lunch){
-              _this.card[2].food.push({name:item ,img:lunch[item]});
-              let length= _this.card[2].food.length;
-              _this.getWidth(length,2);
+            for (let item in lunch) {
+              _this.card[2].food.push({name: item, img: lunch[item]});
+              let length = _this.card[2].food.length;
+              _this.getWidth(length, 2);
             }
-            for(let item in inter2){
-              _this.card[3].food.push({name:item ,img:inter2[item]});
-              let length= _this.card[3].food.length;
-              _this.getWidth(length,3);
+            for (let item in inter2) {
+              _this.card[3].food.push({name: item, img: inter2[item]});
+              let length = _this.card[3].food.length;
+              _this.getWidth(length, 3);
             }
-            for(let item in dinner){
-              _this.card[4].food.push({name:item ,img:dinner[item]})
-              let length= _this.card[4].food.length;
-              _this.getWidth(length,4);
+            for (let item in dinner) {
+              _this.card[4].food.push({name: item, img: dinner[item]})
+              let length = _this.card[4].food.length;
+              _this.getWidth(length, 4);
             }
           } else {
-            MessageBox("提示", data.body.message);
+            MessageBox("提示", res.message);
           }
-        },(data)=> {
+        }, function (res) {
           Indicator.close();
           MessageBox({title: "请求数据失败"});
-        })
+        });
       },
     },
     //进入页面加载
-    mounted () {
+    mounted() {
       var day2 = new Date();
       day2.setTime(day2.getTime());
       var mon = day2.getMonth() + 1;
@@ -144,6 +149,7 @@
     watch: {}
   }
 </script>
+
 <style lang="less" rel="stylesheet/less" scoped>
   .content{
     background-color: #fff;

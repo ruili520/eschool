@@ -4,7 +4,7 @@
     <div class="child">
       <child :callBack="modification"></child>
     </div>
-    <slide :state="state"></slide>
+    <slide style="margin-top: .44rem" :state="state"></slide>
     <div style="margin-top: .44rem"><p @click="active = false " class="bind"><i class=""></i>+ 绑定考勤卡</p></div>
     <div v-if="!active" class="popup" @click="active = true "></div>
     <div v-if="!active" class="popupVisible">

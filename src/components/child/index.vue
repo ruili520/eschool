@@ -33,7 +33,7 @@ export default {
 
     }
   },
-//方法
+//方法I:
   methods: {
      identityClick() {
        var vm =this;

@@ -32,23 +32,11 @@
 
     //方法
     methods: {
-      getCook(){
-        var vm=this;
-        var data = {
 
-        };
-        this.$getCook(data
-          ,function (res) {
-            console.log("aaaaaaaaaaaaaaaaaaaaaaaa");
-            console.log(res);
-
-          },function (res) {
-            console.log(res)
-          })
       },
 
     mounted() {
-      this.getCook()
+
     },
 
     //计算属性
@@ -57,7 +45,7 @@
    /* watch: {
 
     }*/
-  }
+
   }
 </script>
 <style lang="less" rel="stylesheet/less" scoped>

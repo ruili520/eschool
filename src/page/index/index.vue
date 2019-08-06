@@ -70,7 +70,6 @@
       navigationBar
     },
     props:{
-
     },
     data(){
       return{
@@ -149,7 +148,7 @@
                 id: 24,
                 menuIcon: "https://xuebanktest.oss-cn-shanghai.aliyuncs.com/logo/baoming.png",
                 menuName: "报名",
-                menuUrl: "./index.html#/studentFees",
+                menuUrl: "/studentFees",
                 remark: null,
                 sort: null,
                 staId: null,
@@ -256,7 +255,7 @@
       //获取首页icon数据
       getClassIcon(){
         this.$indicator.open({
-            spinnerType: "fading-circle"
+          spinnerType: "fading-circle"
         })
         var vm = this;
         var obj ={}
@@ -264,7 +263,6 @@
           vm.$indicator.close()
           vm.group = res.result
         },function (res) {
-
         })
       },
       //首页banner图获取
@@ -278,7 +276,6 @@
           vm.$indicator.close()
           vm.banner = res.result
         },function (res) {
-
         })
       },
       //智慧幼儿园模块跳转
@@ -296,57 +293,61 @@
           location.href = url;
           return;
         }
-        vm.$router.push(url);
-
-        // this.$checkAuthority({menuId:id},function (res) {
-        //   if(res.code === "0") {
-        //     if(id==24 || id==25){
-
-        //       if(id==24){
-        //         vm.$router.push('/school?url=signUp&authority=1');
-        //       }else{
-        //         vm.$router.push('/school?url=schoolSummary');
-        //       }
-        //     }else{
-        //       vm.$router.push({ name: "school" });//verification
-        //     }
-        //     return false;
-        //   }else if(res.code === "1") {
-        //     if(id==24 || id==25){
-        //       if(id==24){
-        //         vm.$router.push('/school?url=signUp&authority=1');
-        //       }else if(id==25){
-        //         vm.$router.push('/school?url=schoolSummary');
-        //       }else{
-        //
-        //       }
-        //     }else{
-        //       vm.$toast("您暂无权限访问！");
-        //       return false;
-        //     }
-        //   }else if(res.code === "2") {
-        //     if(vm.roleId == 3) {
-        //       if(id == 3) {
-        //         this.$router.push('/teacherFees');
-        //         return false;
-        //
-        //       }
-        //     }
-        //     vm.$router.push(url);
-        //     return false;
-        //   }else {
-        //     vm.$messagebox("提示", res.message);
-        //     return false;
-        //   }
-        // },function (res) {})
+        this.$checkAuthority({menuId:id},function (res) {
+          if(res.code === "0") {
+            if(id==24 || id==25){
+              if(id==24){
+                vm.$router.push('/school?url=signUp&authority=1');
+              }else{
+                vm.$router.push('/school?url=schoolSummary');
+              }
+            }else{
+              vm.$router.push({ name: "school" });//verification
+            }
+            return false;
+          }else if(res.code === "1") {
+            if(id==24 || id==25){
+              if(id==24){
+                vm.$router.push('/school?url=signUp&authority=1');
+              }else if(id==25){
+                vm.$router.push('/school?url=schoolSummary');
+              }else{
+              }
+            }else{
+              vm.$toast("您暂无权限访问！");
+              return false;
+            }
+          }else if(res.code === "2") {
+            if(vm.roleId == 3) {
+              if(id == 3) {
+                this.$router.push('/teacherFees');
+                return false;
+              }
+            }
+            vm.$router.push(url);
+            return false;
+          }else {
+            vm.$messagebox("提示", res.message);
+            return false;
+          }
+        },function (res) {})
       },
       test(){
         this.$router.push('/test')
       }
     },
     mounted() {
+      //
       // this.getClassIcon()
       //this.getHomeBannerList()
+      //测试
+      // if(sessionStorage.test == "true"){
+      lonIn((data)=>{
+        console.log(data)
+      })
+    },
+    created() {
+      sessionStorage.setItem('test',true)
     }
   }
 </script>
@@ -354,25 +355,25 @@
 <style lang="less" rel="stylesheet/less" scoped>
   .menuLi {
     color: #424242;
-    img {
-      width: 0.2rem;
-      height: 0.2rem;
-      vertical-align: middle;
-    }
-    span {
-      font-size: 0.14rem;
-      line-height: 0.3rem;
-      vertical-align: middle;
-      display: inline-block;
-      width: 0.7rem;
-      margin-left: 0.1rem;
-      border-bottom: 1px solid #ebecee;
-    }
-    .tips {
-      color: #999;
-      width: 0.5rem;
-      margin-left: 0;
-    }
+  img {
+    width: 0.2rem;
+    height: 0.2rem;
+    vertical-align: middle;
+  }
+  span {
+    font-size: 0.14rem;
+    line-height: 0.3rem;
+    vertical-align: middle;
+    display: inline-block;
+    width: 0.7rem;
+    margin-left: 0.1rem;
+    border-bottom: 1px solid #ebecee;
+  }
+  .tips {
+    color: #999;
+    width: 0.5rem;
+    margin-left: 0;
+  }
   }
   .menuLi:last-child span {
     border-bottom: 0 solid transparent;
@@ -389,83 +390,74 @@
     margin: 0.1rem 0rem;
     background: white;
     height: 0.7rem;
-    .messageIcon {
-      float: left;
-      padding: 0.15rem 0.1rem;
-      height: 0.4rem;
-    }
-    .messageTo {
-      float: right;
-      padding: 0.25rem 0.1rem;
-      height: 0.2rem;
-    }
-    .messageTip {
-      padding: 0.15rem 0.05rem;
-      line-height: 0.2rem;
-      float: left;
-      .messageTitle {
-        color: #464646;
-        font-size: 0.13rem;
-      }
-      .messageRemark {
-        color: #aeaeae;
-        font-size: 0.11rem;
-      }
-    }
+  .messageIcon {
+    float: left;
+    padding: 0.15rem 0.1rem;
+    height: 0.4rem;
   }
-
+  .messageTo {
+    float: right;
+    padding: 0.25rem 0.1rem;
+    height: 0.2rem;
+  }
+  .messageTip {
+    padding: 0.15rem 0.05rem;
+    line-height: 0.2rem;
+    float: left;
+  .messageTitle {
+    color: #464646;
+    font-size: 0.13rem;
+  }
+  .messageRemark {
+    color: #aeaeae;
+    font-size: 0.11rem;
+  }
+  }
+  }
   section {
     padding: 0 0.12rem;
     background-color: #fff;
     margin: 0.12rem 0;
   }
-
   .groupTitle {
     border-bottom: 1px solid #ebecee;
   }
-
   .groupTitle .groupTitleIcon {
     width: 0.2rem;
     display: inline-block;
     vertical-align: middle;
   }
-
   .groupTitle .groupTitleIcon img {
     width: 100%;
   }
-
   .groupTitle .groupTitleName {
     vertical-align: middle;
     font-size: 0.13rem;
     line-height: 0.3rem;
     height: 0.3rem;
   }
-
   .groupBody .iconCon {
     display: inline-block;
     width: 33%;
     padding: 0.12rem 0;
   }
-
   @iconSize: 0.35rem;
   .groupBody .iconCon .icon {
     width: 100%;
     text-align: center;
-    img {
-      width: @iconSize;
-      height: @iconSize;
-      &:nth-of-type(10){
-        display: inline-block;
-        padding: 4px ;
-      }
-    }
+  img {
+    width: @iconSize;
+    height: @iconSize;
+  &:nth-of-type(10){
+     display: inline-block;
+     padding: 4px ;
+   }
   }
-
+  }
   .groupBody .iconCon .name {
     font-size: 0.12rem;
     text-align: center;
   }
-
   .msg {
     position: fixed;
     top: 12px;
@@ -473,53 +465,51 @@
     z-index: 9999;
     width: 0.2rem;
     height: 0.2rem;
-    img {
-      width: 100%;
-    }
+  img {
+    width: 100%;
+  }
   }
   .page {
     background-color: #fff;
     padding-bottom: .12rem;
-    .imgCom {
-      width: 100%;
-      img {
-        width: 100%;
-        height: 2.06rem;
-      }
-    }
-    .itemCon {
-      padding: 12px 0 0;
-      font-size: .13rem;
-      display: flex;
-      justify-content: space-around;
-      align-items: flex-end;
-      text-align: center;
-      .item {
-        flex: 1;
-        img {
-          width: .4rem;
-          position: relative;
-          top: -6px;
-        }
-      }
-      .item1 {
-        div {
-          border-right: 1px solid #DBDBDB;
-          height: 30px;
-          margin-bottom: .13rem;
-        }
-      }
-      .item2 {
-        div {
-          border-left: 1px solid #DBDBDB;
-          height: 30px;
-          margin-bottom: .13rem;
-        }
-      }
-      .center {
-        img {
-
-        }
-      }}}
-
+  .imgCom {
+    width: 100%;
+  img {
+    width: 100%;
+    height: 2.06rem;
+  }
+  }
+  .itemCon {
+    padding: 12px 0 0;
+    font-size: .13rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    text-align: center;
+  .item {
+    flex: 1;
+  img {
+    width: .4rem;
+    position: relative;
+    top: -6px;
+  }
+  }
+  .item1 {
+  div {
+    border-right: 1px solid #DBDBDB;
+    height: 30px;
+    margin-bottom: .13rem;
+  }
+  }
+  .item2 {
+  div {
+    border-left: 1px solid #DBDBDB;
+    height: 30px;
+    margin-bottom: .13rem;
+  }
+  }
+  .center {
+  img {
+  }
+  }}}
 </style>

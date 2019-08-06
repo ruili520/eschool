@@ -20,10 +20,9 @@
 
 <script>
   import headcom from "../../components/headcom"
-  import {Indicator,MessageBox,Toast} from 'mint-ui';
-  import {getBindedInfo,switchDefaultStatus,unBind} from '../../apis/app.api';
+  import {switchDefaultStatus,unBind} from '../../apis/app.api';
   import patriarch from "../../components/identity/patriarch"
-  export default {
+  export default{
     //组件
     components: {
       headcom,
@@ -32,10 +31,10 @@
     //父组件传入的数据
     props: {},
     //本地数据
-    data() {
+    data(){
       return {
-        identityData: [],
-        relieve: false
+        identityData:[],
+        relieve:false
       }
     },
     //方法
@@ -53,11 +52,14 @@
         }
       },
       identityClick(identityData) {
-        switchDefaultStatus(identityData).then((data) => {
-          if (data.data.code == "000001") {
-            this.getChildData();
+        var vm = this;
+        this.$switchDefaultStatus(identityData,function (res) {
+          console.log(res);
+          if (res.code == "000001") {
+            vm.getChildData();
           }
-        })
+        },function (res) {
+        });
       },
       // 改变编辑状态
       relieveTextClick() {
@@ -65,12 +67,11 @@
           this.relieve = false;
         } else {
           this.relieve = true;
-
         }
       },
       //删除一个孩子
       relieveClick(relieveData) {
-        MessageBox({
+        this.$messagebox({
           title: '提示',
           message: '您确定要解除与该孩子的绑定关系吗?',
           showCancelButton: true
@@ -81,51 +82,66 @@
         });
       },
       deleteRelieve(relieveData) {
-        unBind({
-          schoolId: relieveData.schoolId + "", stuTeaNo: relieveData.studentNo, type: '1'
-        }).then((data) => {
-          if (data.data.code == "000001") {
+        var vm = this;
+        this.$unbind({schoolId:relieveData.schoolId+"", stuTeaNo:relieveData.studentNo, type:'1'}, function (res) {
+          console.log(res);
+          if(res.code == "000001"){
+            vm.$toast("解绑成功");
+            vm.getChildData();
+          }else{
+            vm.$messagebox({
+              title: '提示',
+              message: res.message
+            })
+          }
+        }, function (res) {
+        });
+
+
+      /*  unBind({
+          schoolId:relieveData.schoolId+"", stuTeaNo:relieveData.studentNo, type:'1'
+        }).then((data)=>{
+          if(data.data.code == "000001"){
             Toast("解绑成功");
             this.getChildData();
-          } else {
+          }else{
             MessageBox({
               title: '提示',
               message: data.data.message
             })
-          }
-        })
+          }*/
       },
       //请求孩子数据
-      getChildData() {
+      getChildData(){
         var vm = this;
-        var data = {};
-        this.$getBindedInfo(data, function (res) {
-          console.log(res);
-          // if (res.code == "000001") {
-          //   if (res.result.length == 0) {
-          //     Toast('您还没有绑定宝贝身份信息');
-          //     vm.identityData = [];
-          //     vm.$router.push('/index');
-          //   } else {
-          //     vm.identityData = res.result;
-          //   }
-          // }
-        }, function (res) {
-        });
-      },
-      //进入页面加载
-      mounted() {
-        //判断是否有孩子信息
-        this.getChildData();
-      },
-      //计算属性
-      computed: {
-        relieveText() {
-          return !this.relieve ? '管理' : '完成'
-        }
-      },
-      //监控数据变化
-      /*watch: {}*/
+        this.$getBindedInfo({},function (res) {
+          console.log(res)
+          if(res.code == "000001"){
+            if(res.result.length == 0){
+              vm.$toast('您还没有绑定宝贝身份信息');
+              vm.identityData = [];
+              vm.$router.push('/index');
+            }else{
+              vm.identityData = res.result;
+            }
+          }
+        },function (res) {
+        })
+      }
+    } ,
+    //进入页面加载
+    mounted () {
+      //判断是否有孩子信息
+      this.getChildData();
+    } ,
+    //计算属性
+    computed: {
+      relieveText(){
+        return !this.relieve?'管理':'完成'
+      }
+    } ,
+    //监控数据变化
+    watch: {
     }
   }
 </script>

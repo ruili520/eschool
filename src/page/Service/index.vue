@@ -94,33 +94,29 @@
         })
       },
       submit: function() {
+        var vm = this;
         if(!this.opinion.length) {
           Toast('反馈意见不能为空哦');
           this.$refs.inputArea.focus();
           return;
         }
-        Indicator.open({
-          spinnerType: 'fading-circle'
-        });
         let urls = this.imgs.join("|");
-        addTMailbox({
+        this.$addTMailbox({
           "mailType": this.opinionType.id,
           "mailContent": this.opinion,
           "img": urls
-        }).then((data) => {
-          Indicator.close()
-          if(data.data.code == "000001") {
+        },function (res) {
+          if(res.code == "000001") {
             Toast("感谢您的宝贵意见！");
-            this.linkHistory();
-          } else if(data.data.code == "000002") {
+            vm.linkHistory();
+          } else if(res.code == "000002") {
             lonIn();
           } else {
             MessageBox({
-              title: data.data.message
+              title: res.message
             });
           }
-        }, (data) => {
-          Indicator.close()
+        },function (res) {
           MessageBox({
             title: "请求数据失败"
           });
