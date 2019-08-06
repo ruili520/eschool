@@ -180,7 +180,24 @@ var install = function (Vue) {
         }, success, fail);
       }
     },
-
+    //点赞
+    $addInfoGardenAgreewith:{
+      value:function (params, success, fail) {
+        this.UIAxios(getUrl('homepage/addInfoGardenAgreewith'), {
+          method: "post",
+          data: params
+        }, success, fail);
+      }
+    },
+    // 查询点赞
+    $selectInfoGardenAgreewith:{
+      value:function (params, success, fail) {
+        this.UIAxios(getUrl('homepage/selectInfoGardenAgreewith'), {
+          method: "post",
+          data: params
+        }, success, fail);
+      }
+    },
     //获取黑板报流程
       $getBlackBoard:{
             value:function (params, success, fail) {
@@ -231,6 +248,24 @@ var install = function (Vue) {
     $getPhotoList:{
       value:function (params, success, fail) {
         this.UIAxios(getUrl('photo/getTSchoolPhotoList'), {
+          method: "post",
+          data: params
+        }, success, fail);
+      }
+    },
+    //查询活动详情详情
+    $getTSmallbankerActivityInfo:{
+      value:function (params, success, fail) {
+        this.UIAxios(getUrl('bankActivity/getTSmallbankerActivityInfo'+params.id), {
+          method: "post",
+          data: params
+        }, success, fail);
+      }
+    },
+    // 查询活动留言信息
+    $getTSmallbankerMessageList:{
+      value:function (params, success, fail) {
+        this.UIAxios(getUrl('bankActivity/getTSmallbankerMessageList'), {
           method: "post",
           data: params
         }, success, fail);

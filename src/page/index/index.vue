@@ -294,6 +294,7 @@
           return;
         }
         this.$checkAuthority({menuId:id},function (res) {
+          console.log(res)
           if(res.code === "0") {
             if(id==24 || id==25){
               if(id==24){

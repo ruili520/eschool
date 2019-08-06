@@ -76,46 +76,51 @@
       },
       //查询活动详情详情
       getTSmallbankerActivityInfo() {
-        Indicator.open({ spinnerType: 'fading-circle' });
-        getTSmallbankerActivityInfo({
-          id:this.urlId
-        }).then((data)=>{
+        Indicator.open({spinnerType: 'fading-circle'});
+        var vm = this;
+        console.log(this.urlId);
+        this.$getTSmallbankerActivityInfo({
+          id: this.urlId
+        }, function (res) {
+          console.log(res);
           Indicator.close();
-          if(data.data.code == "000001"){
-            this.datailData = data.body.result;
-          }else{
-            MessageBox("提示",data.body.message);
+          if (res.code == "000001") {
+            this.datailData = res.result;
+          } else {
+            MessageBox("提示", res.message);
           }
-        },()=>{
+        }, function (res) {
           Indicator.close();
           MessageBox({title: "请求数据失败"});
-        })
+        });
       },
       //查询活动详情详情
       getTSmallbankerMessageList() {
         Indicator.open({ spinnerType: 'fading-circle' });
-        getTSmallbankerMessageList({
+        var vm = this;
+        this.$getTSmallbankerMessageList({
           "activityId":this.urlId,
           "page":this.page,
           "size":10
-        }).then((data)=>{
+        },function (res) {
+          console.log(res);
           Indicator.close();
-          if(data.data.code == "000001"){
-            let list = data.data.result.list;
+          if(res.code == "000001"){
+            let list = res.result.list;
             if(list.length<10){
-              this.allLoaded = true;
+              vm.allLoaded = true;
             }else{
-              this.allLoaded = false;
+              vm.allLoaded = false;
             }
-            this.activityList = this.activityList.concat(list);
-            console.log(this.activityList);
+            vm.activityList = vm.activityList.concat(list);
+            console.log(vm.activityList);
           }else{
-            MessageBox("提示",data.body.message);
+            MessageBox("提示",res.message);
           }
-        },()=>{
+        },function (res) {
           Indicator.close();
           MessageBox({title: "请求数据失败"});
-        })
+        });
       },
       //跳转到报名页面
       linkApply(type) {

@@ -46,34 +46,78 @@
     components: {
       headcom
     },
-    methods:{
+    methods: {
       //获取学校信息详情
-      getSchoolInfo(){
-        var vm =this;
+      getSchoolInfo() {
+        var vm = this;
         var obj = {
-          schoolId:this.$route.query.schoolId
+          schoolId: this.$route.query.schoolId
         }
-        this.$getSchoolInfo(obj,function (res) {
+        this.$getSchoolInfo(obj, function (res) {
           vm.active = res.result
-        },function (res) {
+        }, function (res) {
 
         })
       },
       //联系幼儿园
-      contact(tel){
+      contact(tel) {
         window.native.OpenTelephone(tel);
       },
-      //点赞幼儿园
-      point(){
+
+      beforeMount() {
+        this.getSchoolInfo();
 
       },
-
+      //点赞幼儿园
+      point() {
+        if (this.agreeStatus == '1') {
+          Toast('您已点过赞哦');
+          return false
+        }
+        let data = {
+          schoolId: this.active.schoolId,
+          gardenId: this.active.id
+        };
+        var vm = this;
+        this.$addInfoGardenAgreewith(data, function (res) {
+          console.log(res+"111111111111111111111111111111");
+          if (res.code == "000001") {
+            vm.getPoint()
+          } else {
+            MessageBox("提示", res.message);
+          }
+        }, function (res) {
+          MessageBox({title: "请求数据失败"});
+        });
+      },
+      getPoint() {
+        let data = {
+          schoolId: this.active.schoolId,
+          gardenId: this.active.id
+        };
+        var vm = this;
+        this.$selectInfoGardenAgreewith(data, function (res) {
+          console.log(res);
+          if (res.code == "000001") {
+            vm.agreeStatus = res.result.agreeStatus;
+            if (vm.agreeStatus == '1') {
+              vm.pointImg = require('../../assets/img/album/thumb_1.png')
+            } else {
+              vm.pointImg = require('../../assets/img/album/thumb_0.png')
+            }
+          } else {
+            MessageBox("提示", res.message);
+          }
+        }, function (res) {
+          MessageBox({title: "请求数据失败"});
+        });
+      },
     },
     filters: {
       filtersD(value) {
-        if(!value){
+        if (!value) {
           return '';
-        }else{
+        } else {
           const padDate = function (value) {
             return value < 10 ? '0' + value : value;
           };
@@ -85,101 +129,10 @@
         }
       }
     },
-    beforeMount(){
-      this.getSchoolInfo()
-    },
-    /*mounted(){
-      this.getPoint()
+    mounted(){
+      this.getPoint();
       this.swipeHeight=(document.body.clientWidth-20)/16*9;
     },
-    methods: {
-      contact(tel){
-        //window.native.OpenTelephone(tel);
-        window.location.href="tel:"+tel;
-      },
-      point(){
-        if(this.agreeStatus=='1'){
-          Toast('您已点过赞哦')
-          return false
-        }
-        let data={
-          schoolId:this.active.schoolId,
-          gardenId:this.active.id
-        };
-        addInfoGardenAgreewith(data).then((data)=>{
-          if(data.data.code == "000001"){
-            this.getPoint()
-          }else{
-            MessageBox("提示",data.body.message);
-          }
-        },()=>{
-          Indicator.close();
-          MessageBox({title: "请求数据失败"});
-        })
-      },
-      getPoint(){
-        let data={
-          schoolId:this.active.schoolId,
-          gardenId:this.active.id
-        };
-        selectInfoGardenAgreewith(data).then((data)=>{
-          if(data.data.code == "000001"){
-            this.agreeStatus = data.data.result.agreeStatus;
-            if(this.agreeStatus=='1'){
-              this.pointImg=require('../assets/album/thumb_1.png')
-            }else{
-              this.pointImg=require('../assets/album/thumb_0.png')
-            }
-          }else{
-            MessageBox("提示",data.body.message);
-          }
-        },()=>{
-          Indicator.close();
-          MessageBox({title: "请求数据失败"});
-        })
-      },
-      selectInfoGardenIntroduce() {
-        let data={
-          schoolId:this.$route.query.schoolId
-        };
-        Indicator.open({ spinnerType: 'fading-circle' });
-        this.activeData=[];
-        selectInfoGardenIntroduce(data).then((data)=>{
-          Indicator.close();
-          if(data.data.code == "000001"){
-            this.active=data.data.result;
-            console.log(this.active);
-            if(this.active.id==null){
-              return false
-            }
-            this.imgs = this.active.gardenUrl.split(',');
-            let par = {
-              id:this.active.id
-            }
-            this.addInfoGardenIntroduceTotal(par)
-          }else{
-            MessageBox("提示",data.body.message);
-          }
-        },()=>{
-          Indicator.close();
-          MessageBox({title: "请求数据失败"});
-        })
-      },
-      addInfoGardenIntroduceTotal(par){
-        Indicator.open({ spinnerType: 'fading-circle' });
-        addInfoGardenIntroduceTotal(par).then((data)=>{
-          Indicator.close();
-        if(data.data.code == "000001"){
-          console.log(data.data.message)
-        }else{
-          MessageBox("提示",data.body.message);
-        }
-      },()=>{
-          Indicator.close();
-          MessageBox({title: "请求数据失败"});
-        })
-      }
-    }*/
   }
 </script>
 <style lang="less" rel="stylesheet/less" scoped>
