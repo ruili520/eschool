@@ -5,12 +5,12 @@
       {{ relieveText }}
     </div>
     <div class="conter" style="margin-top: .5rem">
-      <!--<patriarch :relieve="relieve"-->
-                   <!--v-for="(item,index) in identityData"-->
-                   <!--:relieveClick = "relieveClick"-->
-                   <!--:identityClick = "identityClick"-->
-                   <!--:data="item">-->
-      <!--</patriarch>-->
+      <patriarch :relieve="relieve"
+                   v-for="(item,index) in identityData"
+                   :relieveClick = "relieveClick"
+                   :identityClick = "identityClick"
+                   :data="item">
+      </patriarch>
     </div>
     <div class="add">
       <p @click="binding">+ 添加宝贝</p>

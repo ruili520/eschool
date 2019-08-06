@@ -148,7 +148,7 @@
                 id: 24,
                 menuIcon: "https://xuebanktest.oss-cn-shanghai.aliyuncs.com/logo/baoming.png",
                 menuName: "报名",
-                menuUrl: "/studentFees",
+                menuUrl: "/signUp",
                 remark: null,
                 sort: null,
                 staId: null,
@@ -346,9 +346,9 @@
         console.log(data)
       })
     },
-    created() {
-      sessionStorage.setItem('test',true)
-    }
+    // created() {
+    //   sessionStorage.setItem('test',true)
+    // }
   }
 </script>
 
