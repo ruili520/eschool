@@ -32,19 +32,15 @@
 </template>
 <script>
   import headcom from "../../components/headcom"
- /* import { Indicator, MessageBox , Toast } from 'mint-ui';
-  import { getActivityList } from "./../apis/app.api"
-  import { lonIn } from "./../static/js/logIn";*/
   export default {
     data() {
       return {
-
         activeData: [
           {isShowSign:'1', amount:1, activityType:'',startDate:'2019/7/31',endDate:'2019/8/1',photo:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=558577137,1343729075&fm=26&gp=0.jpg',name:'阿瓦达'},
           {isShowSign:'1', amount:2, activityType:'',startDate:'2019/7/31',endDate:'2019/8/1',photo:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=558577137,1343729075&fm=26&gp=0.jpg',name:'部分'},
           {isShowSign:'1', amount:3, activityType:'',startDate:'2019/7/31',endDate:'2019/8/1',photo:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=558577137,1343729075&fm=26&gp=0.jpg',name:'发'}
         ],
-        title: '',
+        title: '报名',
         page: 1,//分页
         allLoaded: true, //是否全部加载完毕
       };
@@ -68,6 +64,7 @@
     background-color: #f5f5f5;
     font-family: PingFang-SC-Medium;
     height: 100%;
+    margin-top: .44rem;
   .history {
     position: fixed;
     top: .10rem;

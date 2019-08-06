@@ -67,15 +67,15 @@
         }
       },
       //删除一个孩子
-      relieveClick(relieveData){
-        this.$messagebox({
-          title: '提示',
-          message: '您确定要解除与该孩子的绑定关系吗?',
-          showCancelButton: true
-        }).then((action) => {
-          if(action == "confirm"){
-            this.deleteRelieve(relieveData);
-          }
+            relieveClick(relieveData){
+              this.$messagebox({
+                title: '提示',
+                message: '您确定要解除与该孩子的绑定关系吗?',
+                showCancelButton: true
+              }).then((action) => {
+                if(action == "confirm"){
+                  this.deleteRelieve(relieveData);
+                }
         });
       },
       deleteRelieve(relieveData) {

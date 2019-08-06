@@ -25,8 +25,8 @@
       OpenQRCodeScanner(){
         window.native.OpenQRCodeScanner(data=>{})
     },
-      Opentell(data){
-        window.native.OpenTelephone(data)
+      Opentell(){
+        window.native.OpenTelephone('18737015525')
       },
       DeviceType(){
         window.native.DeviceType(data=>{

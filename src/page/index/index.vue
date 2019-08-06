@@ -149,7 +149,7 @@
                 id: 24,
                 menuIcon: "https://xuebanktest.oss-cn-shanghai.aliyuncs.com/logo/baoming.png",
                 menuName: "报名",
-                menuUrl: "/studentFees",
+                menuUrl: "/signUp",
                 remark: null,
                 sort: null,
                 staId: null,
@@ -297,6 +297,7 @@
           return;
         }
         this.$checkAuthority({menuId:id},function (res) {
+          console.log(res)
           if(res.code === "0") {
             if(id==24 || id==25){
               if(id==24){
@@ -326,7 +327,6 @@
               if(id == 3) {
                 this.$router.push('/teacherFees');
                 return false;
-
               }
             }
             vm.$router.push(url);
@@ -351,9 +351,9 @@
           console.log(data)
         })
     },
-    created() {
-      sessionStorage.setItem('test',true)
-    }
+    // created() {
+    //   sessionStorage.setItem('test',true)
+    // }
   }
 </script>
 
