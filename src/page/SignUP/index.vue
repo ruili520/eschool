@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <headom :title=title :callbackTrue="true" :callback="back"></headom>
+    <headcom :title=title :callbackTrue="true" :callback="back"></headcom>
     <p v-if="title=='报名'" class="history" @click="myActive()">我的报名</p>
     <div class="activeList" v-if="activeData.length>0" v-infinite-scroll="loadBottom"
          infinite-scroll-disabled="allLoaded"
@@ -32,13 +32,40 @@
 </template>
 <script>
   import headcom from "../../components/headcom"
+  import { Indicator, MessageBox , Toast } from 'mint-ui';
+  import { getActivityList } from "../../apis/app.api"
+  import { lonIn } from "../../static/js/logIn";
   export default {
     data() {
       return {
         activeData: [
-          {isShowSign:'1', amount:1, activityType:'',startDate:'2019/7/31',endDate:'2019/8/1',photo:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=558577137,1343729075&fm=26&gp=0.jpg',name:'阿瓦达'},
-          {isShowSign:'1', amount:2, activityType:'',startDate:'2019/7/31',endDate:'2019/8/1',photo:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=558577137,1343729075&fm=26&gp=0.jpg',name:'部分'},
-          {isShowSign:'1', amount:3, activityType:'',startDate:'2019/7/31',endDate:'2019/8/1',photo:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=558577137,1343729075&fm=26&gp=0.jpg',name:'发'}
+          {
+            isShowSign: '1',
+            amount: 1,
+            activityType: '',
+            startDate: '2019/7/31',
+            endDate: '2019/8/1',
+            photo: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=558577137,1343729075&fm=26&gp=0.jpg',
+            name: '阿瓦达'
+          },
+          {
+            isShowSign: '1',
+            amount: 2,
+            activityType: '',
+            startDate: '2019/7/31',
+            endDate: '2019/8/1',
+            photo: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=558577137,1343729075&fm=26&gp=0.jpg',
+            name: '部分'
+          },
+          {
+            isShowSign: '1',
+            amount: 3,
+            activityType: '',
+            startDate: '2019/7/31',
+            endDate: '2019/8/1',
+            photo: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=558577137,1343729075&fm=26&gp=0.jpg',
+            name: '发'
+          }
         ],
         title: '报名',
         page: 1,//分页
@@ -48,14 +75,110 @@
     components: {
       headcom
     },
+    mounted() {
+      this.getActivityList();
+    },
     methods: {
-      myActive(){
-      },
-      signUp(){
-      },
+      //返回首页
       back() {
+        if (this.title == '报名') {
+          this.$router.push('/index');
+        } else {
+          window.location.reload()
+        }
+      },
+      signUp(id, activityType) {
+        if (this.$route.query.authority == 1) {
+          this.$router.push('/signUpDetails?activeId=' + id + '&authority=1');
+        } else {
+          this.$router.push('/signUpDetails?activeId=' + id);
+        }
+      },
+      //触发到底加载
+      loadBottom() {
+        if (!this.allLoaded) {
+          this.page = this.page + 1;
+          if (this.title = '报名') {
+            this.getActivityList()
+          } else {
+            this.myActive()
+          }
+        }
+      },
+      myActive() {
+        this.title = '我的报名';
+        let res = {
+          schoolId: this.$route.query.school,
+          type: '1', page: this.page, size: 10
+        };
+        Indicator.open({spinnerType: 'fading-circle'});
+        this.activeData = [];
+
+        var vm = this;
+        this.$getActivityList(res, function (a) {
+          console.log(a);
+          Indicator.close();
+          if (a.code == "000001") {
+            let list = a.result.list;
+            if (list.length < 10) {
+              vm.allLoaded = true;
+            } else {
+              vm.allLoaded = false;
+            }
+            for (let item of list) {
+              vm.activeData.push(item);
+            }
+          } else {
+            MessageBox("提示", a.message);
+          }
+        }, function (a) {
+          Indicator.close();
+          MessageBox({title: "请求数据失败"});
+        });
       },
 
+      getActivityList() {
+        let _this = this;
+        _this.title = '报名';
+        let res = {
+          schoolId: this.$route.query.school,
+          page: _this.page, size: 10
+        };
+        Indicator.open({spinnerType: 'fading-circle'});
+        _this.activeData = [];
+
+        var vm = this;
+        this.$getActivityList(res, function (a) {
+          Indicator.close();
+          if (a.code == "000001") {
+            let list = a.result.list;
+            if (list.length < 10) {
+              _this.allLoaded = true;
+            } else {
+              _this.allLoaded = false;
+            }
+            for (let item of a.result.list) {
+              _this.activeData.push(item);
+            }
+          } else if (a.code == "000002") {
+            lonIn((a) => {
+              let result = a.result;
+              if (a.code == "000001") {
+                _this.getActivityList();
+              } else {
+                MessageBox({
+                  title: result.messages
+                });
+              }
+            });
+          } else {
+            MessageBox("提示", a.message);
+          }
+        }, function (a) {
+          Indicator.close();
+          MessageBox({title: "请求数据失败"});
+        });
+      }
     }
   }
 </script>

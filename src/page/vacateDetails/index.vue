@@ -114,18 +114,19 @@
       //请求当月的详情
       getLeaveDetail:function () {
         Indicator.open({ spinnerType: 'fading-circle' });
-        getLeaveDetail({
-          "date":this.month.id
-        }).then((data)=>{
-          Indicator.close()
-          if(data.data.code == "000001"){
-            this.vacateData = data.data.result;
+
+        var vm = this;
+        this.$getLeaveDetail({"date":this.month.id},function (res) {
+          console.log(res);
+          Indicator.close();
+          if(res.code == "000001"){
+            vm.vacateData = res.result;
           }else{
-            MessageBox({title: data.data.message});
+            MessageBox({title: res.message});
           }
-        },()=>{
+        },function (res) {
           Indicator.close()
-        })
+        });
       }
 
 

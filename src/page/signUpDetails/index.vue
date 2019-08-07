@@ -35,7 +35,7 @@
       headcom
     },
     mounted(){
-      this.getActivityDetail()
+      this.getActivityDetail();
       this.swipeHeight=(document.body.clientWidth-20)/16*9;
     },
     methods: {
@@ -56,15 +56,17 @@
         };
         Indicator.open({ spinnerType: 'fading-circle' });
         this.activeData=[];
-        getActivityDetail(res).then((data)=>{
+        var vm = this;
+        this.$getActivityDetail(res,function (a) {
+          console.log(a);
           Indicator.close();
-          if(data.data.code == "000001"){
-            this.active=data.data.result;
-            this.imgs = this.active.photo.split(',');
+          if(a.code == "000001"){
+            vm.active=a.result;
+            vm.imgs = vm.active.photo.split(',');
           }else{
-            MessageBox("提示",data.body.message);
+            MessageBox("提示",a.message);
           }
-        },()=>{
+        },function (a) {
           Indicator.close();
           MessageBox({title: "请求数据失败"});
         })

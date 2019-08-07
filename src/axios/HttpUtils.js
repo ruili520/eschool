@@ -171,6 +171,35 @@ var install = function (Vue) {
         }, success, fail);
       }
     },
+    // 请假页面时长计算
+    $calculateDaytime:{
+      value:function (params, success, fail) {
+        this.UIAxios(getUrl('leave/calculateDaytime'), {
+          method: "post",
+          data: params
+        }, success, fail);
+      }
+    },
+    // 提交请假信息
+    $leaveSubmit:{
+      value:function (params, success, fail) {
+        this.UIAxios(getUrl('leave/submit'), {
+          method: "post",
+          data: params
+        }, success, fail);
+      }
+    },
+    // 获取请假的当月报表
+    $getLeaveDetail:{
+      value:function (params, success, fail) {
+        this.UIAxios(getUrl('leave/getLeaveDetail'), {
+          method: "post",
+          data: params
+        }, success, fail);
+      }
+    },
+
+
     // 获取校园消息的请假列表
     $getLeaveNotifyList:{
       value:function (params, success, fail) {
@@ -198,15 +227,7 @@ var install = function (Vue) {
         }, success, fail);
       }
     },
-    //获取黑板报流程
-      $getBlackBoard:{
-            value:function (params, success, fail) {
-              this.UIAxios(getEDUUrl('campusBlackboard/getLocHotnewsList'), {
-                method: "post",
-                data: params
-              }, success, fail);
-            }
-      },
+
     //获取学校列表
     $getSchoolList:{
         value:function (params, success, fail) {
@@ -225,6 +246,24 @@ var install = function (Vue) {
         }, success, fail);
       }
     },
+    //查询活动报名列表
+    $getActivityList:{
+      value:function (params, success, fail) {
+        this.UIAxios(getUrl('activity/getActivityList'), {
+          method: "post",
+          data: params
+        }, success, fail);
+      }
+    },
+    // 查询活动报名基本详情
+    $getActivityDetail:{
+      value:function (params, success, fail) {
+        this.UIAxios(getUrl('activity/getActivityDetail'), {
+          method: "post",
+          data: params
+        }, success, fail);
+      }
+    },
     //获取打卡缴费列表
     $getFeeList:{
       value:function (params, success, fail) {
@@ -234,6 +273,61 @@ var install = function (Vue) {
         }, success, fail);
       }
     },
+    // 获取缴费项目信息
+    $getFeeDetail:{
+      value:function (params, success, fail) {
+        this.UIAxios(getUrl('homepage/getFeeDetail'), {
+          method: "post",
+          data: params
+        }, success, fail);
+      }
+    },
+    // 获取缴费项目详情
+    $getFeeItemDetail:{
+      value:function (params, success, fail) {
+        this.UIAxios(getUrl('/homepage/getFeeItemDetail'), {
+          method: "post",
+          data: params
+        }, success, fail);
+      }
+    },
+    // 创建学校收费订单
+    $createOrderSchool:{
+      value:function (params, success, fail) {
+        this.UIAxios(getUrl('icbcPersonalPay/createOrder'), {
+          method: "post",
+          data: params
+        }, success, fail);
+      }
+    },
+    // 获取学校收费订单支付信息
+    $payInfoSchool:{
+      value:function (params, success, fail) {
+        this.UIAxios(getUrl('icbcPersonalPay/payInfo/'+params), {
+          method: "post",
+          data: params
+        }, success, fail);
+      }
+    },
+    // 获取学校收费订单支付信息(对公)
+    $icbcPublicPayPayInfo:{
+      value:function (params, success, fail) {
+        this.UIAxios(getUrl('icbcPublicPay/payInfo/'+params), {
+          method: "post",
+          data: params
+        }, success, fail);
+      }
+    },
+    // 创建学校收费订单（对公）
+    $icbcPublicPayCreateOrder:{
+      value:function (params, success, fail) {
+        this.UIAxios(getUrl('icbcPublicPay/createOrder'), {
+          method: "post",
+          data: params
+        }, success, fail);
+      }
+    },
+
     // 改变邮件已读状态
     $readTMailbox:{
       value:function (params, success, fail) {
@@ -245,7 +339,7 @@ var install = function (Vue) {
     },
 
     //获取班级相册
-    $getPhotoList:{
+    $getTSchoolPhotoList:{
       value:function (params, success, fail) {
         this.UIAxios(getUrl('photo/getTSchoolPhotoList'), {
           method: "post",
@@ -253,6 +347,44 @@ var install = function (Vue) {
         }, success, fail);
       }
     },
+    //class albums
+    $checkFollowToThumb:{
+      value:function (params, success, fail) {
+        this.UIAxios(getUrl('photo/checkFollow'), {
+          method: "post",
+          data: params
+        }, success, fail);
+      }
+    },
+    // 根据场景id获取设备信息（视频页使用）
+    $getKdgIpcBySceneId:{
+      value:function (params, success, fail) {
+        this.UIAxios(getUrl('userProperty/getKdgIpcBySceneId'+params), {
+          method: "post",
+          data: params
+        }, success, fail);
+      }
+    },
+    // 扣减用户的观看视频时间
+    $deductRemainderTime:{
+      value:function (params, success, fail) {
+        this.UIAxios(getUrl('userProperty/deductRemainderTime'), {
+          method: "post",
+          data: params
+        }, success, fail);
+      }
+    },
+    // 获取用户数据（视频页使用）
+    $getUserPropertyByUserId:{
+        value:function (params, success, fail) {
+          this.UIAxios(getUrl('userProperty/getUserPropertyByUserId'), {
+            method: "post",
+            data: params
+          }, success, fail);
+        }
+    },
+    // 获取用户绑定的所有的孩子
+
     //查询活动详情详情
     $getTSmallbankerActivityInfo:{
       value:function (params, success, fail) {
@@ -266,6 +398,15 @@ var install = function (Vue) {
     $getTSmallbankerMessageList:{
       value:function (params, success, fail) {
         this.UIAxios(getUrl('bankActivity/getTSmallbankerMessageList'), {
+          method: "post",
+          data: params
+        }, success, fail);
+      }
+    },
+    //获取黑板报流程
+    $getBlackBoard:{
+      value:function (params, success, fail) {
+        this.UIAxios(getEDUUrl('campusBlackboard/getLocHotnewsList'), {
           method: "post",
           data: params
         }, success, fail);

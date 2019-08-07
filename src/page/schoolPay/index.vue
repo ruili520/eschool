@@ -139,38 +139,39 @@
         Indicator.open({
           spinnerType: 'fading-circle'
         });
-        getFeeDetail({
+        var vm = this;
+        this.$getFeeDetail({
           taskId:this.$route.query.itemId
-        }).then((data)=>{
+        },function (res) {
+          console.log(res);
           Indicator.close();
           // console.log('63636363',this.$route.query.itemId)
-          if (data.data.code == "000001") {
-            this.payData = data.data.result.list;
-            this.accountsType = data.data.result.accountsType;
-            console.log('79797979',data.data.result);
+          if (res.code == "000001") {
+            vm.payData = res.result.list;
+            vm.accountsType = res.result.accountsType;
+            console.log('79797979', res.result);
             //  console.log('4040404',this.accountsType);
-            getFeeItemDetail({
-              taskId:this.$route.query.itemId
-            }).then((data)=>{
-              if(data.data.code == "000001"){
-                this.selectedProperties = this.itemDetails = data.data.result;
+            this.$getFeeItemDetail({
+              taskId: vm.$route.query.itemId
+            }, function (res) {
+              if (res.code == "000001") {
+
+                vm.selectedProperties = vm.itemDetails = res.result;
                 //  this.itemDetails = data.data.result;
-                console.log(this.itemDetails,'--------')
-
-
-              }else{
-                MessageBox({title: data.data.message})
+                console.log(vm.itemDetails, '--------')
+              } else {
+                MessageBox({title: res.message})
               }
             })
           } else {
             MessageBox({
-              title: data.data.message
+              title: res.message
             })
           }
-        },()=>{
+            },function (res) {
           Indicator.close();
           MessageBox({ title: "请求数据失败" })
-        })
+            });
       },
       //短登录
       shortLogIn(u) {
@@ -234,8 +235,8 @@
         Indicator.open({
           spinnerType: 'fading-circle'
         });
-        createOrderSchool({
-          "itemId":ids.join(','),
+        var vm = this;
+        this.$createOrderSchool({"itemId":ids.join(','),
           "accountsCode": this.payData.accoutsCode,
           "taskId": this.payData.taskId,
           "schoolId": this.payData.schoolId,
@@ -243,17 +244,17 @@
           "studentNo": this.payData.studentNo,
           "studentId": this.payData.studentId,
           "itemAmount": (money/100)+''
-        }).then((data) => {
+        },function (res) {
           Indicator.close();
-          if (data.data.code == "000001") {
-            let orderId = data.data.result;
-            this.payInfoSchool(orderId);
+          if (res.code == "000001") {
+            let orderId = res.result;
+            vm.payInfoSchool(orderId);
           } else {
             MessageBox({
-              title: data.data.message
+              title: res.message
             })
           }
-        }, () => {
+        },function (res) {
           Indicator.close();
           MessageBox({
             title: "请求数据失败"
@@ -265,30 +266,30 @@
         Indicator.open({
           spinnerType: 'fading-circle'
         });
-        payInfoSchool(orderId).then((data) => {
+        var vm =this;
+        this.$payInfoSchool(orderId,function (res) {
           Indicator.close();
-          if (data.data.code == "000001") {
-            let result = JSON.parse(data.data.result);
+          if (res.code == "000001") {
+            let result = JSON.parse(res.result);
             console.log(result.result);
-            this.submitForm = result.result;
+            vm.submitForm = result.result;
             setTimeout(() => {
               document.forms[0].submit();
             }, 0);
-
-          } else if (data.data.code == "000003") {
+          } else if (res.code == "000003") {
             MessageBox({
               title: "该功能仅支持实名用户使用"
             })
           } else {
             MessageBox({
-              title: data.data.message
+              title: res.message
             })
           }
-        }, () => {
+        },function (res) {
           Indicator.close();
           MessageBox({
             title: "请求数据失败"
-          })
+          });
         })
       },
       isAndroid: function () {
@@ -301,22 +302,21 @@
         Indicator.open({
           spinnerType: 'fading-circle'
         });
-        icbcPublicPayPayInfo(orderId).then((data) => {
+        var vm = this;
+        this.$icbcPublicPayPayInfo(orderId,function (res) {
           Indicator.close();
-          if (data.data.code == "000001") {
+          if (res.code == "000001") {
             // var url = location.origin + "/html/smartCampuskdg/icbcPay/smartCampusPublic.html?orderId=" + orderId;
             // http://sckdg.xuebank.com/html/smartCampuskdg/index.html#/?mode=open  ?index='+result.result
-            let result = JSON.parse(data.data.result);
+            let result = JSON.parse(res.result);
             var url = location.origin+'/html/smartCampuskdg/index.html#/orderpay?index='+result.result;
             console.log(url,'-----------0000000')
-            if(this.isAndroid()){
+            if(vm.isAndroid()){
               window.native.AndroidPayForICBCWebView(url);
               // this.$router.push(url);
-
             }else {
               window.native.PayForICBCWebView(url);
               // this.$router.push(url);
-
             }
             // let result = JSON.parse(data.data.result);
             //   console.log(result.result);
@@ -324,23 +324,21 @@
             //   setTimeout(() => {
             //     document.forms[0].submit();
             //   }, 0);
-
-
-          } else if (data.data.code == "000003") {
+          } else if (res.code == "000003") {
             MessageBox({
               title: "该功能仅支持实名用户使用"
             })
           }
           else {
             MessageBox({
-              title: data.data.message
+              title: res.message
             })
           }
-        }, () => {
+        },function (res) {
           Indicator.close();
           MessageBox({
             title: "请求数据失败"
-          })
+          });
         })
       },
       //缴费(对公)
@@ -360,7 +358,8 @@
         }else {
           sceneType = "10";
         }
-        icbcPublicPayCreateOrder({
+        var vm = this;
+        this.$icbcPublicPayCreateOrder({
           "itemId":ids.join(','),
           "computeId": sceneType,
           "busiCode": this.payData.busiCode,
@@ -368,7 +367,7 @@
           "schoolId": this.payData.schoolId,
           "studentId": this.payData.studentId,
           "itemAmount": this.payData.amount
-        }).then((data) => {
+        },function (res) {
           Indicator.close();
           if (data.data.code == "000001") {
             let orderId = data.data.result;
@@ -379,14 +378,13 @@
               title: data.data.message
             })
           }
-        }, () => {
+        },function (res) {
           Indicator.close();
           MessageBox({
             title: "请求数据失败"
-          })
+          });
         })
       },
-
     },
     //进入页面加载
     mounted() {
@@ -400,7 +398,6 @@
       }
     }
   }
-
 </script>
 
 <style lang="less" rel="stylesheet/less" scoped>

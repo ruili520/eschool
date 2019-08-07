@@ -44,10 +44,12 @@
   </div>
 </template>
 <script>
-  import headcom from '../../components/headcom'
-  import nodata from '../../components/informatio/noData'
-  import album from '../../components/previewAlbum'
-  import msgNull from '../../components/msgNull'
+  import headcom from "../../components/headcom";
+  import nodata from "../../components/schoolMsg/noData";
+  import album from "../../components/previewAlbum";
+  import msgNull from '../../components/msgNull';
+  import { getTSchoolPhotoList, checkFollowToThumb } from '../../apis/app.api.js';
+  import { Indicator, MessageBox, Toast, InfiniteScroll, Spinner } from 'mint-ui';
   export default {
     name:'',
     components:{
@@ -81,29 +83,98 @@
         return content;
       }
     },
-    methods:{
+    methods: {
+      // 相册内容折叠和展开
+      tospread(obj, idx) {
+        // 不使用for循环处理数据源：新增绑定，不绑定也可以用 this.$forceUpdate(); 强制更新
+        if(obj.isspread == undefined) {
+          this.$set(this.list[idx], "isspread", false);
+        }
+        obj.isspread = !obj.isspread;
+        this.$refs.spreadImage[idx].src = !!obj.isspread ? require("../../assets/img/album/up.png") : require("../../assets/img/album/down.png");
+      },
+      // 点赞操作
+      toThmbs(obj, idx) {
+        if(obj.followCount) {
+          Toast({
+            message: "您已点过赞！",
+            duration: 750,
+          });
+          return;
+        }
+        Indicator.open({
+          spinnerType: 'fading-circle'
+        });
+
+        var vm = this;
+        this.$checkFollowToThumb(obj.id,function (res) {
+          console.log(res);
+          Indicator.close();
+          if(res.code == "000001") {
+            if(res.message == "点赞成功！") {
+              obj.followCount = 1;
+              obj.thumbsupNum += 1;
+            }
+            Toast({
+              message: res.message,
+              duration: 750,
+            });
+          } else {
+            MessageBox("提示", res.message);
+          }
+        },function (res) {
+          Indicator.close();
+          MessageBox("提示", "数据请求失败");
+        });
+      },
+      // 相册预览
+      toprevieAlbum(imgs, idx) {
+        this.preview = Object.assign({}, this.preview, {
+          index: idx,
+          imgs: imgs.split(";"),
+          show: true,
+        });
+        window.native.ManageStatusCololr("0,0,0,1", true);
+      },
+      // 查询相册列表
+      queryAlbums() {
+        if(this.page == 1) {
+          Indicator.open({
+            spinnerType: 'fading-circle'
+          });
+        }
+        var vm = this;
+
+        this.$getTSchoolPhotoList({"page": this.page,
+          "size": 10,
+        },function (res) {
+          console.log(res);
+          Indicator.close();
+          if(res.code == "000001") {
+            vm.list = vm.list.concat(res.result.list);
+            vm.isNodata = !vm.list.length ? true : false;
+            if(res.result.total <= vm.list.length) {
+              vm.allLoaded = true;
+            } else {
+              vm.allLoaded = false;
+            }
+          } else {
+            MessageBox("提示", res.message);
+          }
+        },function () {
+          Indicator.close();
+          MessageBox("提示", "数据请求失败");
+        });
+      },
       // 上拉加载
       loadBottom() {
         console.log("触发加载");
         this.page++;
+        this.queryAlbums();
       },
-      getTSchoolPhotoList(){
-        var vm=this;
-        var data = {
-          page:1,
-          pageSize:10
-        };
-        this.$getPhotoList(data
-          ,function (res) {
-            console.log(res);
-            vm.list = res.result.list
-          },function (res) {
-            console.log(res)
-          })
-      }
     },
     mounted() {
-      this.getTSchoolPhotoList()
+      this.queryAlbums();
     }
   }
 </script>
