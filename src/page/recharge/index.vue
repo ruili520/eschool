@@ -92,15 +92,16 @@
 			//获取列表数据
 			getKdgVipOrderList: function () {
 				Indicator.open({ spinnerType: 'fading-circle' });
-        getKdgVipOrderList().then((data)=>{
+				var vm = this;
+				this.$getKdgVipOrderList({},function (res) {
           Indicator.close();
-          if(data.data.code == "000001"){
-            this.orderList = data.data.result;
+          if(res.code == "000001"){
+            vm.orderList = res.result;
           }else{
-            MessageBox("提示",data.data.message);
+            MessageBox("提示",res.message);
           }
-        },()=>{
-          Indicator.close();          
+        },function (res) {
+          Indicator.close();
           MessageBox("提示","数据请求失败");
         })
 			},

@@ -189,10 +189,12 @@
       //获取会员信息
       selectKdgVipUserInfo: function (data) {
         Indicator.open({spinnerType: 'fading-circle'});
-        selectKdgVipUserInfo().then((data)=> {
+        var vm = this;
+        /*console.log("weweweww")*/
+        this.$selectKdgVipUserInfo(function (res) {
           Indicator.close();
-          if (data.body.code == "000001") {
-            var vipData = data.body.result;
+          if (res.code == "000001") {
+            var vipData = res.result;
             console.log(vipData);
             var reveTime = vipData.remainderTime;
             if (reveTime.indexOf(".") > -1) {
@@ -200,19 +202,19 @@
             } else {
               reveTime = vipData.remainderTime;
             }
-            this.stopTime = this.formatDate(new Date(vipData.ipcEndDate));
-            this.telephone = vipData.phoneNumber;
-            this.username = vipData.userName;
+            vm.stopTime = vm.formatDate(new Date(vipData.ipcEndDate));
+            vm.telephone = vipData.phoneNumber;
+            vm.username = vipData.userName;
             if (vipData.headimg == "" || vipData.headimg == null) {
-              this.port = require("../../assets/img/schoolfees/title.png");
+              vm.port = require("../../assets/img/schoolfees/title.png");
             } else {
-              this.port = vipData.headimg;
+              vm.port = vipData.headimg;
             }
-            this.surplusTime = reveTime;
+            vm.surplusTime = reveTime;
           } else {
             MessageBox("提示", data.body.message);
           }
-        }, (data)=> {
+        },function (res) {
           Indicator.close();
           MessageBox({title: "请求数据失败"});
         })
@@ -220,13 +222,14 @@
       //获取会员列表
       getKdgVipItemListBySchoolId: function (data) {
         Indicator.open({spinnerType: 'fadizng-circle'});
-        getKdgVipItemListBySchoolId({
-          id: this.schoolId
-        }).then((data)=> {
+        var vm = this;
+        console.log(this.schoolId);
+        this.$getKdgVipItemListBySchoolId({
+          id: this.$route.query.schoolId
+        },function (res) {
           Indicator.close();
-          console.log(data)
-          if (data.body.code == "000001") {
-            var vipList = data.body.result;
+          if (res.code == "000001") {
+            var vipList = res.result;
             console.log(vipList);
             var menu = [];
             var allData = [];
@@ -255,15 +258,15 @@
               }
             });
             //列表的默认值
-            this.imgData = allData;
-            this.imgData[0][0].state = true;
-            this.money = this.imgData[0][0].itemAmout;
-            this.itemId = this.imgData[0][0].id;
-
+            vm.imgData = allData;
+            vm.imgData[0][0].state = true;
+            vm.money = vm.imgData[0][0].itemAmout;
+            vm.itemId = vm.imgData[0][0].id;
+            console.log(vm.imgData+'9999999999')
           } else {
             MessageBox("提示", data.body.message);
           }
-        }, (data)=> {
+        },function (res) {
           Indicator.close();
           MessageBox({title: "请求数据失败"});
         })
@@ -276,29 +279,31 @@
       //创建会员订单
       createOrder(data) {
         Indicator.open({spinnerType: 'fading-circle'});
-        createOrder(
-          {"itemId": this.itemId, "orderAmountStr": this.money}
-        ).then((data)=> {
+        var vm = this;
+        console.log(this.itemId+'QQQQQQQQ'+this.money)
+
+        this.$createOrder({"itemId": this.itemId, "orderAmountStr": this.money},function (res) {
+          console.log("rrrrrrrrrrrrrrrrrrrrrrrr")
           Indicator.close();
-          if (data.body.code == "000001") {
-            let orderId = data.data.result;
-            if(this.payId == '1'){
+          if (res.code == "000001") {
+            let orderId = res.result;
+            if(vm.payId == '1'){
               shortLogIn("", (data)=> {
                 if (data.code == "0") {
                   const result = data.data;
-                  this.ifPayType(orderId);
+                  vm.ifPayType(orderId);
                 } else {
                   MessageBox({title: "登录失败"});
                 }
               })
             }else{
-              this.wechatpayInfo(orderId);
+              vm.wechatpayInfo(orderId);
               //this.ifPayType(orderId);
             }
           } else {
-            MessageBox("提示", data.body.message);
+            MessageBox("提示", res.message);
           }
-        }, (data)=> {
+        },function (res) {
           Indicator.close();
           MessageBox({title: "请求数据失败"});
         })
@@ -332,24 +337,26 @@
       //工银e支付
       payInfo: function (orderId) {
         Indicator.open({spinnerType: 'fading-circle'});
-        payInfo(orderId).then((data)=> {
+        var vm = this;
+        console.log(orderId)
+        this.$payInfo(orderId,function (res) {
           Indicator.close();
-          if (data.data.code == "000001") {
-            var payData = data.body.result;
-            this.interfaceName = payData.interfaceName;
-            this.interfaceVersion = payData.interfaceVersion;
-            this.tranData = payData.tranData;
-            this.signMsg = payData.merSignMsg;
-            this.certs = payData.merCert;
-            this.clientType = payData.clientType;
+          if (res.code == "000001") {
+            var payData = res.result;
+            vm.interfaceName = payData.interfaceName;
+            vm.interfaceVersion = payData.interfaceVersion;
+            vm.tranData = payData.tranData;
+            vm.signMsg = payData.merSignMsg;
+            vm.certs = payData.merCert;
+            vm.clientType = payData.clientType;
 
             setTimeout(function () {
               $("#icbcPay").submit();
             }, 0);
           } else {
-            MessageBox("提示", data.data.message);
+            MessageBox("提示", res.message);
           }
-        }, ()=> {
+        },function (res) {
           Indicator.close();
           MessageBox("提示", "数据请求失败");
         })
@@ -372,15 +379,18 @@
           version: "1"
         };
         Indicator.open({spinnerType: 'fading-circle'});
-        wechatpayInfo(inData).then((data)=> {
+        var vm = this;
+        console.log(inData)
+        this.$wechatpayInfo(inData,function (res) {
           Indicator.close();
-          if (data.data.code == '000001') {
-            var result = data.data.result;
+          console.log(res)
+          if (res.code == '000001') {
+            var result = res.result;
             location.href = result.url;
           } else {
-            MessageBox('提示', data.data.message);
+            MessageBox('提示', res.message);
           }
-        }, ()=> {
+        },function (res) {
           Indicator.close();
           MessageBox('提示', '数据请求失败');
         })

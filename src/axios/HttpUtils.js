@@ -359,7 +359,7 @@ var install = function (Vue) {
     // 根据场景id获取设备信息（视频页使用）
     $getKdgIpcBySceneId:{
       value:function (params, success, fail) {
-        this.UIAxios(getUrl('userProperty/getKdgIpcBySceneId'+params), {
+        this.UIAxios(getUrl('userProperty/getKdgIpcBySceneId/'+params), {
           method: "post",
           data: params
         }, success, fail);
@@ -383,8 +383,58 @@ var install = function (Vue) {
           }, success, fail);
         }
     },
-    // 获取用户绑定的所有的孩子
-
+    // 获取会员信息
+    $selectKdgVipUserInfo:{
+      value:function ( success, fail) {
+        this.UIAxios(getUrl('userProperty/selectKdgVipUserInfo'), {
+          method: "post",
+        }, success, fail);
+      }
+    },
+    // 获取会员列表
+    $getKdgVipItemListBySchoolId:{
+      value:function (params, success, fail) {
+        this.UIAxios(getUrl('userProperty/getKdgVipItemListBySchoolId/'+params.id), {
+          method: "post",
+        }, success, fail);
+      }
+    },
+// 创建学校收费订单（对公）
+    $createOrder:{
+      value:function (params, success, fail) {
+        this.UIAxios(getUrl('orderVip/createOrder'), {
+          method: "post",
+          data: params
+        }, success, fail);
+      }
+    },
+// 根据订单获取工银e支付信息
+    $payInfo:{
+      value:function (params, success, fail) {
+        this.UIAxios(getUrl('icbcV6/payInfo/' + params + '/1/kdg'), {
+          method: "post",
+          data: params
+        }, success, fail);
+      }
+    },
+// 根据订单获取微信支付信息
+    $wechatpayInfo:{
+      value:function (params, success, fail) {
+        this.UIAxios(getUrl('wechat/payInfo'), {
+          method: "post",
+          data: params
+        }, success, fail);
+      }
+    },
+// 获取支付列表
+    $getKdgVipOrderList:{
+      value:function (params, success, fail) {
+        this.UIAxios(getUrl('userProperty/getKdgVipOrderList'), {
+          method: "post",
+          data: params
+        }, success, fail);
+      }
+    },
     //查询活动详情详情
     $getTSmallbankerActivityInfo:{
       value:function (params, success, fail) {

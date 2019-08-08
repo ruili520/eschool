@@ -93,7 +93,7 @@
 
   export default {
     name:'',
-    components:{},
+    components:{videoPlayer},
     //文件拦截器
     filters: {
       substr: function (value) {
@@ -153,11 +153,13 @@
       },
       //切换用户
       identityClick: function (data) {
-        switchDefaultStatus(data).then((data) => {
-          if (data.data.code == "000001") {
+        var vm = this;
+        this.$switchDefaultStatus(data,function (res) {
+          if (res.code == "000001"){
             this.getUserPropertyByUserId("initialize");
             this.getChildData();
           }
+        },function (res) {
         })
       },
       //请求孩子数据
@@ -342,7 +344,7 @@
         var vm = this;
         console.log(id)
         this.$getKdgIpcBySceneId(id,function (res) {
-          console.log("11111111111111111111");
+          console.log(res)
           Indicator.close();
           if (res.code == "000001") {
             var kdgDatalist = res.result;
@@ -398,6 +400,7 @@
           Indicator.close();
           if (res.code == "000001") {
             vm.userData = res.result;
+            console.log(res)
             vm.userData.headimg = vm.userData.headimg == null ?
               require("../../assets/img/dome/saber.png") : vm.userData.headimg;
             //(只有第一次进来时才调用)

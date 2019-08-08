@@ -239,7 +239,7 @@
                 id: 22,
                 menuIcon: "https://xuebanktest.oss-cn-shanghai.aliyuncs.com/logo/chengzhangka.png",
                 menuName: "宝贝成长卡",
-                menuUrl: "./index.html#/studentFees",
+                menuUrl: "https://m.xuebank.com/html/activity/growthCardICBC/index.html?from=groupmessage&isappinstalled=0",
                 remark: null,
                 sort: null,
                 staId: null,
@@ -324,6 +324,9 @@
                 this.$router.push('/teacherFees');
                 return false;
               }
+            };
+            if (id==22) {
+              location.href=url
             }
             vm.$router.push(url);
             return false;

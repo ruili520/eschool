@@ -56,6 +56,7 @@
         }
         this.$getSchoolList(obj,
         function (res) {
+          console.log(res)
           vm.list = res.result
         },function (res) {
 

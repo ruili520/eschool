@@ -81,9 +81,9 @@
               }
             });
             vm.allList.nonpay = pay;
-            console.vm(vm.allList.nonpay+"===============================");
+            console.log(vm.allList.nonpay+"===============================");
             vm.allList.paidList = paid;
-            console.vm(vm.allList.paidList+"--------------------------------");
+            console.log(vm.allList.paidList+"--------------------------------");
             vm.allList.payIng = payIng;
             console.log(vm.allList.payIng+"000000000000000000000000000000000");
           } else {
