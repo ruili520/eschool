@@ -19,9 +19,9 @@ export function lonIn(callback) {
       data = {
         "data": {
           "retmsg":"成功",
-          "data":"YQq75+helEEIr8FeyS7Dj9EJhC8RzEdSqwl23E1jgeABm1u+sOCLQpsiORMDDPW+yJyZcrrNlJeoJ7PGEYsCoIQDKFYc415S1Y3UasQXFXl5QIcf0Lbd+BSKO4r8tLBhvZqmx0qNQhZx8kDSAqSvvB/zfCufaAEqhO5YsKWAMeBc2wE5aVRGQ1gmXjIImE9wnutliCww690HGPd+RAmTBSljxpipNNwjBN66vFBVXJKtThktGwJOsvNhO1j+d0af0AyrnYIMMxKahq/eUzljmWZp4Zl+9OmKU4ck5ntEwAZECwwzENAZ3MAi9IlU9xLOnAbIos5B/1+Wfo8EOggRrGHBiopqsq8D8/gIe165i+Q2vV4CTjJEV0089GlHXP6M+eB2geFBbg6hi7pEscJ7LA==",
+          "data":"3S4KEXqwofPt65Yw8Zlauey6l/7uYSVF5/EbqrwQ3UPOaYXCWTVjH9UGS2rkKfLqg exPowHkgN\\nTUwLwlYJbeQd3ouE3tHWM8/Qmaef1T7/897Y+UL4Lo1A9t69rJGkS1WX3A40KUXZoY/hkN2TE3ue\\nSEn9moxyVreUsOJVs6xmdoNTXcKX/QuozyZsXaDI/MYAXzi6i8wOkMyKw2poN3NRmgzkRjQEG73Z\\nXzjMWXholmoSgncgcDAfFyAdbTgrFot/2/e0v34h9WxrE5efmXguAHs/mVLi99egvjGJTMP12wvQ\\nbAoVRIsLw Gaseyy GRqyMnA1zSZnrjdMgoUhM8bwbehoUmajE4fa D Efye SOrQasJf/KiopJIfGS5m\\nTiJNOCQCXSRDVG/6kT5qvGbd5pww6PoNjunmKkJx4q6s9tJJVCBiwb5DOIJGvPOYRLmp33CspPBY\\nvE2mC4KXJ5kGh+EXYiBAfEh/6nCnbGVR8NQ",
           "retcode":"0",
-          "key":"RuBII3v+lRwbXrFZKTmNKdsR+L7IbFF4UVNePTy5Ouc1EGaaLfzgiW6KWGEOwCTfkhDUA7v64Nu8wG2uOQtMRwxPrjsz58RWXiVR0yVMR+1JrS4y2tI4HxaH2ka/aAfc6Ms3U/BW68+UIJ+Ua+NJ92FFcozscmlKZMTLggkA/1w="},
+          "key":"WOw4iaQ1OUiaoDewrcl7FPbgJkj1UjlqejosYPn9MjYBoVY5lyNqav4tCKwZehlLo2XrYAEV7Vdv\\nDKK3XM1CIC6pzfMCcM3CWMNtMW/ngk4io BbywH3SbLlpbjBuhuWS8JswqrcuVnW/tHvQpvg2HD9B\\nENSrnQAkV3NS1VJTR8s="},
         "error":"",
         "code": 0
       };
@@ -29,11 +29,10 @@ export function lonIn(callback) {
       //生产长登陆（孙永伟）
       data = {
         "data": {
-          "retmsg": "成功",
-          "data": "JuszQi1iJFqRbEHb4N91iTFJxx4rN8mwYh1PcFgjSHvl9wWW6g9pFfTEDrwMHZYHCJGVanaa1Po0+iaUtKq9d8UjI1kM7613CkgJYc4Rbf5LsrTxSjXK8+/USofgOiH1u0As09EGINyRT9EKmSlv0BmdlkqNq6Tsmk8gZM7skP1b/qeeie9m6Rzyy7HhPr723FpgySFiFl45XHlrfFf9nh747EhgTdqI9IExr959zUVVQ0H0/as++Lls6dyFWlEwLycXdUftbqnMBWbw8LvBLVFXWaPI3OPi/BlT7uTxYFLQN8soBW+HmHwUNHGzqk71EJbY0/XfVrtoUw23P3UAHKLJwSHaRuaA3pjN/9WfFghgDNjJHnWXe8UlwiFLH7pIqQ5MAGj3ZloI2ouRrzv3EAwdwWXG1GW3AjXpeWDHfumyXPmAAS6ctmTJHJ8jg4qxjQIkEbimcT5PZpdHrLpHyFYRAS3ejC0396/tNz34NJjlxC6WeYSh3mhFXLMv9cixLQjGiZfad0k1dRkfmnnD7w==",
-          "retcode": "0",
-          "key": "GhMk/149Blh7nBieX1xLrvQ9b/x3bDuR8TsLIc+93JoPAt+QAkTqsT8njDc8ppu5KyCQ+/rfDEyNDXqMiF+v9RwQu/2VOwkCIDZ7dO3+bU0kSXQhxr0wkLORVyABlR2uX8hlLCtsE+DJlYqz26xM7KnmE71Eh4v/b3p3C50fAP8="
-        },
+          "retmsg":"成功",
+          "data":"3S4KEXqwofPt65Yw8Zlauey6l/7uYSVF5/EbqrwQ3UPOaYXCWTVjH9UGS2rkKfLqg exPowHkgN\\nTUwLwlYJbeQd3ouE3tHWM8/Qmaef1T7/897Y+UL4Lo1A9t69rJGkS1WX3A40KUXZoY/hkN2TE3ue\\nSEn9moxyVreUsOJVs6xmdoNTXcKX/QuozyZsXaDI/MYAXzi6i8wOkMyKw2poN3NRmgzkRjQEG73Z\\nXzjMWXholmoSgncgcDAfFyAdbTgrFot/2/e0v34h9WxrE5efmXguAHs/mVLi99egvjGJTMP12wvQ\\nbAoVRIsLw Gaseyy GRqyMnA1zSZnrjdMgoUhM8bwbehoUmajE4fa D Efye SOrQasJf/KiopJIfGS5m\\nTiJNOCQCXSRDVG/6kT5qvGbd5pww6PoNjunmKkJx4q6s9tJJVCBiwb5DOIJGvPOYRLmp33CspPBY\\nvE2mC4KXJ5kGh+EXYiBAfEh/6nCnbGVR8NQ",
+          "retcode":"0",
+          "key":"WOw4iaQ1OUiaoDewrcl7FPbgJkj1UjlqejosYPn9MjYBoVY5lyNqav4tCKwZehlLo2XrYAEV7Vdv\\nDKK3XM1CIC6pzfMCcM3CWMNtMW/ngk4io BbywH3SbLlpbjBuhuWS8JswqrcuVnW/tHvQpvg2HD9B\\nENSrnQAkV3NS1VJTR8s="},
         "error":"",
         "code": 0
       };
