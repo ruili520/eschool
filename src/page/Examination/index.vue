@@ -33,9 +33,11 @@
         var vm =this;
         lonIn((data)=>{
           console.log(data)
+          console.log(data.data.result.userIdStr)
           this.$MallLogin({
             "userId":data.data.result.userIdStr
           },function (res) {
+            console.log(res)
               vm.mall_domain_ignore = false
               const oIframe = document.getElementById('iframe');
               oIframe.src=res

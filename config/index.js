@@ -28,7 +28,7 @@ module.exports = {
         },
         onProxyReq(proxyReq, req, res) {
           // console.log("1.Origin:",proxyReq);
-          proxyReq.setHeader("origin","http://xuebank.com");
+          //proxyReq.setHeader("origin","http://xuebank.com");
 
           // console.log("1.Origin.headers:",proxyReq._headers);
         },

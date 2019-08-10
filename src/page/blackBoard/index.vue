@@ -12,12 +12,10 @@
       </div>
       <div class="msgCon">
         <div class="msg" v-for="item in blackboard" @click="linkInformation(item.articleId)">
+          <div class="addImg"><img :src="item.pageUrl" /></div>
           <div class="addCon">
             <p class="over" style="-webkit-box-orient:vertical;">{{item.articleTitle}}</p>
             <p class="num"><span>{{item.articlePv+item.articlePvPlus}}人说好</span></p>
-          </div>
-          <div class="addImg">
-            <img :src="item.pageUrl" />
           </div>
         </div>
       </div>
@@ -49,11 +47,12 @@
           page:1,
           size:10,
           isRecommend:"1",
-          more:"1",
+          more:"0",
           schoolType:"1"
         };
         this.$getBlackBoard(data
         ,function (res) {
+          console.log(res)
           vm.blackboard = res.result.data
           console.log(res)
         },function (res) {
@@ -82,7 +81,7 @@
     top: .2rem;
   }
   .mainMsg{
-    height: 1rem;
+    height: 1.2rem;
     display: flex;
     background-color: #F6F6F6;
     overflow: hidden;
@@ -108,7 +107,7 @@
   .img img{
     width:2.11rem;
     /*height: 100%;*/
-    height: 1rem;
+    height: 1.2rem;
 
   }
   .praise{
@@ -180,8 +179,8 @@
     height: 100%;
   }
   .nameCon{
-    width: 1.16rem;
-    height: 1rem;
+    width: 1.36rem;
+    height: 1.2rem;
     padding: 0 .12rem;
     background: url(../../assets/img/blackboard.png) no-repeat;
     background-size: 100% 100%;

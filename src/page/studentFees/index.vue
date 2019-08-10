@@ -105,7 +105,8 @@
         this.$router.push({
           name: "schoolPay",
           query: {
-            "itemId": value.taskId
+            "itemId": value.itemId,
+            "taskId":value.taskId,
           }
         })
       }
