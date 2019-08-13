@@ -12,9 +12,9 @@
         <p>享折扣</p>
       </div>
     </div>
-    <div style="margin-top: 44px;">
-      <div v-if="mall_domain_ignore" style="text-align: center;color: #26a2ff;line-height: 300px">商城页面测试，正在完善。。。</div>
-      <iframe  id="iframe" frameborder="0"></iframe>
+    <div style="margin-top: 44px;overflow: auto;-webkit-overflow-scrolling:touch;width:100%;">
+      <!--<div v-if="mall_domain_ignore" style="text-align: center;color: #26a2ff;line-height: 300px">正在登录。。。</div>-->
+      <iframe  id="iframe" frameborder="0" style="width: 1px; min-width: 100%; *width: 100%;"></iframe>
     </div>
   </div>
 </template>
@@ -38,10 +38,9 @@
           },function (res) {
             vm.mall_domain_ignore = false
             const oIframe = document.getElementById('iframe');
+            console.log(oIframe.style.width)
             oIframe.src=res
           },function (res) {
-            const oIframe = document.getElementById('iframe');
-            oIframe.src="http://eschool.uchung.com/test"
           })
         })
       },

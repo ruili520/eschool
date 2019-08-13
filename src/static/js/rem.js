@@ -7,6 +7,10 @@ export default {
 //设置一个获取屏幕宽度并赋值的函数
 //        获取屏幕宽度并赋值给自定义变量w
     var w = document.documentElement.offsetWidth;
+    if(w==0){
+      w = 393
+    }
+    var h = document.documentElement.offsetHeight;
     var f=null;
     if(320<w&&w<562){
       f=w/375 * 100;
@@ -18,6 +22,7 @@ export default {
     //        把计算过得fontSize加上px赋值给html标签的font-size
     document.documentElement.style.fontSize = f+ "px";
     console.log("屏宽",w,";","1rem=",f+"px");
+    console.log("屏宽",h,";","1rem=",f+"px");
   }
 }
 

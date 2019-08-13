@@ -30,7 +30,7 @@ export function logInCallBack (data) {
 }
 // 用户长登陆信息解密
 export function loginICBCLONG (data) {
-  return axios({url:'/eduboot/loginICBCLONG', method: 'post',data:data, config:{ credentials: true},headers:{'Origin': 'https://xuebank.com'},})
+  return axios.post('/eduboot/loginICBCLONG',data,{ credentials: true})
 }
 // 获取用户是否登录getUserLogin
 export function getUserLogin (data) {

@@ -246,6 +246,7 @@
           "itemAmount": (money/100)+''
         },function (res) {
           Indicator.close();
+          console.log(res)
           if (res.code == "000001") {
             let orderId = res.result;
             vm.payInfoSchool(orderId);
@@ -262,7 +263,7 @@
         })
       },
       //拿订单号获取支付信息
-      payInfoSchool(orderId) {
+       payInfoSchool(orderId) {
         Indicator.open({
           spinnerType: 'fading-circle'
         });

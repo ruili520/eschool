@@ -415,6 +415,14 @@ export default new Router({
       component: r => require.ensure([], () => r(require('@/page/Blackboard/index')), 'Blackboard'),
     },
     {
+      path: '/colleges/BlackboardInfo',
+      name: 'BlackboardInfo',
+      meta: {
+        title: '校园黑板报'
+      },
+      component: r => require.ensure([], () => r(require('@/page/Blackboard/info')), 'BlackboardInfo'),
+    },
+    {
       path: '/test',
       name: 'test',
       meta: {

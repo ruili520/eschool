@@ -12,7 +12,7 @@
       </div>
     </div>
     <div style="margin-top: 44px;">
-      <div v-if="mall_domain_ignore" style="text-align: center;color: #26a2ff;line-height: 300px">商城页面测试，正在完善。。。</div>
+      <!--<div v-if="mall_domain_ignore" style="text-align: center;color: #26a2ff;line-height: 300px">正在登录。。。</div>-->
       <iframe  id="iframe" frameborder="0"></iframe>
     </div>
   </div>
