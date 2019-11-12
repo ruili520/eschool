@@ -37,7 +37,7 @@
           <img src="../../assets/img/baobei.png" alt="">
           <p>宝贝权益</p>
         </div>
-        <div class="item" @click="itemClick(3)">
+        <div class="item" @click="shop">
           <div>
             <img src="../../assets/img/gouwu.png" alt="">
           </div>
@@ -239,7 +239,7 @@
                 id: 22,
                 menuIcon: "https://xuebanktest.oss-cn-shanghai.aliyuncs.com/logo/chengzhangka.png",
                 menuName: "宝贝成长卡",
-                menuUrl: "https://m.xuebank.com/html/activity/growthCardICBC/index.html?from=groupmessage&isappinstalled=0",
+                menuUrl: "http://icbc.xuebank.com/testac",
                 remark: null,
                 sort: null,
                 staId: null,
@@ -252,15 +252,57 @@
       }
     },
     methods:{
-      kidedu(){},
+      kidedu(){
+        var vm =this;
+        lonIn((data)=>{
+          this.$MallLogin1({
+            "userId":data.data.result.userIdStr,
+            "neigouUrl":"http://mall.mall.xuebank.com/Special/opActivity/storeId/4277"
+          },function (res) {
+            console.log(res)
+            window.native.RetainNavigationBar(
+              {
+                webUrl:res,
+                isReload:true,
+                title:"少儿教育"
+              }
+            )
+            oIframe.src=res
+          },function (res) {
+
+          })
+        })
+      },
       baobei(){
         window.native.RetainNavigationBar(
           {
-            webUrl:'https://m.xuebank.com/html/activity/growthCardICBC/index.html?from=groupmessage&isappinstalled=0',
+            webUrl:'http://icbc.xuebank.com/testac',
             isReload:true,
             title:"宝贝权益"
           }
         )
+      },
+      shop(){
+        var vm =this;
+        lonIn((data)=>{
+          this.$MallLogin({
+            "userId":data.data.result.userIdStr,
+          },function (res) {
+            console.log(res)
+            window.native.RetainNavigationBar(
+              {
+                webUrl:res,
+                isReload:true,
+                title:"购物淘淘"
+              }
+            )
+            oIframe.src=res
+          },function (res) {
+
+          })
+        })
+
+
       },
       //获取首页icon数据
       getClassIcon(){
@@ -336,7 +378,13 @@
               }
             };
             if (id==22) {
-              location.href=url
+              window.native.RetainNavigationBar(
+                {
+                  webUrl:'http://icbc.xuebank.com/testac',
+                  isReload:true,
+                  title:"宝贝成长卡"
+                }
+              )
             }
             vm.$router.push(url);
             return false;
@@ -360,9 +408,9 @@
         console.log(data)
       })
     },
-    created() {
-      sessionStorage.setItem('test',true)
-    }
+    // created() {
+    //   sessionStorage.setItem('test',true)
+    // }
   }
 </script>
 

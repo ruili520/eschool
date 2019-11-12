@@ -6,6 +6,9 @@
         <span class="iconfont" @click="goBack">
             &#xe615;
           </span>
+        <span  class="iconfont" @click="colse" style="margin-left: .2rem">
+            &#xe633;
+          </span>
       </div>
       <div class="seekConent" style="margin: 0 auto;font-family: PingFangSC-Semibold, sans-serif;font-size: 19px;color: #607483">
         <p>助力考</p>
@@ -32,22 +35,23 @@
         this.mall_domain_ignore = true
         var vm =this;
         lonIn((data)=>{
-          console.log(data)
-          console.log(data.data.result.userIdStr)
-          this.$MallLogin({
-            "userId":data.data.result.userIdStr
+          this.$MallLogin1({
+            "userId":data.data.result.userIdStr,
+            "neigouUrl":"http://mall.mall.xuebank.com/Special/opActivity/storeId/4279"
           },function (res) {
             console.log(res)
               vm.mall_domain_ignore = false
               const oIframe = document.getElementById('iframe');
               oIframe.src=res
             },function (res) {
-              const oIframe = document.getElementById('iframe');
-              oIframe.src="http://eschool.uchung.com/test"
+
             })
         })
       },
       goBack(){
+        history.go(-1);
+      },
+      colse(){
         window.native.PopViewController();
       },
       test(){

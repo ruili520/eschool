@@ -6,7 +6,7 @@
       <div class="seek">
         <p>
           <img src="../../assets/img/seek.png" />
-          <input type="text" placeholder="学校" v-model="field"/>
+          <input type="text" placeholder="学校" v-model="field" style="width: 2.6rem"/>
           <img @click="close" src="../../assets/img/close.png" />
         </p>
         <!--<span><img @click="close" src="../assets/verifica/close.png" /></span>-->
@@ -105,7 +105,7 @@
   .seek{
     display: flex;
     justify-content: space-between;
-    width: 2.9rem;
+    width: 3.6rem;
     line-height: .4rem;
     background-color: #fff;
     border-radius: .04rem;
@@ -115,7 +115,7 @@
     img{
       width: .2rem;
       vertical-align: middle;
-      margin-right: .1rem;
+      margin-right: .05rem;
     }
   }
   .design{

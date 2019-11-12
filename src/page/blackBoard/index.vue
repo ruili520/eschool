@@ -90,6 +90,9 @@
       },
       linkInformation(id){
         this.$router.push('/colleges/BlackboardInfo?id='+id)
+      },
+      goPay(){
+        this.$router.push("/index")
       }
     },
     mounted() {

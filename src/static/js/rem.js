@@ -22,7 +22,6 @@ export default {
     //        把计算过得fontSize加上px赋值给html标签的font-size
     document.documentElement.style.fontSize = f+ "px";
     console.log("屏宽",w,";","1rem=",f+"px");
-    console.log("屏宽",h,";","1rem=",f+"px");
   }
 }
 

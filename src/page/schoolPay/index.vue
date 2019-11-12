@@ -236,7 +236,7 @@
           spinnerType: 'fading-circle'
         });
         var vm = this;
-        this.$createOrderSchool({"itemId":ids.join(','),
+        let obj = {"itemId":ids.join(','),
           "accountsCode": this.payData.accoutsCode,
           "taskId": this.payData.taskId,
           "schoolId": this.payData.schoolId,
@@ -244,9 +244,11 @@
           "studentNo": this.payData.studentNo,
           "studentId": this.payData.studentId,
           "itemAmount": (money/100)+''
-        },function (res) {
+        }
+        console.log(122,obj)
+        this.$createOrderSchool(obj,function (res) {
           Indicator.close();
-          console.log(res)
+          console.log(123,res)
           if (res.code == "000001") {
             let orderId = res.result;
             vm.payInfoSchool(orderId);
@@ -270,6 +272,7 @@
         var vm =this;
         this.$payInfoSchool(orderId,function (res) {
           Indicator.close();
+          console.log(123,res)
           if (res.code == "000001") {
             let result = JSON.parse(res.result);
             console.log(result.result);

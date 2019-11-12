@@ -30,7 +30,16 @@ var install = function (Vue) {
       value:function (params,success,faild) {
         this.UIAxios(getEDUUrl('neigou/login'), {
           method: "get",
-          data: params
+          params: params
+        }, success, faild);
+      }
+    },
+    //商城登录
+    $MallLogin1:{
+      value:function (params,success,faild) {
+        this.UIAxios(getEDUUrl('neigou/loginVersion'), {
+          method: "get",
+          params: params
         }, success, faild);
       }
     },

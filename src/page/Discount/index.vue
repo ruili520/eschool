@@ -1,50 +1,79 @@
 <!--享折扣页面-->
 <!--助力考页面-->
 <template>
-  <div>
-    <div class="header">
-      <div class="goBack">
+   <div>
+     <div class="header">
+       <div class="goBack">
         <span class="iconfont" @click="goBack">
             &#xe615;
           </span>
-      </div>
-      <div class="seekConent" style="margin: 0 auto;font-family: PingFangSC-Semibold, sans-serif;font-size: 19px;color: #607483">
-        <p>享折扣</p>
-      </div>
-    </div>
-    <div style="margin-top: 44px;overflow: auto;-webkit-overflow-scrolling:touch;width:100%;">
-      <!--<div v-if="mall_domain_ignore" style="text-align: center;color: #26a2ff;line-height: 300px">正在登录。。。</div>-->
-      <iframe  id="iframe" frameborder="0" style="width: 1px; min-width: 100%; *width: 100%;"></iframe>
-    </div>
-  </div>
+         <span class="iconfont" @click="colse" style="margin-left: .2rem">
+            &#xe633;
+          </span>
+       </div>
+       <div class="seekConent" style="margin: 0 auto;font-family: PingFangSC-Semibold, sans-serif;font-size: 19px;color: #607483">
+         <p>享折扣</p>
+       </div>
+     </div>
+     <div style="margin-top:44px;-webkit-overflow-scrolling:touch;width:100%;overflow-y: scroll;">
+       <!--<div v-if="mall_domain_ignore" style="text-align: center;color: #26a2ff;line-height: 300px">正在登录。。。</div>-->
+       <iframe   id="iframe"  frameborder="0"  style="width: 1px; min-width: 100%; *width: 100%"></iframe>
+       <!--<iframe src="w1.1.html" frameborder="0"  style="width:1px; min-width:100%; *width:100%;">-->
+       <!--<iframe v-if="!isAndroid()"  id="iframeIos" frameborder="0" scrolling="no" style="width: 1px; min-width: 100%; *width: 100%;"></iframe>-->
+       <!--<discount v-if="!isAndroid()"></discount>-->
+     </div>
+   </div>
 </template>
 <script>
   import {lonIn,shortLogIn} from "../../static/js/logIn";
   import { neigouLogin } from '../../apis/app.api.js';
+  import discount from './dis'
   export default {
     name:'',
+    components:{
+      discount
+    },
     data(){
       return{
         mall_domain_ignore:false
       }
     },
     methods:{
+      isAndroid(){
+        var vm = this;
+        var u = navigator.userAgent
+        console.log(u)
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1 // android终端
+        // var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1
+        return isAndroid;
+      },
       getuserData(){
         this.mall_domain_ignore = true
         var vm =this;
         lonIn((data)=>{
+          console.log(data.data.result.userIdStr)
           this.$MallLogin({
-            "userId":data.data.result.userIdStr
+            "userId":data.data.result.userIdStr,
           },function (res) {
             vm.mall_domain_ignore = false
             const oIframe = document.getElementById('iframe');
             console.log(oIframe.style.width)
-            oIframe.src=res
+            // oIframe.src=res
+            if(vm.isAndroid()){
+              oIframe.src=res
+            }else {
+              // oIframe.src=res
+              window.location.href=res
+            }
+
           },function (res) {
           })
         })
       },
       goBack(){
+        history.go(-1);
+      },
+      colse(){
         window.native.PopViewController();
       }
     },
