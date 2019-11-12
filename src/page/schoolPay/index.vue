@@ -136,6 +136,7 @@
       },
       //获取项目信息
       getFeeDetail() {
+        console.log(this.$route.query.itemId)
         Indicator.open({
           spinnerType: 'fading-circle'
         });
@@ -147,15 +148,15 @@
           Indicator.close();
           // console.log('63636363',this.$route.query.itemId)
           if (res.code == "000001") {
-            vm.payData = res.result.list;
+            vm.payData = res.result.list[0];
             vm.accountsType = res.result.accountsType;
             console.log('79797979', res.result);
             //  console.log('4040404',this.accountsType);
-            this.$getFeeItemDetail({
-              taskId: vm.$route.query.itemId
+            vm.$getFeeItemDetail({
+              taskId: vm.$route.query.taskId
             }, function (res) {
+              console.log(res)
               if (res.code == "000001") {
-
                 vm.selectedProperties = vm.itemDetails = res.result;
                 //  this.itemDetails = data.data.result;
                 console.log(vm.itemDetails, '--------')
@@ -176,7 +177,6 @@
       //短登录
       shortLogIn(u) {
         console.info(this.accountsType)
-
         if(this.selectedProperties.length==0){
           Toast('请勾选要选择缴费的项目');
           return false;
@@ -184,7 +184,8 @@
         lonIn((data)=>{
           let result = data.data.result;
           if(data.data.code == "000001"){
-            if(result.userlevel === '0'){
+            console.log(result)
+            // if(result.userlevel === '1'){
               shortLogIn("",(data)=>{
                 console.log(data);
                 if(data.code == "0"){
@@ -199,12 +200,12 @@
                   MessageBox({title:"登录失败"});
                 }
               })
-            }else{
-              MessageBox({
-                title: '提示',
-                message:'仅支持激活智慧校园卡后使用，</br>请进入【我的】激活智慧校园卡',
-              });
-            }
+            // }else{
+            //   MessageBox({
+            //     title: '提示',
+            //     message:'仅支持激活智慧校园卡后使用，</br>请进入【我的】激活智慧校园卡',
+            //   });
+            // }
           }else{
             MessageBox({
               title: result.messages
@@ -226,7 +227,6 @@
       pay() {
         let ids=[],money=0;
         for(let item of this.selectedProperties){
-
           ids.push(item.itemId);
           money=money+item.itemAmount*100;
         }
@@ -246,6 +246,7 @@
           "itemAmount": (money/100)+''
         },function (res) {
           Indicator.close();
+          console.log(res)
           if (res.code == "000001") {
             let orderId = res.result;
             vm.payInfoSchool(orderId);
@@ -262,7 +263,7 @@
         })
       },
       //拿订单号获取支付信息
-      payInfoSchool(orderId) {
+       payInfoSchool(orderId) {
         Indicator.open({
           spinnerType: 'fading-circle'
         });

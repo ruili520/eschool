@@ -295,7 +295,7 @@ var install = function (Vue) {
     // 获取缴费项目详情
     $getFeeItemDetail:{
       value:function (params, success, fail) {
-        this.UIAxios(getUrl('/homepage/getFeeItemDetail'), {
+        this.UIAxios(getUrl('homepage/getFeeItemDetail'), {
           method: "post",
           data: params
         }, success, fail);

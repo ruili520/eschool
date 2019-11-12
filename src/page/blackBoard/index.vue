@@ -1,28 +1,50 @@
 <!--黑板报页面-->
 <template>
-  <div class="blackboard">
+  <div>
+    <!--<div v-if="isAndroid()"  class="blackboard">-->
+      <!--<div style="background: #fff;">-->
+        <!--<div v-if="blackboard.length!=0" class="mainMsg1" @click="linkInformation(blackboard[0].articleId)">-->
+          <!--<div class="nameCon1">-->
+            <!--<div class="tuijian">推荐</div>-->
+            <!--<div class="name" style="-webkit-box-orient: vertical;">{{blackboard[0].articleTitle}}</div>-->
+            <!--<div class="praise"><span>{{blackboard[0].articleTime}}</span></div>-->
+          <!--</div>-->
+          <!--<div class="img1"><img :src="blackboard[0].pageUrl" alt="配图"></div>-->
+        <!--</div>-->
+        <!--<div class="msgCon">-->
+          <!--<div class="msg" v-for="item in blackboard" @click="linkInformation(item.articleId)">-->
+            <!--<div class="addImg"><img :src="item.pageUrl" /></div>-->
+            <!--<div class="addCon">-->
+              <!--<p class="over" style="-webkit-box-orient:vertical;">{{item.articleTitle}}</p>-->
+              <!--<p class="num"><span>{{item.articleTime}}</span></p>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div style="height: .12rem; background: #f6f6f6;"></div>-->
+    <!--</div>-->
+    <div  class="blackboard">
     <div style="background: #fff;">
-      <div class="mainMsg" @click="linkInformation(blackboard[0].articleId)">
+      <div v-if="blackboard.length!=0" class="mainMsg" @click="linkInformation(blackboard[0].articleId)">
         <div class="nameCon">
           <div class="tuijian">推荐</div>
           <div class="name" style="-webkit-box-orient: vertical;">{{blackboard[0].articleTitle}}</div>
-          <div class="praise"><span>{{blackboard[0].articlePv+blackboard[0].articlePvPlus}}</span><span>人说好</span></div>
+          <div class="praise"><span>{{blackboard[0].articleTime}}</span></div>
         </div>
         <div class="img"><img :src="blackboard[0].pageUrl" alt="配图"></div>
       </div>
       <div class="msgCon">
         <div class="msg" v-for="item in blackboard" @click="linkInformation(item.articleId)">
+          <div class="addImg"><img :src="item.pageUrl" /></div>
           <div class="addCon">
             <p class="over" style="-webkit-box-orient:vertical;">{{item.articleTitle}}</p>
-            <p class="num"><span>{{item.articlePv+item.articlePvPlus}}人说好</span></p>
-          </div>
-          <div class="addImg">
-            <img :src="item.pageUrl" />
+            <p class="num"><span>{{item.articleTime}}</span></p>
           </div>
         </div>
       </div>
     </div>
     <div style="height: .12rem; background: #f6f6f6;"></div>
+  </div>
   </div>
 </template>
 
@@ -32,33 +54,42 @@
     name:'',
     data(){
       return{
-        blackboard: [
-          {articleTitle:'测试调试文章',articlePv:'12',articlePvPlus:'16',pageUrl:'http://img1.imgtn.bdimg.com/it/u=398611630,1920598617&fm=26&gp=0.jpg'},
-          {articleTitle:'测试调试文章',articlePv:'12',articlePvPlus:'16',pageUrl:'http://img1.imgtn.bdimg.com/it/u=398611630,1920598617&fm=26&gp=0.jpg'},
-          {articleTitle:'测试调试文章',articlePv:'12',articlePvPlus:'16',pageUrl:'http://img1.imgtn.bdimg.com/it/u=398611630,1920598617&fm=26&gp=0.jpg'},
-          {articleTitle:'测试调试文章',articlePv:'12',articlePvPlus:'16',pageUrl:'http://img1.imgtn.bdimg.com/it/u=398611630,1920598617&fm=26&gp=0.jpg'},
-        ],  //黑板报的数据
+        blackboard: [],  //黑板报的数据
       }
     },
     methods:{
+      isAndroid(){
+        var vm = this;
+        var u = navigator.userAgent
+        console.log(u)
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1 // android终端
+        // var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1
+        return isAndroid;
+      },
       getBlackboard(){
         var vm = this;
         var data={
           cityName:"上海",
-          isHot:"1",
+          isHot:"0",
           page:1,
           size:10,
           isRecommend:"1",
-          more:"1",
+          more:"0",
           schoolType:"1"
         };
         this.$getBlackBoard(data
         ,function (res) {
-          vm.blackboard = res.result.data
           console.log(res)
-        },function (res) {
+          vm.blackboard = res.result.data
+            vm.blackboard.forEach(function (item, index) {
+              item.articleTime=vm.util.formatDate(item.articleTime)
+            });
+          },function (res) {
           console.log(res)
         })
+      },
+      linkInformation(id){
+        this.$router.push('/colleges/BlackboardInfo?id='+id)
       }
     },
     mounted() {
@@ -82,7 +113,15 @@
     top: .2rem;
   }
   .mainMsg{
-    height: 1rem;
+    height: 1.2rem;
+    display: flex;
+    background-color: #F6F6F6;
+    overflow: hidden;
+    margin:0 .12rem .12rem .12rem;
+    position: relative;
+  }
+  .mainMsg1{
+    height: 1.2rem;
     display: flex;
     background-color: #F6F6F6;
     overflow: hidden;
@@ -108,7 +147,13 @@
   .img img{
     width:2.11rem;
     /*height: 100%;*/
-    height: 1rem;
+    height: 1.2rem;
+
+  }
+  .img1 img{
+    width:2.13rem;
+    /*height: 100%;*/
+    height: 1.2rem;
 
   }
   .praise{
@@ -180,8 +225,15 @@
     height: 100%;
   }
   .nameCon{
-    width: 1.16rem;
-    height: 1rem;
+    width: 1.36rem;
+    height: 1.2rem;
+    padding: 0 .12rem;
+    background: url(../../assets/img/blackboard.png) no-repeat;
+    background-size: 100% 100%;
+  }
+  .nameCon1{
+    width: 1.36rem;
+    height: 1.2rem;
     padding: 0 .12rem;
     background: url(../../assets/img/blackboard.png) no-repeat;
     background-size: 100% 100%;

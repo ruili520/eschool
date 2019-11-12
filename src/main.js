@@ -12,7 +12,7 @@ import axios from 'axios';
 import native from './static/js/native'
 import common from './axios/index';
 import HttpUtils from './axios/HttpUtils';
-import './static/js/vConsole'
+// import './static/js/vConsole'
 
 
 import MintUI from 'mint-ui';

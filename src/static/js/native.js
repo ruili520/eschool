@@ -9,6 +9,7 @@ window.onerror = function (err) {
 function connectWebViewJavascriptBridge (callback) {
   function isAndroid () {
     var u = navigator.userAgent
+    console.log(u)
     var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1 // android终端
     // var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1
     console.log(isAndroid, '111212212')
@@ -73,6 +74,42 @@ connectWebViewJavascriptBridge(function (bridge, qiao) {
 })
 // 获取定位
 XBK.getCity = function (callback) {
+  var data = {'data': {}, 'action': 'LocalLocation'}
+  console.log('1. js 获取定位发送的数据', data)
+  // eslint-disable-next-line
+  if(sessionStorage.test == "true"){
+    // if(true){
+    let city = {
+      'ISOcountryCode': 'CN',
+      'subAdministrativeArea': '',
+      'subLocality': 'Tianhe',
+      'longitude': '113.378683',
+      'thoroughfare': 'Tangxia Dapian Road',
+      'administrativeArea': '广东',
+      'latitude': '23.129805',
+      'subThoroughfare': 'No.3-2',
+      'postalCode': '',
+      'country': 'China',
+      'locality': '上海',
+      'name': 'No.3-2 Tangxia Dapian Road'
+    }
+    let testData = {
+      'error': '',
+      'data': city,
+      'code': '0'
+    }
+    callback(JSON.stringify(testData))
+  }
+  connectWebViewJavascriptBridge(function (bridge, qiao) {
+    console.log('2. 定位数据', qiao)
+    bridge.callHandler('XueBankWebViewJavascriptBridge', data, function (responseData) {
+      callback(responseData)
+      console.log('3. JS 接收到的定位数据', responseData)
+    })
+  })
+}
+// 获取定位
+XBK.getCity1 = function (callback) {
   var data = {'data': {}, 'action': 'LocalLocation'}
   console.log('1. js 获取定位发送的数据', data)
   // eslint-disable-next-line
@@ -403,14 +440,14 @@ XBK.OpenTelephone = function (phone) {
 XBK.ObtainICBCEnvironment = function (callback) {
   var data = {'data': {}, 'action': 'ObtainICBCEnvironment'}
   console.log('获取工行运行环境', data)
-  if (sessionStorage.test == 'true') {
-    let testData = {
-      'error': '',
-      'data': {'contactType': 2001},
-      'code': '0'
-    }
-    callback(JSON.stringify(testData))
-  }
+  // if (sessionStorage.test == 'true') {
+  //   let testData = {
+  //     'error': '',
+  //     'data': {'contactType': 2001},
+  //     'code': '0'
+  //   }
+  //   callback(JSON.stringify(testData))
+  // }
   connectWebViewJavascriptBridge(function (bridge) {
     bridge.callHandler('XueBankWebViewJavascriptBridge', data, function (responseData) {
       console.log('JS 接收到的工行环境', responseData)

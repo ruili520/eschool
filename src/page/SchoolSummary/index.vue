@@ -46,21 +46,21 @@
     components: {
       headcom
     },
-    methods: {
+    methods:{
       //获取学校信息详情
-      getSchoolInfo() {
-        var vm = this;
+      getSchoolInfo(){
+        var vm =this;
         var obj = {
-          schoolId: this.$route.query.schoolId
+          schoolId:this.$route.query.schoolId
         }
-        this.$getSchoolInfo(obj, function (res) {
+        this.$getSchoolInfo(obj,function (res) {
           vm.active = res.result
-        }, function (res) {
+        },function (res) {
 
         })
       },
       //联系幼儿园
-      contact(tel) {
+      contact(tel){
         window.native.OpenTelephone(tel);
       },
 

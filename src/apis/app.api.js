@@ -22,7 +22,7 @@ export function neigouLogin (data){
 }
 // 登录接口
 export function getSessionId (data) {
-  return axios.post(getEDUUrl('getSessionId'), data, { credentials: true})
+  return axios.post('/eduboot/getSessionId', data, { credentials: true})
 }
 // 登录接口回调（应该由app做此操作）
 export function logInCallBack (data) {
@@ -30,7 +30,7 @@ export function logInCallBack (data) {
 }
 // 用户长登陆信息解密
 export function loginICBCLONG (data) {
-  return axios.post('/eduboot/loginICBCLONG', data, { credentials: true})
+  return axios.post('/eduboot/loginICBCLONG',data,{ credentials: true})
 }
 // 获取用户是否登录getUserLogin
 export function getUserLogin (data) {
@@ -120,10 +120,6 @@ export function payInfoSchool (data) {
 export function icbcPublicPayPayInfo (data) {
   return Vue.http.post(getUrl('icbcPublicPay/payInfo/' + data), {})
 }
-// 获取缴费项目信息
-export function getFeeDetail (data) {
-  return Vue.http.post(getUrl('homepage/getFeeDetail'), data)
-}
 // 老师查看缴费接口
 export function getFeeClassList (data) {
   return Vue.http.post(getUrl('homepage/getTeaFeeList'), data)
@@ -132,7 +128,10 @@ export function getFeeClassList (data) {
 export function getTeaFeeClassList (data) {
   return Vue.http.post(getUrl('homepage/getTeaFeeClassList'), data)
 }
-
+// 获取缴费项目信息
+export function getFeeDetail (data) {
+  return Vue.http.post(getUrl('homepage/getFeeDetail'), data)
+}
 // 获取缴费项目详情
 export function getFeeItemDetail (data) {
   return Vue.http.post(getUrl('/homepage/getFeeItemDetail'), data)

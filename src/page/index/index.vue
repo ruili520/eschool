@@ -13,7 +13,7 @@
         </mt-swipe-item>
       </mt-swipe>
     </div>
-    <mt-button @click="test">测试</mt-button>
+    <!--<mt-button @click="test">测试</mt-button>-->
     <!--校园行入口-->
     <!--<div class="page">-->
       <!--<div class="itemCon">-->
@@ -27,13 +27,13 @@
     <!--</div>-->
     <div class="page">
       <div class="itemCon">
-        <div class="item" @click="itemClick(1)">
+        <div class="item" @click="kidedu">
           <div>
             <img src="../../assets/img/kidedu.png" alt="">
           </div>
           <p>少儿教育</p>
         </div>
-        <div class="item" @click="itemClick(2)">
+        <div class="item" @click="baobei">
           <img src="../../assets/img/baobei.png" alt="">
           <p>宝贝权益</p>
         </div>
@@ -254,6 +254,16 @@
       }
     },
     methods:{
+      kidedu(){},
+      baobei(){
+        window.native.RetainNavigationBar(
+          {
+            webUrl:'https://m.xuebank.com/html/activity/growthCardICBC/index.html?from=groupmessage&isappinstalled=0',
+            isReload:true,
+            title:"宝贝权益"
+          }
+        )
+      },
       //获取首页icon数据
       getClassIcon(){
         this.$indicator.open({
