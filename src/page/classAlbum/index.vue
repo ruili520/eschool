@@ -144,7 +144,6 @@
           });
         }
         var vm = this;
-
         this.$getTSchoolPhotoList({"page": this.page,
           "size": 10,
         },function (res) {

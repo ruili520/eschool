@@ -126,6 +126,7 @@
   import headcom from '../../components/headcom'
   import {calculateDaytime,leaveSubmit} from "../../apis/app.api";
   import {lonIn} from "../../static/js/logIn";
+  import {MessageBox,Indicator,Toast} from 'mint-ui';
   export default {
     name:'',
     components:{

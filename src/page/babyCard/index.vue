@@ -62,7 +62,7 @@
           return false
         }
         // Indicator.open({ spinnerType: 'fading-circle' });
-        this.$cardBind({cardNo:this.cardNo},function (res) {
+        vm.$cardBind({cardNo:vm.cardNo},function (res) {
           if(res.code == "000001"){
             window.location.reload()
           }else{
