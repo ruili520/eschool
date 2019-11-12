@@ -292,57 +292,59 @@
         });
       },
       bind() {
-        this.field.campus_type = '1';
-        if (this.field.stuTeaName == '') {
+        var vm = this;
+        vm.field.campus_type = '1';
+        if (vm.field.stuTeaName == '') {
           Toast('请填写宝贝姓名');
           return false;
         }
-        if (this.field.stuTeaSex == '') {
+        if (vm.field.stuTeaSex == '') {
           Toast('请选择宝贝性别');
           return false;
         }
-        console.log(this.field.birthDate)
-        if (this.field.birthDate == '') {
+        console.log(vm.field.birthDate)
+        if (vm.field.birthDate == '') {
           Toast('请选择宝贝生日');
           return false;
         }
-        if (!this.isTeacher) {
-          this.field.roleId = 2;
-          if (this.field.familyTies == null) {
+        if (!vm.isTeacher) {
+          vm.field.roleId = 2;
+          if (vm.field.familyTies == null) {
             Toast('请选择您的孩子的关系');
             return false;
           }
         } else {
-          this.field.roleId = 3;
-          if (this.field.idPhoneNo == null) {
+          vm.field.roleId = 3;
+          if (vm.field.idPhoneNo == null) {
             Toast('请输入验证号码');
             return false;
           }
         }
-        this.field.schoolId = this.$route.query.schoolId;
-        if (this.isWx()) {
-          this.field.userType = "2";
-          this.field.userId = 100;
+        vm.field.schoolId = vm.$route.query.schoolId;
+        if (vm.isWx()) {
+          vm.field.userType = "2";
+          vm.field.userId = 100;
         } else {
-          this.field.userType = "1";
-          this.field.userId = '';
+          vm.field.userType = "1";
+          vm.field.userId = '';
         }
-        if (this.field.headImg.substr(0, 4) == 'data') {
-          this.field.headImg = '';
+        if (vm.field.headImg.substr(0, 4) == 'data') {
+          vm.field.headImg = '';
         }
         Indicator.open()
-        this.$toBind(this.field,function (res) {
+        vm.$toBind(vm.field,function (res) {
           console.log(res)
           Indicator.close();
           if (res.code == "000001") {
             if (res.result == "0") {
               Toast("绑定失败");
             } else if (res.result == "1") {
-              if (this.isTeacher == 3) {
-                this.$router.push('/teacherMessage');
+              if (vm.isTeacher == 3) {
+                vm.$router.push('/teacherMessage');
               } else {
                 // this.$router.push('/identity');
-                this.$router.push('/index');
+                Toast("绑定成功");
+                vm.$router.push('/index');
               }
             } else {
               MessageBox("提示", res.message);

@@ -100,23 +100,44 @@
         if (!this.isCheck()) return
         this.resetPos()
       },
-      // 删除某一行
-      removeSide(cardNo) {
-        this.resetPos();
-        deleteCardBind({cardNo:cardNo}).then((data)=>{
+
+      removeSide(cardNo){
+        var vm = this;
+        vm.resetPos();
+        vm.$deleteCardBind({cardNo:cardNo},function (res) {
+          console.log(res)
           Indicator.close();
-          if(data.data.code == "000001"){
+          if(res.code == "000001"){
             Toast('删除成功')
-            this.getCard();
+            vm.getCard();
           }else{
-            MessageBox("提示",data.body.message);
+            MessageBox("提示",res.message);
           }
-        },()=>{
+        },function (res) {
           Indicator.close();
           MessageBox({title: "请求数据失败"});
         })
-        //this.sideslipList.splice(index, 1)
-      }
+      },
+
+
+
+      // 删除某一行
+      // removeSide(cardNo) {
+      //   this.resetPos();
+      //   deleteCardBind({cardNo:cardNo}).then((data)=>{
+      //     Indicator.close();
+      //     if(data.data.code == "000001"){
+      //       Toast('删除成功')
+      //       this.getCard();
+      //     }else{
+      //       MessageBox("提示",data.body.message);
+      //     }
+      //   },()=>{
+      //     Indicator.close();
+      //     MessageBox({title: "请求数据失败"});
+      //   })
+      //   //this.sideslipList.splice(index, 1)
+      // }
     }
   }
 </script>

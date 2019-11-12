@@ -25,6 +25,7 @@ import 'muse-ui/lib/styles/base.less'
 import { Picker, Tabs, Select } from 'muse-ui'
 import 'muse-ui/lib/styles/theme.less'
 
+
 Vue.use(Picker, Tabs, Select)
 Vue.use(MuseUI)
 Vue.use(common)

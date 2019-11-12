@@ -80,10 +80,12 @@
           {title:'购物淘淘',imgUrl:'https://xuebankoss.oss-cn-shanghai.aliyuncs.com/xuebank_pro/ecanteen/20190801/201908011251173900.jpg'}
         ],
         banner:[
-          {bannerIcon:"https://xuebankoss.oss-cn-shanghai.aliyuncs.com/smart_campus/feedback/20180509/201805091547172165_saishangyoueryuan2.jpg"},
-          {bannerIcon:"https://xuebankoss.oss-cn-shanghai.aliyuncs.com/smart_campus/feedback/20180509/201805091547172165_saishangyoueryuan2.jpg"},
-          {bannerIcon:"https://xuebankoss.oss-cn-shanghai.aliyuncs.com/smart_campus/feedback/20180509/201805091547172165_saishangyoueryuan2.jpg"},
-          {bannerIcon:"https://xuebankoss.oss-cn-shanghai.aliyuncs.com/smart_campus/feedback/20180509/201805091547172165_saishangyoueryuan2.jpg"}
+
+          {bannerIcon:"http://mm.xuebank.com/photo/111.jpg"},
+          {bannerIcon:"http://mm.xuebank.com/photo/222.jpg"},
+          {bannerIcon:"http://mm.xuebank.com/photo/333.jpg"},
+
+
         ],//轮播图数据
         group: [
           {
@@ -350,9 +352,9 @@
         console.log(data)
       })
     },
-    // created() {
-    //   sessionStorage.setItem('test',true)
-    // }
+    created() {
+      sessionStorage.setItem('test',true)
+    }
   }
 </script>
 

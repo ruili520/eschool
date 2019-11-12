@@ -51,7 +51,7 @@
           "page": this.page,
           "size": 20
         },function (res) {
-          console.log(res)
+          console.log(res);
           if (res.code == '000001') {
             vm.list = res.result;
           } else

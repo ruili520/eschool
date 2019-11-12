@@ -25,6 +25,16 @@ var install = function (Vue) {
         }, success, faild);
       }
     },
+
+    $deleteCardBind:{
+      value:function (params,success,faild) {
+        this.UIAxios(getUrl('cardManager/deleteCardBind'),{
+          method: "post",
+          data: params
+        }, success, faild);
+      }
+    },
+
     //商城登录
     $MallLogin:{
       value:function (params,success,faild) {
