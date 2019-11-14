@@ -17,8 +17,7 @@
       </div>
       <div class="content" v-html="active.content">
       </div>
-      <div @click="contact(active.gardenPhone)" class="button">联系幼儿园 <a class="aaa" id="aaa" :href="'tel:' + active.gardenPhone ">{{active.gardenPhone }}</a></div>
-      <div><a href='tel://13849988888'>拨打电话111</a></div>
+      <div class="button">联系幼儿园 <a class="aaa" id="aaa" :href="'tel:' + active.gardenPhone ">{{active.gardenPhone }}</a></div>
     </div>
     <div v-else style="text-align: center;padding-top: 2rem">
       <img src="../../assets/img/void1.png" alt="" style="width: 1.5rem" />
