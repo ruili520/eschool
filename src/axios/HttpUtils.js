@@ -25,7 +25,7 @@ var install = function (Vue) {
         }, success, faild);
       }
     },
-
+    //删除考勤卡
     $deleteCardBind:{
       value:function (params,success,faild) {
         this.UIAxios(getUrl('cardManager/deleteCardBind'),{
@@ -218,6 +218,15 @@ var install = function (Vue) {
       }
     },
 
+    $getLeaveNotifyDetail:{
+      value:function (params, success, fail) {
+        this.UIAxios(getUrl('leave/getLeaveNotifyDetail'), {
+          method: "post",
+          data: params
+        }, success, fail);
+      }
+    },
+
 
     // 获取校园消息的请假列表
     $getLeaveNotifyList:{
@@ -366,15 +375,24 @@ var install = function (Vue) {
         }, success, fail);
       }
     },
-    //class albums
-    $checkFollowToThumb:{
+
+    $getTMailboxInfo:{
       value:function (params, success, fail) {
-        this.UIAxios(getUrl('photo/checkFollow'), {
+        this.UIAxios(getUrl('tmailbox/getTMailboxInfo/'+params), {
           method: "post",
-          data: params
         }, success, fail);
       }
     },
+
+    //class albums
+    $checkFollowToThumb:{
+      value:function (params, success, fail) {
+        this.UIAxios(getUrl('photo/checkFollow/'+params), {
+          method: "post",
+        }, success, fail);
+      }
+    },
+
     // 根据场景id获取设备信息（视频页使用）
     $getKdgIpcBySceneId:{
       value:function (params, success, fail) {
@@ -384,6 +402,25 @@ var install = function (Vue) {
         }, success, fail);
       }
     },
+
+    $getActivityData:{
+      value:function (params, success, fail) {
+        this.UIAxios(getUrl('activity/getActivityData'), {
+          method: "post",
+          data: params
+        }, success, fail);
+      }
+    },
+    $activitySign:{
+      value:function (params, success, fail) {
+        this.UIAxios(getUrl('activity/activitySign'), {
+          method: "post",
+          data: params
+        }, success, fail);
+      }
+    },
+
+
     // 扣减用户的观看视频时间
     $deductRemainderTime:{
       value:function (params, success, fail) {

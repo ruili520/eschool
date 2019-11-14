@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <headcom title="详情  "></headcom>
+    <headcom title="详情 "></headcom>
     <div class="time" style="margin-top: .4rem">
       <p>{{info.updateDate|formattingDate}}</p>
       <p v-if="info.status == 2">已回复</p>
@@ -60,22 +60,25 @@
     },
     methods: {
       getClickTMailboxInfo: function () {
-        getTMailboxInfo(this.mailId).then((res) => {
-          console.log(res.body)
-          if (res.body.code == '000001') {
-            this.info = res.body.result;
-            this.imgs = this.info.img.split('|');
+        var vm = this;
+        vm.$getTMailboxInfo(vm.mailId, function (res) {
+          console.log("//////")
+          console.log(res)
+          console.log("//////")
+          if (res.code === '000001') {
+            vm.info = res.result;
+            vm.imgs = vm.info.img.split('|');
           } else {
-            Toast(res.body.message);
+            Toast(res.message);
           }
-        }, () => {
-          this.table = false;
+        }, function (res) {
+          vm.table = false;
           MessageBox({
             title: '提示',
             message: '获取数据失败',
           })
         });
-      },
+      }
     },
     created() {
       this.mailId = this.$route.query.mailId

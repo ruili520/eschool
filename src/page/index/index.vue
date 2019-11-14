@@ -51,7 +51,7 @@
         <span class="groupTitleIcon"><img :src="groupData.classIcon"></span>
         <span class="groupTitleName">{{groupData.className}}</span>
       </div>
-      <div class="groupBody">
+      <div class="groupBody" >
 				<span class="iconCon" :key="item.index" v-for="item in groupData.homeMenuList" @click="linkSonPage(item)">
           <div class="icon"><img :src="item.menuIcon" alt=""></div>
           <p class="name">{{item.menuName}}</p>
@@ -84,8 +84,7 @@
           {bannerIcon:"http://mm.xuebank.com/photo/111.jpg"},
           {bannerIcon:"http://mm.xuebank.com/photo/222.jpg"},
           {bannerIcon:"http://mm.xuebank.com/photo/333.jpg"},
-
-
+          
         ],//轮播图数据
         group: [
           {
@@ -261,7 +260,6 @@
             "userId":data.data.result.userIdStr,
             "neigouUrl":"http://mall.mall.xuebank.com/Special/opActivity/storeId/4277"
           },function (res) {
-            console.log(res)
             window.native.RetainNavigationBar(
               {
                 webUrl:res,
@@ -348,7 +346,9 @@
           return;
         }
         this.$checkAuthority({menuId:id},function (res) {
-          console.log(res)
+          console.log("NNNNNNNN");
+          console.log(res);
+          console.log("NNNNNNNN")
           if(res.code === "0") {
             if(id==24 || id==25){
               if(id==24){
@@ -379,7 +379,7 @@
                 return false;
               }
             };
-            if (id==22) {
+            if (id===22) {
               window.native.RetainNavigationBar(
                 {
                   webUrl:'http://icbc.xuebank.com/testac',
@@ -387,18 +387,21 @@
                   title:"宝贝成长卡"
                 }
               )
+            }else {
+              vm.$router.push(url);
             }
-            vm.$router.push(url);
-            return false;
           }else {
             vm.$messagebox("提示", res.message);
             return false;
           }
-        },function (res) {})
+        },function (res) {
+          vm.$messagebox("提示", res.message);
+          return false;
+        })
       },
-      test(){
-        this.$router.push('/test')
-      }
+      // test(){
+      //   this.$router.push('/test')
+      // }
     },
     mounted() {
       //

@@ -116,8 +116,12 @@
         Indicator.open({ spinnerType: 'fading-circle' });
 
         var vm = this;
-        this.$getLeaveDetail({"date":this.month.id},function (res) {
+        vm.$getLeaveDetail({"date":vm.month.id},function (res) {
+
+          console.log("TTTTT")
+          console.log(vm.month.id)
           console.log(res);
+          console.log("TTTTT")
           Indicator.close();
           if(res.code == "000001"){
             vm.vacateData = res.result;
@@ -125,7 +129,8 @@
             MessageBox({title: res.message});
           }
         },function (res) {
-          Indicator.close()
+          Indicator.close();
+          MessageBox({title: "请求数据失败"});
         });
       }
 

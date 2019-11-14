@@ -3,7 +3,7 @@
   <div class="page" style="width: 100%;height: 100%;">
     <headcom :title="titleName" :callbackTrue="true" :callback="back"></headcom>
     <p v-if="status== '0' " class="payCard" @click="swtich">缴费记录</p>
-    <div class="conter" style="margin-top: .4rem ">
+    <div class="conter" style="margin-top: 2rem">
       <div v-for="item in allList.nonpay">
         <card :payCallback="linkPay" :item="item"></card>
       </div>
@@ -16,7 +16,7 @@
     </div>
 
     <nodata v-if="allList.nonpay.length == 0&&allList.payIng.length == 0&&allList.paidList.length == 0"></nodata>
-    <p v-if="status!= '0' " style="font-size: 12px;text-align: center;padding-bottom: .1rem">仅展示一年的记录</p>
+    <p v-if="status!= '0' " style="font-size: 12px;text-align: center;margin-top: 1rem;padding-bottom: .1rem">仅展示一年的记录</p>
   </div>
 </template>
 <script>

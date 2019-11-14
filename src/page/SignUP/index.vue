@@ -5,7 +5,6 @@
     <div class="activeList" v-if="activeData.length>0" v-infinite-scroll="loadBottom"
          infinite-scroll-disabled="allLoaded"
          infinite-scroll-distance="10">
-         <!---->
       <ul v-for="item of activeData">
         <li>
           <img :src="item.photo" alt="">
@@ -15,9 +14,11 @@
             <span style="color: #464646;">{{ item.name }}</span>
             <span v-if="item.isShowSign=='1' ">已报：{{ item.amount }}人</span>
           </p>
+          <div v-if="up">
           <p>
             <span style="float: right;" @click="signUp(item.id,item.activityType)">去报名</span>
           </p>
+          </div>
           <p style="margin-top:.06rem;clear: both;color: #aeaeae;font-size: .12rem">
             报名时间：
             <span>{{ item.startDate }}至{{ item.endDate }}</span>
@@ -68,6 +69,7 @@
           }
         ],
         title: '报名',
+        up:true,
         page: 1,//分页
         allLoaded: true, //是否全部加载完毕
       };
@@ -107,18 +109,18 @@
       },
       myActive() {
         this.title = '我的报名';
+        this.up = false;
         let res = {
           schoolId: this.$route.query.school,
           type: '1', page: this.page, size: 10
         };
         Indicator.open({spinnerType: 'fading-circle'});
         this.activeData = [];
-
         var vm = this;
         this.$getActivityList(res, function (a) {
           console.log(a);
           Indicator.close();
-          if (a.code == "000001") {
+          if (a.code === "000001") {
             let list = a.result.list;
             if (list.length < 10) {
               vm.allLoaded = true;

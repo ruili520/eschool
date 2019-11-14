@@ -1,7 +1,7 @@
 <template>
     <div class="navigation">
       <div class="navigationLife" >
-        <!--<span class="iconfont" @click="goBack">&#xe615;</span>-->
+        <span class="iconfont" @click="goBack">&#xe615;</span>
         <!--<span class="iconfont" @click="close" style="margin-left: .2rem">&#xe633;</span>-->
       </div>
       <div class="navigationCentre">

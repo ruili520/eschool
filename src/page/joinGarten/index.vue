@@ -33,7 +33,6 @@
     </div>
     <mt-button @click="bind()" :disabled="isDis" class="submit" type="danger" size="large">确定</mt-button>
     <!-- <a href="http://192.168.35.73:8082/#/joinGarten?schoolId=7&isShow=binding">111111</a> -->
-
     <!-- <mt-datetime-picker ref="picker" v-model="dataVal" type="date" :startDate="minDate" :endDate="maxDate" @confirm="handleChange"></mt-datetime-picker> -->
     <!-- <mt-field label="生日" placeholder="请输入生日" type="date" v-model="birthday"></mt-field> -->
     <div>
@@ -335,11 +334,14 @@
         vm.$toBind(vm.field,function (res) {
           console.log(res)
           Indicator.close();
-          if (res.code == "000001") {
-            if (res.result == "0") {
-              Toast("绑定失败");
-            } else if (res.result == "1") {
-              if (vm.isTeacher == 3) {
+          if (res.code === "000001") {
+            if (res.result === "0") {
+              // Toast("绑定失败");
+              // // window.location.reload()
+              // return;
+              MessageBox("提示", "绑定失败!!");
+            } else if (res.result === "1") {
+              if (vm.isTeacher === 3) {
                 vm.$router.push('/teacherMessage');
               } else {
                 // this.$router.push('/identity');

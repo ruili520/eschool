@@ -60,17 +60,26 @@
     //方法
     methods: {
       getLeaveNotifyDetail: function () {
-        getLeaveNotifyDetail({
-          id: this.$route.query.id
-        }).then((data) => {
-          if (data.data.code == "000001") {
-            this.info = data.data.result;
+        var vm = this;
+        vm.$getLeaveNotifyDetail({
+          id: vm.$route.query.id
+        },function (res) {
+          console.log("99999")
+          console.log(res)
+          console.log("99999")
+          if (res.code === "000001") {
+            vm.info = res.result;
           } else {
             MessageBox({
               title: '提示',
-              message: data.data.message,
+              message: res.message,
             })
           }
+        },function (res) {
+          MessageBox({
+            title: '提示',
+            message: '数据请求失败'
+          })
         })
       }
     },

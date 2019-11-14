@@ -51,8 +51,7 @@
           "page": this.page,
           "size": 20
         },function (res) {
-          console.log(res);
-          if (res.code == '000001') {
+          if (res.code === '000001') {
             vm.list = res.result;
           } else
           {
@@ -91,6 +90,7 @@
     },
     //进入页面加载
     mounted() {
+      console.log(this.info);
       //关闭二级页面时刷新数据
       window.native.RecoderRefresh();
       $("body").scrollTop("0px");

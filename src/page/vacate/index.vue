@@ -307,12 +307,13 @@
           Indicator.close()
           if(res.code == "000001"){
             Toast("请假已提交");
-            vm.$router.push({
+            vm.$router.push(/*{
               "name": "wisdomCampusIndex",
               "query": {
                 mode: "open"
               }
-            });
+            }*/
+              '/index');
           }else if(res.code == "000002"){
             lonIn();
           }else{

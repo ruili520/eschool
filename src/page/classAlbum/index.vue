@@ -95,7 +95,12 @@
       },
       // 点赞操作
       toThmbs(obj, idx) {
-        if(obj.followCount) {
+        console.log("eeee")
+        console.log(obj)
+        console.log(obj.followCount==1);
+        console.log(obj.id);
+        console.log("eeee")
+        if(obj.followCount==1) {
           Toast({
             message: "您已点过赞！",
             duration: 750,
@@ -107,7 +112,9 @@
         });
 
         var vm = this;
-        this.$checkFollowToThumb(obj.id,function (res) {
+        // var id = obj.id;
+        console.log("BBBBBBBBAA")
+        vm.$checkFollowToThumb(obj.id,function (res) {
           console.log(res);
           Indicator.close();
           if(res.code == "000001") {
@@ -151,6 +158,10 @@
           Indicator.close();
           if(res.code == "000001") {
             vm.list = vm.list.concat(res.result.list);
+            console.log("KKKKK")
+            console.log(vm.list);
+            console.log("KKKKKK")
+
             vm.isNodata = !vm.list.length ? true : false;
             if(res.result.total <= vm.list.length) {
               vm.allLoaded = true;

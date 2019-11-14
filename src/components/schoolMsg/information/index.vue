@@ -3,7 +3,7 @@
     <p class="time">
       <span>{{info.updateDate|formattingDate}}</span>
     </p>
-		<div :class="{advices1:info.isRead == 0,advices2:info.isRead == 1}" class="bag">
+		<div :class="{advices1:info.isRead === 0,advices2:info.isRead === 1}" class="bag">
       <div class="title">
         <p class="label" style="font-size: .15rem;">
           <span>园长回复了您：</span>

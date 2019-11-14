@@ -63,25 +63,26 @@
         this.nowTime = data.hits;
         this.day = data.cycle;
       },
-      getAttendanceByDate: function (nowData){
+      getAttendanceByDate: function (nowData) {
         //console.log(nowData)
-        Indicator.open({ spinnerType: 'fading-circle' });
-        getAttendanceByDate({
+        var vm = this;
+        Indicator.open({spinnerType: 'fading-circle'});
+        vm.$getAttendanceByDate({
           "date": nowData
-        }).then((data)=>{
-          //console.log(data.body);
+        }, function (res) {
+          console.log(res)
           Indicator.close();
-          if(data.body.code == "000001"){
+          if (res.code === "000001") {
             //console.log(data.body.result);
-            var inParkList = data.body.result.inParkList;
+            var inParkList = res.result.inParkList;
             /*var inBusList1 = data.body.result.inBusList1;*/
-            var outParkList = data.body.result.outParkList;
+            var outParkList = res.result.outParkList;
             /*var outBusList1 = data.body.result.outBusList1;*/
-            var cardData = this.card;
-            if(inParkList.length==0&&outParkList.length==0){
+            var cardData = vm.card;
+            if (inParkList.length === 0 && outParkList.length === 0) {
               Toast("暂无数据");
             }
-            for(var i in cardData){
+            for (var i in cardData) {
               cardData[i].state = "";
             }
             //上校车
@@ -92,31 +93,29 @@
             //入园
             //console.log(inParkList.length)
             cardData.inParkList.data = inParkList;
-            if(inParkList.length>0){
+            if (inParkList.length > 0) {
               cardData.inParkList.state = 2;
-            };
+            }
+            ;
             //出园
             cardData.outParkList.data = outParkList;
-            if(outParkList.length>0){
+            if (outParkList.length > 0) {
               cardData.outParkList.state = 3;
-            };
+            }
+            ;
             //上校车
             /*cardData.outbus.data = outBusList1;
                 if(outBusList1.length>0){
                     cardData.outbus.state = 2;
                 };*/
-
-          }else{
-            MessageBox("提示",data.body.message);
+          } else {
+            MessageBox("提示", res.message);
           }
-
-        },(data)=>{
+        }, function (res) {
           Indicator.close();
           MessageBox({title: "请求数据失败"});
         })
-      },
-
-
+      }
     } ,
     //进入页面加载
     mounted () {

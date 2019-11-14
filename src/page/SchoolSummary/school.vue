@@ -7,7 +7,7 @@
         <p>
           <img src="../../assets/img/seek.png" />
           <input type="text" placeholder="学校" v-model="field" style="width: 2.6rem"/>
-          <img @click="close" src="../../assets/img/close.png" />
+          <!--<img @click="close" src="../../assets/img/close.png" />-->
         </p>
         <!--<span><img @click="close" src="../assets/verifica/close.png" /></span>-->
       </div>

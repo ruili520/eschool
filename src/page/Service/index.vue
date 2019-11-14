@@ -61,13 +61,13 @@
           name: "教工工作",
           id: "2"
         }, {
-          name: "家庭帮助1",
+          name: "家庭帮助2",
           id: "3"
         }, {
-          name: "校园费用1",
+          name: "校园费用2",
           id: "4"
         }, {
-          name: "基础设施1",
+          name: "基础设施2",
           id: "1"
         }, {
           name: "校车",
@@ -95,10 +95,6 @@
       },
       submit: function() {
         var vm = this;
-        console.log("111111111")
-        console.log(vm.opinionType.id)
-        console.log("111111111")
-
         if(!vm.opinion.length) {
           Toast('反馈意见不能为空哦');
           vm.$refs.inputArea.focus();
@@ -106,22 +102,15 @@
         }
         let urls = vm.imgs.join("|");
 
-        console.log("YYYYYYYY")
-        console.log(vm.opinionType.id)
-        console.log("YYYYYYYY")
-
         vm.$addTMailbox({
           "mailType": vm.opinionType.id,
           "mailContent": vm.opinion,
           "img": urls
         },function (res) {
-          if(res.code == "000001") {
+          if(res.code === "000001") {
             Toast("感谢您的宝贵意见！");
-            console.log("PPPPPPPPP")
-            console.log(vm.opinionType.id)
-            console.log("PPPPPPPPP")
             vm.linkHistory();
-          } else if(res.code == "000002") {
+          } else if(res.code === "000002") {
             lonIn();
           } else {
             MessageBox({

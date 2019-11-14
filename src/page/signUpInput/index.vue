@@ -1,7 +1,7 @@
 <template>
   <div style="background-color: #fff;width: 100%;height: 100%;">
     <headcom title="填写信息"></headcom>
-    <div style="width: 100%;">
+    <div style="width: 100%;margin-top: 1rem">
       <mt-field v-if="fileInput.name!=undefined" label='姓名' v-model="file.name" placeholder="请输入你的名字" type='text'></mt-field>
       <mt-field v-if="fileInput.idno!=undefined" label='身份证' :max-length="18" v-model="file.idno" placeholder="请输入你的身份证" type='text'></mt-field>
       <mt-field v-if="fileInput.nation!=undefined" readonly="readonly" label='民族' v-model="file.nation" @click.native="check(2)" placeholder="请选择民族" type='text'></mt-field>
@@ -97,81 +97,89 @@
           this.file.nation=''
         }
       },
-      getActivityData(){
-        let res={
-          id:this.$route.query.activeId
+      getActivityData() {
+        var vm = this;
+        let res = {
+          id: this.$route.query.activeId
         };
-        Indicator.open({ spinnerType: 'fading-circle' });
-        getActivityData(res).then((data)=>{
+        Indicator.open({spinnerType: 'fading-circle'});
+        console.log("qqqqq")
+        console.log(res)
+        console.log(res.id)
+        console.log("qqqqq")
+        vm.$getActivityData(res, function (a) {
           Indicator.close();
-          if(data.data.code == "000001"){
-            this.fileInput=JSON.parse(data.data.result)
-          }else{
-            MessageBox("提示",data.body.message);
+          if (a.code == "000001") {
+            vm.fileInput = JSON.parse(a.result)
+          } else {
+            MessageBox("提示", a.message);
           }
-        },()=>{
+        }, function (a) {
           Indicator.close();
           MessageBox({title: "请求数据失败"});
-        })
+        });
       },
+
       fileUp(){
-        if(this.fileInput.name!=undefined){
-          if(this.file.name==''){ Toast('姓名不能为空！'); return false; }
+        var vm = this;
+        if(vm.fileInput.name!=undefined){
+          if(vm.file.name==''){ Toast('姓名不能为空！'); return false; }
         }
-        if(this.fileInput.idno!=undefined){
-          if(!this.util.checkCardID(this.file.idno)){ Toast('请正确输入身份证号码！'); return false }
+        if(vm.fileInput.idno!=undefined){
+          if(!vm.util.checkCardID(this.file.idno)){ Toast('请正确输入身份证号码！'); return false }
         }
-        if(this.fileInput.nation!=undefined){
-          if(this.file.nation==''){ Toast('请选择民族！'); return false }
+        if(vm.fileInput.nation!=undefined){
+          if(vm.file.nation==''){ Toast('请选择民族！'); return false }
         }
-        if(this.fileInput.birth!=undefined){
-          if(this.file.birth==''){ Toast('请选择出生日期！'); return false }
+        if(vm.fileInput.birth!=undefined){
+          if(vm.file.birth==''){ Toast('请选择出生日期！'); return false }
         }
-        if(this.fileInput.sex!=undefined){
-          if(this.file.sex==''){ Toast('请选择性别！'); return false }
+        if(vm.fileInput.sex!=undefined){
+          if(vm.file.sex==''){ Toast('请选择性别！'); return false }
         }
-        if(this.fileInput.tel!=undefined){
-          if(!this.util.checkPhone(this.file.tel)){ Toast('请正确输入手机号码！'); return false }
+        if(vm.fileInput.tel!=undefined){
+          if(!vm.util.checkPhone(vm.file.tel)){ Toast('请正确输入手机号码！'); return false }
         }
-        if(this.fileInput.location!=undefined){
-          if(this.file.location==''){ Toast('请输入户口所在地！'); return false }
+        if(vm.fileInput.location!=undefined){
+          if(vm.file.location==''){ Toast('请输入户口所在地！'); return false }
         }
-        if(this.fileInput.father!=undefined){
-          if(this.file.father==''){ Toast('请输入父亲姓名！'); return false }
+        if(vm.fileInput.father!=undefined){
+          if(vm.file.father==''){ Toast('请输入父亲姓名！'); return false }
         }
-        if(this.fileInput.mother!=undefined){
-          if(this.file.mother==''){ Toast('请输入母亲姓名！'); return false }
+        if(vm.fileInput.mother!=undefined){
+          if(vm.file.mother==''){ Toast('请输入母亲姓名！'); return false }
         }
-        if(this.fileInput.academy!=undefined){
-          if(this.file.academy==''){ Toast('请输入院校！'); return false }
+        if(vm.fileInput.academy!=undefined){
+          if(vm.file.academy==''){ Toast('请输入院校！'); return false }
         }
-        if(this.fileInput.faculty!=undefined){
-          if(this.file.faculty==''){ Toast('请输入院系！'); return false }
+        if(vm.fileInput.faculty!=undefined){
+          if(vm.file.faculty==''){ Toast('请输入院系！'); return false }
         }
-        if(this.fileInput.douyin!=undefined){
-          if(this.file.douyin==''){ Toast('请输入抖音号！'); return false }
+        if(vm.fileInput.douyin!=undefined){
+          if(vm.file.douyin==''){ Toast('请输入抖音号！'); return false }
         }
         let res={
-          id:this.$route.query.activeId,name:this.file.name,idno:this.file.idno,nation:this.file.nation,
-          birth:this.file.birth,sex:this.file.sex,location:this.file.location,father:this.file.father,
-          mother:this.file.mother,tel:this.file.tel,academy:this.file.academy,faculty:this.file.faculty,
-          douyin:this.file.douyin
+          id:vm.$route.query.activeId,name:vm.file.name,idno:vm.file.idno,nation:vm.file.nation,
+          birth:vm.file.birth,sex:vm.file.sex,location:vm.file.location,father:vm.file.father,
+          mother:vm.file.mother,tel:vm.file.tel,academy:vm.file.academy,faculty:vm.file.faculty,
+          douyin:vm.file.douyin
         };
         Indicator.open({ spinnerType: 'fading-circle' });
-        activitySign(res).then((data)=>{
-          Indicator.close();
-          if(data.data.code == "000001"){
+
+        vm.$activitySign(res,function (a) {
+          if(a.code === "000001"){
             MessageBox("提示",'恭喜您，报名成功');
-            this.$router.push({"name":"wisdomCampusIndex","query":{
+            /*vm.$router.push({"name":"wisdomCampusIndex","query":{
                 "mode":"open"
-              }});
+              }});*/
+            vm.$router.push('/SignUp')
           }else{
-            MessageBox("提示",data.body.message);
+            MessageBox("提示",a.message);
           }
-        },()=>{
+        },function (a) {
           Indicator.close();
           MessageBox({title: "请求数据失败"});
-        })
+        });
       }
     }
   }

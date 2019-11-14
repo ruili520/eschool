@@ -51,11 +51,17 @@
     },
     methods: {
       toDetail() {
+        console.log("KKKKKK")
+        console.log(this.info)
+        console.log("KKKKKK")
         // 将信息置为已读 modifyMessageState
         this.$emit('detail-router', this.info.id)
       }
     },
     created() {
+      console.log("MMMMMm")
+      console.log(this.info)
+      console.log("MMMMMm")
       if (this.info.img != null && this.info.img.length > 0) {
         this.$nextTick(() => {
           this.imgs = this.info.img.split('|');

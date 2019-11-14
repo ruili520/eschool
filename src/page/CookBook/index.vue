@@ -2,7 +2,7 @@
 <template>
   <div>
     <headcom title="菜谱"></headcom>
-    <div class="conter">
+    <div class="conter" style="margin-top: .5rem">
       <weekpage></weekpage>
     </div>
   </div>

@@ -5,9 +5,10 @@
 			<span class="iconfont" @click="goBack">
             &#xe615;
           </span>
-			<span v-if="closeShow" class="iconfont" @click="close" style="margin-left: .2rem">
-            &#xe633;
-          </span>
+
+			<!--<span v-if="closeShow" class="iconfont" @click="close" style="margin-left: .2rem">-->
+            <!--&#xe633;-->
+          <!--</span>-->
 		</div>
 		<div class="seekConent">
 			<p>{{title}}</p>

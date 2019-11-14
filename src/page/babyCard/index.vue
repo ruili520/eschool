@@ -10,12 +10,15 @@
     <div v-if="!active" class="popupVisible">
       <p><span>请输入考勤卡号</span> <img @click="active = true " src="../../assets/img/babyCard-close.png" alt=""></p>
       <p style="margin-top:0;">
-        <input type="tel" v-model="cardNo" maxlength="10" />
+        <input type="number" v-model="cardNo" οninput="inputEmoji(this)" maxlength="10" minlength="10"  onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^0-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"/>
+
         <img src="../../assets/img/slide.png" alt="" style="display: inline-block;width: 100%;height: .02rem">
         <span class="tip">考勤卡号是卡片上的10位数字号码哦</span>
       </p>
       <p style="margin-top: .06rem"><mt-button :disabled="isDis" @click="bindCard" size="large" type="danger">绑定考勤卡</mt-button></p>
     </div>
+    <!--<input type="text" v-model="cardNo" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"/>-->
+
   </div>
 </template>
 <script>
@@ -42,6 +45,13 @@
       child
     },
     methods: {
+      inputEmoji(_this){
+      var regStr = /[\uD83C|\uD83D|\uD83E][\uDC00-\uDFFF][\u200D|\uFE0F]|[\uD83C|\uD83D|\uD83E][\uDC00-\uDFFF]|[0-9|*|#]\uFE0F\u20E3|[0-9|#]\u20E3|[\u203C-\u3299]\uFE0F\u200D|[\u203C-\u3299]\uFE0F|[\u2122-\u2B55]|\u303D|[\A9|\AE]\u3030|\uA9|\uAE|\u3030/ig;
+      if (regStr.test(_this.value)) {
+      _this.value = _this.value.replace(regStr, "");
+      }
+    },
+
       getCardList(){
         var vm=this;
         var data = {};
@@ -57,8 +67,16 @@
       },
       bindCard(){
         var vm =this;
-        if(this.cardNo==''){
+        console.log("MMMMMMMMMM")
+        console.log(vm.cardNo.length)
+        console.log("MMMMMMMMMM")
+        if(vm.cardNo==''){
+
           MessageBox("提示",'请输入考勤卡号！');
+          return false
+        }
+        if(vm.cardNo.length<10){
+          MessageBox("提示",'请输入10位数考勤卡号！');
           return false
         }
         // Indicator.open({ spinnerType: 'fading-circle' });
@@ -74,7 +92,7 @@
       }
     },
     mounted(){
-      this.getCardList;
+      this.getCardList();
     }
   }
 </script>
